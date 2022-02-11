@@ -35,7 +35,7 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        kenny::Kenny kenny;
+        kenny::Kenny kenny(0.5f);
 
         for(int i = kenny.GetDataSize() - 1; i >= 0; i--)
             m_Quard.CreateQuard(kenny.GetQuardPS(i), kenny.GetTexPS(i), 0.0f);
@@ -63,8 +63,7 @@ namespace box
         m_Shader -> SetUniform1iv("u_Texture", 1, samplers);
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
-            * glm::translate(glm::mat4(1.0f), glm::vec3((float)m_WinSize.width / 2.0f, (float)m_WinSize.height / 2.0f, 0.0f))
-            * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.0f));
+            * glm::translate(glm::mat4(1.0f), glm::vec3((float)m_WinSize.width / 2.0f, (float)m_WinSize.height / 2.0f, 0.0f));
     }
 
     void SandKenny::OnUpdate()
