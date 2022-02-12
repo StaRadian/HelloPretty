@@ -37,6 +37,15 @@ namespace spat
         VertexElement v3;
     };
 
+    struct VertexSingle2D
+    {
+        Vec2 v0;
+        Vec2 v1;
+        Vec2 v2;
+        Vec2 v3;
+    };
+    
+
     struct VertexCache2D
     {
         Vec2 pos;

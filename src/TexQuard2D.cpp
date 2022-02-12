@@ -160,9 +160,9 @@ namespace spat
     void TexQuard2D::SetHeight(const int& target, const float height)
     {
         float hheight = (height / 2.0f);
-        float addwidth = hheight - m_VertexCache[target].hsize.y;
-        float addx = addwidth * m_VertexCache[target].trig.sind;
-        float addy = addwidth * m_VertexCache[target].trig.cosd;
+        float addheight = hheight - m_VertexCache[target].hsize.y;
+        float addx = addheight * m_VertexCache[target].trig.sind;
+        float addy = addheight * m_VertexCache[target].trig.cosd;
 
         m_Vertex[target].v0.Position2D.x += addx;
         m_Vertex[target].v1.Position2D.x += addx;
@@ -176,7 +176,26 @@ namespace spat
     }
     void TexQuard2D::SetSize(const int& target, const float width, const float height)
     {
+        
+        float hwidth = (width / 2.0f);
+        float hheight = (height / 2.0f);
+        float addwidth = hwidth - m_VertexCache[target].hsize.x;
+        float addheight = hheight - m_VertexCache[target].hsize.y;
+        float addwx = addwidth * m_VertexCache[target].trig.cosd;
+        float addwy = addwidth * m_VertexCache[target].trig.sind;
+        float addhx = addheight * m_VertexCache[target].trig.sind;
+        float addhy = addheight * m_VertexCache[target].trig.cosd;
 
+        m_Vertex[target].v0.Position2D.x -= addwx - addhx;
+        m_Vertex[target].v1.Position2D.x += addwx + addhx;
+        m_Vertex[target].v2.Position2D.x += addwx - addhx;
+        m_Vertex[target].v3.Position2D.x -= addwx + addhx;
+        m_Vertex[target].v0.Position2D.y -= addwy + addhy;
+        m_Vertex[target].v1.Position2D.y += addwy - addhy;
+        m_Vertex[target].v2.Position2D.y += addwy + addhy;
+        m_Vertex[target].v3.Position2D.y -= addwy - addhy;
+        m_VertexCache[target].hsize.x = hheight;
+        m_VertexCache[target].hsize.y = hwidth;
     }
     void TexQuard2D::AddWidth(const int& target, const float add)
     {
@@ -189,6 +208,14 @@ namespace spat
     void TexQuard2D::AddSize(const int& target, const float addWidth, const float addHeight)
     {
 
+    }
+    void TexQuard2D::DeleteSize(const int& target)
+    {
+
+    }
+    void TexQuard2D::RestoreSize(const int& target)
+    {
+        
     }
     void TexQuard2D::SetDegree(const int& target, const float degree)
     {

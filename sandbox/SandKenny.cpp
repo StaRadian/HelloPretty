@@ -35,10 +35,7 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        kenny::Kenny kenny(0.5f);
-
-        for(int i = kenny.GetDataSize() - 1; i >= 0; i--)
-            m_Quard.CreateQuard(kenny.GetQuardPS(i), kenny.GetTexPS(i), 0.0f);
+        kenny::Kenny kenny(m_Quard, 0.5f);
 
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 

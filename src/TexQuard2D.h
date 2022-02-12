@@ -9,6 +9,7 @@ namespace spat
     private:
         std::vector<Vertex2D> m_Vertex;
         std::vector<VertexCache2D> m_VertexCache;
+        std::vector<VertexSingle2D> m_VertexBack; 
     public:
         TexQuard2D();
         ~TexQuard2D();
@@ -28,6 +29,8 @@ namespace spat
         void AddWidth(const int& target, const float add);
         void AddHeight(const int& target, const float add);
         void AddSize(const int& target, const float addWidth, const float addHeight);
+        void DeleteSize(const int& target);
+        void RestoreSize(const int& target);
 
         void SetDegree(const int& target, const float degree);
 
