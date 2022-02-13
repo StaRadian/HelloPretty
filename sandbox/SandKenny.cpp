@@ -70,12 +70,16 @@ namespace box
             {
                 m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandRight_Rock));
                 m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandLeft_Rock));
+                m_Kenny -> SetArm(static_cast<int>(kenny::Part::ArmFrontLeft_Basic));
+                m_Kenny -> SetArm(static_cast<int>(kenny::Part::ArmFrontRight_Basic));
                 m_Kenny -> SetEyebrow(false);
             }
             else
             {
                 m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandRight_Paper));
                 m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandLeft_Paper));
+                m_Kenny -> SetArm(static_cast<int>(kenny::Part::ArmLeft_Bend));
+                m_Kenny -> SetArm(static_cast<int>(kenny::Part::ArmRight_Open));
                 m_Kenny -> SetEyebrow(true);
             }
             i -= 1.0;

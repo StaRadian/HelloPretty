@@ -24,10 +24,8 @@ namespace kenny
         m_Quard.DeleteSize(static_cast<int>(Part::HandLeft_Paper));
         m_Quard.DeleteSize(static_cast<int>(Part::HandRight_Paper));
         m_Quard.DeleteSize(static_cast<int>(Part::HandLeft_Paper));
-        m_Quard.DeleteSize(static_cast<int>(Part::EyebrowLeft));
-        m_Quard.DeleteSize(static_cast<int>(Part::EyebrowRight));
+        SetEyebrow(false);
         m_CurrentStyle.eyes = static_cast<int>(Part::EyebrowRight);
-        m_CurrentStyle.eyebrow = false;
         m_CurrentStyle.arm = {static_cast<int>(Part::ArmFrontRight_Basic), static_cast<int>(Part::ArmFrontLeft_Basic)};
         m_CurrentStyle.hand = {static_cast<int>(Part::HandRight_Rock), static_cast<int>(Part::HandLeft_Rock)};
     }
@@ -39,8 +37,6 @@ namespace kenny
 
     void Kenny::SetHand(int shape)
     {
-        if((m_CurrentStyle.hand.left == shape) | (m_CurrentStyle.hand.right == shape)) return;
-
         switch (shape)
         {
         case static_cast<int>(Part::HandLeft_Paper):
@@ -86,6 +82,52 @@ namespace kenny
             m_Quard.DeleteSize(static_cast<int>(Part::EyebrowRight));
             m_Quard.DeleteSize(static_cast<int>(Part::EyebrowLeft));
             m_CurrentStyle.eyebrow = false;
+        }
+    }
+
+    void Kenny::SetArm(int shape)
+    {
+        switch (shape)
+        {
+        case static_cast<int>(Part::ArmLeft_Open):
+            m_Quard.RestoreSize(static_cast<int>(Part::ArmLeft_Open));
+            m_Quard.DeleteSize(m_CurrentStyle.arm.left);
+            m_CurrentStyle.arm.left = shape;
+            break;
+
+        case static_cast<int>(Part::ArmRight_Open):
+            m_Quard.RestoreSize(static_cast<int>(Part::ArmRight_Open));
+            m_Quard.DeleteSize(m_CurrentStyle.arm.right);
+            m_CurrentStyle.arm.right = shape;
+            break;
+
+        case static_cast<int>(Part::ArmLeft_Bend):
+            m_Quard.RestoreSize(static_cast<int>(Part::ArmLeft_Bend));
+            m_Quard.DeleteSize(m_CurrentStyle.arm.left);
+            m_CurrentStyle.arm.left = shape;
+            break;
+
+        case static_cast<int>(Part::ArmRight_Bend):
+            m_Quard.RestoreSize(static_cast<int>(Part::ArmRight_Bend));
+            m_Quard.DeleteSize(m_CurrentStyle.arm.right);
+            m_CurrentStyle.arm.right = shape;
+            break;
+
+        case static_cast<int>(Part::ArmFrontLeft_Basic):
+            m_Quard.RestoreSize(static_cast<int>(Part::ArmFrontLeft_Basic));
+            m_Quard.DeleteSize(m_CurrentStyle.arm.left);
+            m_CurrentStyle.arm.left = shape;
+            break;
+
+        case static_cast<int>(Part::ArmFrontRight_Basic):
+            m_Quard.RestoreSize(static_cast<int>(Part::ArmFrontRight_Basic));
+            m_Quard.DeleteSize(m_CurrentStyle.arm.right);
+            m_CurrentStyle.arm.right = shape;
+            break;
+        
+        default:
+
+            break;
         }
     }
 }

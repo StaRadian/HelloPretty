@@ -12,12 +12,13 @@ namespace kenny
         spat::TexQuard2D& m_Quard;
         float m_Size;
     public:
-        void SetHand(int shape);
-        void SetEyebrow(bool state);
         Style m_CurrentStyle;
         Kenny(spat::TexQuard2D& quard, float size);
         ~Kenny();
         int GetDataSize() {return static_cast<int>(Part::PartNumber);}
+        void SetHand(int shape);
+        void SetEyebrow(bool state);
+        void SetArm(int shape);
     };
 
 }
