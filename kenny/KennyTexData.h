@@ -14,8 +14,8 @@ namespace kenny
         ArmFrontRight_Basic = 7,        
         Face                = 8,
         EyesFront_Open      = 9,
-        EyeballLeft         = 10,
-        EyeballRight        = 11,
+        EyeballLeft         = 10,   
+        EyeballRight        = 11,   
         HatFront            = 12,
         HandLeft_Paper      = 13,
         HandRight_Paper     = 14,
@@ -49,6 +49,7 @@ namespace kenny
     struct Style
     {
         int eyes;
+        bool eyebrow;
         DirX arm;
         DirX hand;
     };
@@ -74,8 +75,8 @@ namespace kenny
          24, 24,     120,  994,      -45,  122,     //EyeballLeft         
          24, 24,     120,  994,       45,  122,     //EyeballRight       
         665, 668,    150,  350,        0,  117,     //HatFront           
-        150, 150,      0,  466,      197, -284,     //HandLeft_Paper     
-        150, 150,      0,  616,     -182, -296,     //HandRight_Paper    
+        150, 150,      0,  466,      262 + 5, -321 + 10,     //HandLeft_Paper     
+        150, 150,      0,  616,     -247 - 20, -315 + 10,     //HandRight_Paper    
         120, 120,      0,  886,      262, -321,     //HandLeft_Rock
         120, 120,      0,  766,     -247, -315,     //HandRight_Rock      
         100, 12,       0, 1006,      -89,  233,     //EyebrowLeft        

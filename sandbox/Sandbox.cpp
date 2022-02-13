@@ -1,6 +1,8 @@
 #include "Sandbox.h"
 #include "stb_image/stb_image.h"
 
+#include <iostream>
+
 namespace box
 {
     Sandbox::Sandbox()
@@ -13,7 +15,7 @@ namespace box
 
     Sandbox::~Sandbox()
     {
-
+        
     }
 
     void Sandbox::SetIcon(const std::string& icon_path)
@@ -24,7 +26,7 @@ namespace box
         stbi_image_free(images[0].pixels);
     }
 
-    void Sandbox::UpdateDelta()
+    void Sandbox::GetDelta()
     {
         m_CurrentTime = glfwGetTime();
         m_Delta = m_CurrentTime - m_LastTime;

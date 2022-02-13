@@ -20,6 +20,7 @@ namespace spat
     void TexQuard2D::CreateQuard(const PosSizeData& num, const PosSizeData& ptr_num, const float textureID)
     {
         Vertex2D vex;
+        VertexSingle2D vecback;
 
         Vec2 hsize = {
             num.size.x / 2.0f, 
@@ -41,7 +42,13 @@ namespace spat
         vex.v3.TexCoords = { ptr_num.pos.x, ptr_num.pos.y + ptr_num.size.y };
         vex.v3.TexID = textureID;
 
+        vecback.v0 = vex.v0.Position2D;
+        vecback.v1 = vex.v1.Position2D;
+        vecback.v2 = vex.v2.Position2D;
+        vecback.v3 = vex.v3.Position2D;
+
         m_Vertex.push_back(vex);
+        m_VertexBack.push_back(vecback);
         m_VertexCache.push_back({ num.pos, hsize, {0.0f, 1.0f, 0.0f} });
         PushIndex();
     }
@@ -211,13 +218,35 @@ namespace spat
     }
     void TexQuard2D::DeleteSize(const int& target)
     {
-
+        m_Vertex[target].v0.Position2D = {0.0f, 0.0f};
+        m_Vertex[target].v1.Position2D = {0.0f, 0.0f};
+        m_Vertex[target].v2.Position2D = {0.0f, 0.0f};
+        m_Vertex[target].v3.Position2D = {0.0f, 0.0f};
     }
     void TexQuard2D::RestoreSize(const int& target)
     {
-        
+        m_Vertex[target].v0.Position2D = m_VertexBack[target].v0;
+        m_Vertex[target].v1.Position2D = m_VertexBack[target].v1;
+        m_Vertex[target].v2.Position2D = m_VertexBack[target].v2;
+        m_Vertex[target].v3.Position2D = m_VertexBack[target].v3;
     }
     void TexQuard2D::SetDegree(const int& target, const float degree)
+    {
+        m_VertexCache[target].trig.sind = SIN(degree);
+        m_VertexCache[target].trig.cosd = COS(degree);
+        m_VertexCache[target].trig.degree = degree;
+
+        float hWidthsind  = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.sind;
+        float hWidthcosd  = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.cosd;
+        float hHeightsind = m_VertexCache[target].hsize.y * m_VertexCache[target].trig.sind;
+        float hHeightcosd = m_VertexCache[target].hsize.y * m_VertexCache[target].trig.cosd;
+
+        m_Vertex[target].v0.Position2D = { m_VertexCache[target].pos.x - hWidthcosd + hHeightsind, m_VertexCache[target].pos.y - hWidthsind - hHeightcosd };
+        m_Vertex[target].v1.Position2D = { m_VertexCache[target].pos.x + hWidthcosd + hHeightsind, m_VertexCache[target].pos.y + hWidthsind - hHeightcosd };
+        m_Vertex[target].v2.Position2D = { m_VertexCache[target].pos.x + hWidthcosd - hHeightsind, m_VertexCache[target].pos.y + hWidthsind + hHeightcosd };
+        m_Vertex[target].v3.Position2D = { m_VertexCache[target].pos.x - hWidthcosd - hHeightsind, m_VertexCache[target].pos.y - hWidthsind + hHeightcosd };
+    }
+    void TexQuard2D::SetRotaion(const int& target, const float x, const float y, const float degree)
     {
         m_VertexCache[target].trig.sind = SIN(degree);
         m_VertexCache[target].trig.cosd = COS(degree);

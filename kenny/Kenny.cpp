@@ -17,12 +17,18 @@ namespace kenny
             m_TexPS[i].pos.y    = (float)g_TexData[i].sheetPos.y / static_cast<float>(Sheetsize::y);
             m_Quard.CreateQuard(m_QuardPS[i], m_TexPS[i], 0.0f);
         }
-        m_Quard.SetSize(static_cast<int>(Part::ArmLeft_Open),0.0f,0.0f);
-        m_Quard.SetSize(static_cast<int>(Part::ArmRight_Open),0.0f,0.0f);
-        m_Quard.SetSize(static_cast<int>(Part::ArmLeft_Bend),0.0f,0.0f);
-        m_Quard.SetSize(static_cast<int>(Part::ArmRight_Bend),0.0f,0.0f);
-        m_Quard.SetSize(static_cast<int>(Part::HandLeft_Paper),0.0f,0.0f);
-        m_Quard.SetSize(static_cast<int>(Part::HandRight_Paper),0.0f,0.0f);
+        m_Quard.DeleteSize(static_cast<int>(Part::ArmLeft_Open));
+        m_Quard.DeleteSize(static_cast<int>(Part::ArmRight_Open));
+        m_Quard.DeleteSize(static_cast<int>(Part::ArmLeft_Bend));
+        m_Quard.DeleteSize(static_cast<int>(Part::ArmRight_Bend));
+        m_Quard.DeleteSize(static_cast<int>(Part::HandLeft_Paper));
+        m_Quard.DeleteSize(static_cast<int>(Part::HandRight_Paper));
+        m_Quard.DeleteSize(static_cast<int>(Part::HandLeft_Paper));
+        m_Quard.DeleteSize(static_cast<int>(Part::EyebrowLeft));
+        m_CurrentStyle.eyes = static_cast<int>(Part::EyebrowRight);
+        m_CurrentStyle.eyebrow = false;
+        m_CurrentStyle.arm = {static_cast<int>(Part::ArmFrontRight_Basic), static_cast<int>(Part::ArmFrontLeft_Basic)};
+        m_CurrentStyle.hand = {static_cast<int>(Part::HandRight_Rock), static_cast<int>(Part::HandLeft_Rock)};
     }
 
     Kenny::~Kenny()
@@ -37,29 +43,48 @@ namespace kenny
         switch (shape)
         {
         case static_cast<int>(Part::HandLeft_Paper):
-            m_Quard.SetSize(static_cast<int>(Part::HandLeft_Paper),
-                m_QuardPS[static_cast<int>(Part::HandLeft_Paper)].size.x,
-                m_QuardPS[static_cast<int>(Part::HandLeft_Paper)].size.y);
-
-            m_Quard.SetSize(m_CurrentStyle.hand.left, 0.0f, 0.0f);
+            m_Quard.RestoreSize(static_cast<int>(Part::HandLeft_Paper));
+            m_Quard.DeleteSize(m_CurrentStyle.hand.left);
             m_CurrentStyle.hand.left = shape;
             break;
 
         case static_cast<int>(Part::HandRight_Paper):
+            m_Quard.RestoreSize(static_cast<int>(Part::HandRight_Paper));
+            m_Quard.DeleteSize(m_CurrentStyle.hand.right);
             m_CurrentStyle.hand.right = shape;
             break;
 
         case static_cast<int>(Part::HandLeft_Rock):
+            m_Quard.RestoreSize(static_cast<int>(Part::HandLeft_Rock));
+            m_Quard.DeleteSize(m_CurrentStyle.hand.left);
             m_CurrentStyle.hand.left = shape;
             break;
 
         case static_cast<int>(Part::HandRight_Rock):
+            m_Quard.RestoreSize(static_cast<int>(Part::HandRight_Rock));
+            m_Quard.DeleteSize(m_CurrentStyle.hand.right);
             m_CurrentStyle.hand.right = shape;
             break;
         
         default:
 
             break;
+        }
+    }
+
+    void Kenny::SetEyebrow(bool state)
+    {
+        if(state)
+        {
+            m_Quard.RestoreSize(static_cast<int>(Part::EyebrowRight));
+            m_Quard.RestoreSize(static_cast<int>(Part::EyebrowLeft));
+            m_CurrentStyle.eyebrow = true;
+        }
+        else
+        {
+            m_Quard.DeleteSize(static_cast<int>(Part::EyebrowRight));
+            m_Quard.DeleteSize(static_cast<int>(Part::EyebrowLeft));
+            m_CurrentStyle.eyebrow = false;
         }
     }
 }

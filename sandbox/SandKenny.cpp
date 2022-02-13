@@ -2,8 +2,6 @@
 
 #include "src/Debug.h"
 
-#include "kenny/Kenny.h"
-
 namespace box
 {
     SandKenny::SandKenny()
@@ -12,7 +10,7 @@ namespace box
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
         glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 
-        m_WinSize = {451, 451};
+        m_WinSize = {901, 901};
 
         m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "My Title", NULL, NULL);
 
@@ -35,8 +33,7 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        kenny::Kenny kenny(m_Quard, 0.5f);
-
+        m_Kenny = std::make_unique<kenny::Kenny>(m_Quard, 1.0f);
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 
         spat::VertexBufferLayout layout;
@@ -65,10 +62,34 @@ namespace box
 
     void SandKenny::OnUpdate()
     {
+        GetDelta();
+
+        if(i > 1.0)
+        {
+            if(m_Kenny -> m_CurrentStyle.hand.left == static_cast<int>(kenny::Part::HandLeft_Paper))
+            {
+                m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandRight_Rock));
+                m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandLeft_Rock));
+                m_Kenny -> SetEyebrow(false);
+            }
+            else
+            {
+                m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandRight_Paper));
+                m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandLeft_Paper));
+                m_Kenny -> SetEyebrow(true);
+            }
+            i -= 1.0;
+        }
+        i+= m_Delta;
+        j+= m_Delta;
+        if(m_Kenny -> m_CurrentStyle.hand.left == static_cast<int>(kenny::Part::HandLeft_Paper))
+        {
+            m_Quard.SetDegree(static_cast<int>(kenny::Part::HandLeft_Paper), j);
+        }
+
         // glfwSetWindowPos(GetWindow(), 
         //     sin(j) * (m_MonitorSize.width - m_WinSize.width) / 2 + (m_MonitorSize.width - m_WinSize.width) / 2,
         //     cos(j) * (m_MonitorSize.height - m_WinSize.height) / 2 * (-1) + (m_MonitorSize.height - m_WinSize.height) / 2);
-        //m_Quard.SetDegree(0, i);
     }
 
     void SandKenny::OnRender()

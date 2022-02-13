@@ -15,7 +15,6 @@ namespace box
     class Sandbox
     {   
     private:
-        float m_Delta;
         float m_CurrentTime, m_LastTime;
     public:
         GLFWwindow* m_Window;
@@ -25,9 +24,9 @@ namespace box
         Sandbox();
         ~Sandbox();
         inline GLFWwindow* GetWindow() const {return m_Window;}
-        float GetDelta();
         void SetIcon(const std::string& icon_path);
-        void UpdateDelta();
+        void GetDelta();
+        float m_Delta;
     public:
         virtual void RenderInit() {}
         virtual void OnUpdate() {}
