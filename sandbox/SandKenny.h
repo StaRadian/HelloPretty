@@ -29,8 +29,9 @@ namespace box
         std::unique_ptr<kenny::Kenny> m_Kenny;
         glm::mat4 m_MVP;
 
-        float i = 0;
-        float j = 0;
+        float i = 20.0f;
+        float j = 20.0f;
+        float k = 0.0f;
     
     public:
         SandKenny();

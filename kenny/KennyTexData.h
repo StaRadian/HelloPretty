@@ -72,8 +72,8 @@ namespace kenny
         180, 200,    400,  150,     -225, -208,     //ArmFrontRight_Basic      
         635, 646,    815,  372,        0,  117,     //Face               
         400, 200,      0,  150,        1,  126,     //EyesFront_Open     
-         24, 24,     120,  994,      -45,  122,     //EyeballLeft         
-         24, 24,     120,  994,       45,  122,     //EyeballRight       
+         24,  24,    120,  994,      -45,  122,     //EyeballLeft         
+         24,  24,    120,  994,       45,  122,     //EyeballRight       
         665, 668,    150,  350,        0,  117,     //HatFront           
         150, 150,      0,  466,      262 + 5, -321 + 10,     //HandLeft_Paper     
         150, 150,      0,  616,     -247 - 20, -315 + 10,     //HandRight_Paper    
