@@ -33,6 +33,7 @@ namespace spat
         void RestoreSize(const int& target);
 
         void SetDegree(const int& target, const float degree);
+        void AddRotaion(const int& target, const float x, const float y, const float degree);
 
         inline Vertex2D *GetElement(const int& target) { return &(m_Vertex[target]); }
         inline float *GetVertex() { return &(m_Vertex[0].v0.Position2D.x); }

@@ -64,28 +64,30 @@ namespace box
     {
         GetDelta();
 
-        if(i > 1.0)
-        {
-            if(m_Kenny -> m_CurrentStyle.hand.left == static_cast<int>(kenny::Part::HandLeft_Paper))
-            {
-                m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandRight_Rock));
-                m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandLeft_Rock));
-                m_Kenny -> SetEyebrow(false);
-            }
-            else
-            {
-                m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandRight_Paper));
-                m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandLeft_Paper));
-                m_Kenny -> SetEyebrow(true);
-            }
-            i -= 1.0;
-        }
-        i+= m_Delta;
-        j+= m_Delta;
-        if(m_Kenny -> m_CurrentStyle.hand.left == static_cast<int>(kenny::Part::HandLeft_Paper))
-        {
-            m_Quard.SetDegree(static_cast<int>(kenny::Part::HandLeft_Paper), j);
-        }
+        // if(i > 1.0)
+        // {
+        //     if(m_Kenny -> m_CurrentStyle.hand.left == static_cast<int>(kenny::Part::HandLeft_Paper))
+        //     {
+        //         m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandRight_Rock));
+        //         m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandLeft_Rock));
+        //         m_Kenny -> SetEyebrow(false);
+        //     }
+        //     else
+        //     {
+        //         m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandRight_Paper));
+        //         m_Kenny -> SetHand(static_cast<int>(kenny::Part::HandLeft_Paper));
+        //         m_Kenny -> SetEyebrow(true);
+        //     }
+        //     i -= 1.0;
+        // }
+        // i+= m_Delta;
+        // j+= m_Delta;
+        // if(m_Kenny -> m_CurrentStyle.hand.left == static_cast<int>(kenny::Part::HandLeft_Paper))
+        // {
+        //     m_Quard.SetDegree(static_cast<int>(kenny::Part::HandLeft_Paper), j);
+        // }
+
+        m_Quard.AddRotaion(static_cast<int>(kenny::Part::HandLeft_Rock), 0.0f, 0.0f, 0.01f);
 
         // glfwSetWindowPos(GetWindow(), 
         //     sin(j) * (m_MonitorSize.width - m_WinSize.width) / 2 + (m_MonitorSize.width - m_WinSize.width) / 2,

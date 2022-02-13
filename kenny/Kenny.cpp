@@ -25,6 +25,7 @@ namespace kenny
         m_Quard.DeleteSize(static_cast<int>(Part::HandRight_Paper));
         m_Quard.DeleteSize(static_cast<int>(Part::HandLeft_Paper));
         m_Quard.DeleteSize(static_cast<int>(Part::EyebrowLeft));
+        m_Quard.DeleteSize(static_cast<int>(Part::EyebrowRight));
         m_CurrentStyle.eyes = static_cast<int>(Part::EyebrowRight);
         m_CurrentStyle.eyebrow = false;
         m_CurrentStyle.arm = {static_cast<int>(Part::ArmFrontRight_Basic), static_cast<int>(Part::ArmFrontLeft_Basic)};

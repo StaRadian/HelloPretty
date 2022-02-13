@@ -246,20 +246,34 @@ namespace spat
         m_Vertex[target].v2.Position2D = { m_VertexCache[target].pos.x + hWidthcosd - hHeightsind, m_VertexCache[target].pos.y + hWidthsind + hHeightcosd };
         m_Vertex[target].v3.Position2D = { m_VertexCache[target].pos.x - hWidthcosd - hHeightsind, m_VertexCache[target].pos.y - hWidthsind + hHeightcosd };
     }
-    void TexQuard2D::SetRotaion(const int& target, const float x, const float y, const float degree)
+    void TexQuard2D::AddRotaion(const int& target, const float x, const float y, const float degree)
     {
-        m_VertexCache[target].trig.sind = SIN(degree);
-        m_VertexCache[target].trig.cosd = COS(degree);
-        m_VertexCache[target].trig.degree = degree;
+        float sind = SIN(degree);
+        float cosd = COS(degree);
+        m_VertexCache[target].trig.degree += degree;
 
-        float hWidthsind  = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.sind;
-        float hWidthcosd  = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.cosd;
-        float hHeightsind = m_VertexCache[target].hsize.y * m_VertexCache[target].trig.sind;
-        float hHeightcosd = m_VertexCache[target].hsize.y * m_VertexCache[target].trig.cosd;
+        VertexSingle2D buffer = {
+            m_Vertex[target].v0.Position2D.x - x, m_Vertex[target].v0.Position2D.y - y,
+            m_Vertex[target].v1.Position2D.x - x, m_Vertex[target].v1.Position2D.y - y,
+            m_Vertex[target].v2.Position2D.x - x, m_Vertex[target].v2.Position2D.y - y,
+            m_Vertex[target].v3.Position2D.x - x, m_Vertex[target].v3.Position2D.y - y
+        };
 
-        m_Vertex[target].v0.Position2D = { m_VertexCache[target].pos.x - hWidthcosd + hHeightsind, m_VertexCache[target].pos.y - hWidthsind - hHeightcosd };
-        m_Vertex[target].v1.Position2D = { m_VertexCache[target].pos.x + hWidthcosd + hHeightsind, m_VertexCache[target].pos.y + hWidthsind - hHeightcosd };
-        m_Vertex[target].v2.Position2D = { m_VertexCache[target].pos.x + hWidthcosd - hHeightsind, m_VertexCache[target].pos.y + hWidthsind + hHeightcosd };
-        m_Vertex[target].v3.Position2D = { m_VertexCache[target].pos.x - hWidthcosd - hHeightsind, m_VertexCache[target].pos.y - hWidthsind + hHeightcosd };
+        Vec2 posBuffer = {
+            m_VertexCache[target].pos.x - x,
+            m_VertexCache[target].pos.y - y
+        };
+
+
+        m_Vertex[target].v0.Position2D.x = x + buffer.v0.x * cosd - buffer.v0.y * sind;
+        m_Vertex[target].v1.Position2D.x = x + buffer.v1.x * cosd - buffer.v1.y * sind;
+        m_Vertex[target].v2.Position2D.x = x + buffer.v2.x * cosd - buffer.v2.y * sind;
+        m_Vertex[target].v3.Position2D.x = x + buffer.v3.x * cosd - buffer.v3.y * sind;
+        m_Vertex[target].v0.Position2D.y = y + buffer.v0.x * sind + buffer.v0.y * cosd;
+        m_Vertex[target].v1.Position2D.y = y + buffer.v1.x * sind + buffer.v1.y * cosd;
+        m_Vertex[target].v2.Position2D.y = y + buffer.v2.x * sind + buffer.v2.y * cosd;
+        m_Vertex[target].v3.Position2D.y = y + buffer.v3.x * sind + buffer.v3.y * cosd;
+        m_VertexCache[target].pos.x = posBuffer.x * cosd - posBuffer.y * sind;
+        m_VertexCache[target].pos.y = posBuffer.x * sind + posBuffer.y * cosd;
     }
 }
