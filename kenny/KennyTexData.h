@@ -63,20 +63,20 @@ namespace kenny
     
     const KennyTexData g_TexData[] = {
         450, 250,   1260,  122,        0, -325,     //PantFront             
-        250, 150,    250,    0,      263, -197,     //ArmLeft_Open       
-        250, 150,      0,    0,     -251, -201,     //ArmRight_Open      
-        200, 300,   1450,  418,      221, -231,     //ArmLeft_Bend       
-        200, 300,   1450,  718,     -207, -233,     //ArmRight_Bend      
-        500, 300,    760,   50,        1, -254,     //BadyFront          
-        180, 200,    580,  150,      247, -206,     //ArmFrontLeft_Basic 
-        180, 200,    400,  150,     -225, -208,     //ArmFrontRight_Basic      
+        250, 150,    250,    0,      262, -197,     //ArmLeft_Open       
+        250, 150,      0,    0,     -252, -201,     //ArmRight_Open      
+        200, 300,   1450,  418,      220, -231,     //ArmLeft_Bend       
+        200, 300,   1450,  718,     -208, -233,     //ArmRight_Bend      
+        500, 300,    760,   50,        0, -254,     //BadyFront          
+        180, 200,    580,  150,      246, -206,     //ArmFrontLeft_Basic 
+        180, 200,    400,  150,     -226, -208,     //ArmFrontRight_Basic      
         635, 646,    815,  372,        0,  117,     //Face               
-        400, 200,      0,  150,        1,  126,     //EyesFront_Open     
+        400, 200,      0,  150,        0,  126,     //EyesFront_Open     
          24,  24,    120,  994,      -45,  122,     //EyeballLeft         
          24,  24,    120,  994,       45,  122,     //EyeballRight       
         665, 668,    150,  350,        0,  117,     //HatFront           
-        150, 150,      0,  466,      262 + 5, -321 + 10,     //HandLeft_Paper     
-        150, 150,      0,  616,     -247 - 20, -315 + 10,     //HandRight_Paper    
+        150, 150,      0,  466,      262, -321,     //HandLeft_Paper     
+        150, 150,      0,  616,     -247, -315,     //HandRight_Paper    
         120, 120,      0,  886,      262, -321,     //HandLeft_Rock
         120, 120,      0,  766,     -247, -315,     //HandRight_Rock      
         100, 12,       0, 1006,      -89,  233,     //EyebrowLeft        

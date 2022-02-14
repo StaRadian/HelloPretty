@@ -61,7 +61,7 @@ namespace spat
         GLCall(glAttachShader(program, vs)); //program에 vs shader를 연결
         GLCall(glAttachShader(program, fs)); //program에 fs shader를 연결
         GLCall(glLinkProgram(program));     //link program
-    #if DEBUG
+    #ifdef DEBUG
         GLCall(glValidateProgram(program)); //유효성 검사 program 지정, 개발용으로만 유용
     #endif
         GLCall(glDeleteShader(vs)); //delete shader vs 

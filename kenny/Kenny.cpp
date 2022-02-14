@@ -2,15 +2,15 @@
 
 namespace kenny
 {
-    Kenny::Kenny(spat::TexQuard2D& quard, float size)
-        :m_Quard(quard), m_Size(size)
+    Kenny::Kenny(spat::TexQuard2D& quard)
+        :m_Quard(quard)
     {
         for(int i = 0; i < static_cast<int>(Part::PartNumber); i++)
         {
-            m_QuardPS[i].size.x = (float)g_TexData[i].size.x     * size;
-            m_QuardPS[i].size.y = (float)g_TexData[i].size.y     * size;
-            m_QuardPS[i].pos.x  = (float)g_TexData[i].basicPos.x * size;
-            m_QuardPS[i].pos.y  = (float)g_TexData[i].basicPos.y * size;
+            m_QuardPS[i].size.x = (float)g_TexData[i].size.x;
+            m_QuardPS[i].size.y = (float)g_TexData[i].size.y;
+            m_QuardPS[i].pos.x  = (float)g_TexData[i].basicPos.x;
+            m_QuardPS[i].pos.y  = (float)g_TexData[i].basicPos.y;
             m_TexPS[i].size.x   = (float)g_TexData[i].size.x     / static_cast<float>(Sheetsize::x);
             m_TexPS[i].size.y   = (float)g_TexData[i].size.y     / static_cast<float>(Sheetsize::y);
             m_TexPS[i].pos.x    = (float)g_TexData[i].sheetPos.x / static_cast<float>(Sheetsize::x);
@@ -24,10 +24,16 @@ namespace kenny
         m_Quard.DeleteSize(static_cast<int>(Part::HandLeft_Paper));
         m_Quard.DeleteSize(static_cast<int>(Part::HandRight_Paper));
         m_Quard.DeleteSize(static_cast<int>(Part::HandLeft_Paper));
+        // m_Quard.DeleteSize(static_cast<int>(Part::BadyFront));
+        // m_Quard.DeleteSize(static_cast<int>(Part::HatFront));
+        // m_Quard.DeleteSize(static_cast<int>(Part::Face));
+
         SetEyebrow(false);
         m_CurrentStyle.eyes = static_cast<int>(Part::EyebrowRight);
         m_CurrentStyle.arm = {static_cast<int>(Part::ArmFrontRight_Basic), static_cast<int>(Part::ArmFrontLeft_Basic)};
         m_CurrentStyle.hand = {static_cast<int>(Part::HandRight_Rock), static_cast<int>(Part::HandLeft_Rock)};
+
+        SetArm(static_cast<int>(Part::ArmRight_Open));
     }
 
     Kenny::~Kenny()

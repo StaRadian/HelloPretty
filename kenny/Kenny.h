@@ -10,10 +10,9 @@ namespace kenny
         spat::PosSizeData m_QuardPS[static_cast<int>(Part::PartNumber)];
         spat::PosSizeData m_TexPS[static_cast<int>(Part::PartNumber)];
         spat::TexQuard2D& m_Quard;
-        float m_Size;
     public:
         Style m_CurrentStyle;
-        Kenny(spat::TexQuard2D& quard, float size);
+        Kenny(spat::TexQuard2D& quard);
         ~Kenny();
         int GetDataSize() {return static_cast<int>(Part::PartNumber);}
         void SetHand(int shape);
