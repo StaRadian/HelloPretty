@@ -31,9 +31,9 @@ int main(void)
 
     while (!glfwWindowShouldClose(box -> GetWindow()))  //loop
     {
+        box -> OnUpdate();
         glClear(GL_COLOR_BUFFER_BIT);
 
-        box -> OnUpdate();
         box -> OnRender();
 
         glfwSwapBuffers(box -> GetWindow());

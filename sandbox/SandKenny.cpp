@@ -68,8 +68,8 @@ namespace box
 
         int state = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
         glfwGetCursorPos(m_Window, &x, &y);
-        glReadPixels(x, y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
-        LOG(pixel[0] << ", " << pixel[1] << ", " << pixel[2] << ", " << pixel[3]);
+        glReadPixels(x, m_WinSize.height - y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
+        LOG(pixel[0] << ", " << pixel[1] << ", " << pixel[2] << ", " << pixel[3] << "/ " << x << ", " << y);
         // if(i > 1.0)
         // {
         //     if(m_Kenny -> m_CurrentStyle.hand.left == static_cast<int>(kenny::Part::HandLeft_Paper))
@@ -109,6 +109,7 @@ namespace box
         // glfwSetWindowPos(GetWindow(), 
         //     sin(j) * (m_MonitorSize.width - m_WinSize.width) / 2 + (m_MonitorSize.width - m_WinSize.width) / 2,
         //     cos(j) * (m_MonitorSize.height - m_WinSize.height) / 2 * (-1) + (m_MonitorSize.height - m_WinSize.height) / 2);
+        //m_FrameBuffer -> Unbind();
     }
 
     void SandKenny::OnRender()

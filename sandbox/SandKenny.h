@@ -25,6 +25,7 @@ namespace box
         std::unique_ptr<spat::IndexBuffer> m_IndexBuffer;
         std::unique_ptr<spat::Shader> m_Shader;
         std::unique_ptr<spat::Texture> m_Main_charactersTex;
+        std::unique_ptr<spat::Texture> m_TextureColorbuffer;
         spat::TexQuard2D m_Quard;
         std::unique_ptr<kenny::Kenny> m_Kenny;
         glm::mat4 m_MVP;
