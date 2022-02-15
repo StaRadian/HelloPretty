@@ -6,7 +6,16 @@ namespace spat
 {
     struct Vec2
     {
-        float x, y;
+        float x;
+        float y;
+    };
+
+    struct Vec4Color
+    {
+        float r;
+        float g;
+        float b;
+        float a;
     };
 
     struct TrigData
@@ -25,6 +34,7 @@ namespace spat
     struct VertexElement
     {
         Vec2 Position2D;
+        Vec4Color Color;
         Vec2 TexCoords;
         float TexID;
     };

@@ -29,11 +29,10 @@ namespace box
         spat::TexQuard2D m_Quard;
         std::unique_ptr<kenny::Kenny> m_Kenny;
         glm::mat4 m_MVP;
+        int m_ViewMode;
+        
+        unsigned int fbo;
 
-        float i = 0.0f;
-        float j = 20.0f;
-        float k = 0.0f;
-    
     public:
         SandKenny();
         ~SandKenny();

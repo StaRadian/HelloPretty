@@ -48,6 +48,14 @@ namespace spat
         PushIndex();
     }
 
+    void TexQuard2D::AddColor(const int& target, const Vec4Color& color)
+    {
+        m_Vertex[target].v0.Color = color;
+        m_Vertex[target].v1.Color = color;
+        m_Vertex[target].v2.Color = color;
+        m_Vertex[target].v3.Color = color;
+    }
+
     void TexQuard2D::EditQuard(const int& target, const PosSizeData& num, const PosSizeData& ptr_num, const float textureID)
     {
         Vec2 hsize = {

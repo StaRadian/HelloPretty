@@ -15,6 +15,7 @@ namespace spat
         ~TexQuard2D();
         void CreateQuard(const PosSizeData& num, const PosSizeData& ptr_num, const float textureID);
         void EditQuard(const int& target, const PosSizeData& num, const PosSizeData& ptr_num, const float textureID);
+        void AddColor(const int& target, const Vec4Color& color);
 
         void SetPosX(const int& target, const float x);
         void SetPosY(const int& target, const float y);
