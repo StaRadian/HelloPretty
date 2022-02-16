@@ -12,6 +12,7 @@ namespace spat
         m_RendererID = CreateShader(vertexpath, fragmentpath);
     }
 
+
     Shader::~Shader()
     {
         GLCall(glDeleteProgram(m_RendererID));

@@ -12,9 +12,9 @@ void main()
 {
    int index = int(v_TexIndex);
    vec4 texColor = texture(u_Texture[index], v_TexCoord);
-   if(u_ViewMode == 0)
+   if(u_ViewMode == 1)
    {
-      if(texColor.a > 0.1f)
+      if(texColor.a > 0.5f)
          color = v_Color;
       else
          color = vec4(0.0f);

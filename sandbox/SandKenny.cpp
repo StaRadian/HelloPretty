@@ -58,22 +58,10 @@ namespace box
         m_Shader -> SetUniform1iv("u_Texture", 1, samplers);
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
-            * glm::translate(glm::mat4(1.0f), glm::vec3((float)m_WinSize.width / 2.0f, (float)m_WinSize.height / 2.0f, 0.0f));
+            * glm::translate(glm::mat4(1.0f), glm::vec3((float)m_WinSize.width / 2.0f, (float)m_WinSize.height / 2.0f, 0.0f))
+            * glm::scale(glm::mat4(1.0f), glm::vec3(0.5, 0.5, 0.5));
         
-        GLCall(glGenFramebuffers(1, &fbo));
-        GLCall(glBindFramebuffer(GL_FRAMEBUFFER, fbo));  
-
-        unsigned int texture;
-        GLCall(glGenTextures(1, &texture));
-        GLCall(glBindTexture(GL_TEXTURE_2D, texture)); //texture 2D
-
-        GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_WinSize.width, m_WinSize.height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL));
-        
-        GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));   //gl doc 해석 필요
-        GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-
-        GLCall(glBindTexture(GL_TEXTURE_2D, 0));
-        GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0));  
+        m_KennyPick = std::make_unique<kenny::KennyPicking>(m_WinSize.width, m_WinSize.height, m_Shader);
     }
 
     void SandKenny::OnUpdate()
@@ -98,15 +86,7 @@ namespace box
         m_Main_charactersTex -> Bind(0);
         m_Shader -> Bind();
         
-        m_ViewMode = 0;
         m_Shader -> SetUniformMat4f("u_MVP", m_MVP);
-        m_Shader -> SetUniform1i("u_ViewMode", m_ViewMode);
-        GLCall(glDrawElements(GL_TRIANGLES, m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
-        GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-        m_ViewMode = 1;
-        m_Shader -> SetUniform1i("u_ViewMode", m_ViewMode);
-        glClear(GL_COLOR_BUFFER_BIT);
-        GLCall(glDrawElements(GL_TRIANGLES, m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
-        GLCall(glBindFramebuffer(GL_FRAMEBUFFER, fbo));
+        m_KennyPick ->HitboxRender(m_IndexBuffer -> GetCount());
     }   
 }
