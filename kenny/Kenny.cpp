@@ -16,7 +16,7 @@ namespace kenny
             m_TexPS[i].pos.x    = (float)g_TexData[i].sheetPos.x / static_cast<float>(Sheetsize::x);
             m_TexPS[i].pos.y    = (float)g_TexData[i].sheetPos.y / static_cast<float>(Sheetsize::y);
             m_Quard.CreateQuard(m_QuardPS[i], m_TexPS[i], 0.0f);
-            m_Quard.AddColor(i, {0.02f * i, 0.02f * i, 0.02f * i, 1.0f});
+            m_Quard.AddColor(i, {0.02f * (i + 1), 0.02f * (i + 1), 0.02f * (i + 1), 1.0f});
         }
         m_Quard.DeleteSize(static_cast<int>(Part::ArmLeft_Open));
         m_Quard.DeleteSize(static_cast<int>(Part::ArmRight_Open));
@@ -136,5 +136,17 @@ namespace kenny
 
             break;
         }
+    }
+
+    int Kenny::GetColorName(float color)
+    {
+        for(int i = 0; i < static_cast<int>(Part::PartNumber); i++)
+        {
+            if((color < (i + 1.5) * 0.02) && (color > (i + 0.5) * 0.02))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

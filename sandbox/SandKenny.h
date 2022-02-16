@@ -26,10 +26,13 @@ namespace box
         std::unique_ptr<spat::IndexBuffer> m_IndexBuffer;
         std::unique_ptr<spat::Shader> m_Shader;
         std::unique_ptr<spat::Texture> m_Main_charactersTex;
+        std::unique_ptr<spat::FrameBuffer> m_FrameBuffer;
         spat::TexQuard2D m_Quard;
         std::unique_ptr<kenny::Kenny> m_Kenny;
-        std::unique_ptr<kenny::KennyPicking> m_KennyPick;
         glm::mat4 m_MVP;
+
+        double x_b,y_b;
+        int x_pos, y_pos, x_p, y_p;
     public:
         SandKenny();
         ~SandKenny();

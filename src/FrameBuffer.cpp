@@ -8,6 +8,7 @@ namespace spat
     {
         GLCall(glGenFramebuffers(1, &m_RendererID));
         Bind();
+        LOG("a");
     }
 
     FrameBuffer::~FrameBuffer()

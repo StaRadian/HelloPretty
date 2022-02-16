@@ -18,6 +18,7 @@ namespace kenny
         void SetHand(int shape);
         void SetEyebrow(bool state);
         void SetArm(int shape);
+        int GetColorName(float color);
     };
 
 }

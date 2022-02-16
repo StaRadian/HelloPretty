@@ -19,8 +19,6 @@ namespace box
         glfwMakeContextCurrent(GetWindow());
         
         glfwSwapInterval(1);    //vsync 활성화
-
-        //glfwSetWindowPos(GetWindow(), 0, 0);;
     }
 
     SandKenny::~SandKenny()
@@ -42,7 +40,8 @@ namespace box
         layout.Push<float>(4);
         layout.Push<float>(2);
         layout.Push<float>(1);
-        
+
+        m_VAO = std::make_unique<spat::VertexArray>();
         m_VertexBuffer -> Bind();
         m_VAO -> AddBuffer(layout);
 
@@ -59,9 +58,16 @@ namespace box
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3((float)m_WinSize.width / 2.0f, (float)m_WinSize.height / 2.0f, 0.0f))
-            * glm::scale(glm::mat4(1.0f), glm::vec3(0.5, 0.5, 0.5));
+            * glm::scale(glm::mat4(1.0f), glm::vec3(1.0, 1.0, 1.0));
         
-        m_KennyPick = std::make_unique<kenny::KennyPicking>(m_WinSize.width, m_WinSize.height, m_Shader);
+        m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
+        m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
+        GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
+        glfwSetWindowPos(GetWindow(), 0, 0);
+        x_pos = 0;
+        y_pos = 0;
+        x_p = 0;
+        y_p = 0;
     }
 
     void SandKenny::OnUpdate()
@@ -71,15 +77,34 @@ namespace box
         GetDelta();
 
         int state = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
-        glfwGetCursorPos(m_Window, &x, &y);
-        glReadPixels(x, m_WinSize.height - y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
-        LOG(pixel[0] << ", " << pixel[1] << ", " << pixel[2] << ", " << pixel[3] << "/ " << x << ", " << y << "(" << state <<")");
+        if(state == 1)
+        {
+            int val;
+            glfwGetCursorPos(m_Window, &x, &y);
+            glReadPixels(x, m_WinSize.height - y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
+            val = m_Kenny -> GetColorName(pixel[0]);
+            if(val != -1)
+            {
+                if(x > x_b)
+                    x_p+= x - x_b;
+                else if(x < x_b)
+                    x_p+= x - x_b;
+                if(y > y_b)
+                    y_p+= y - y_b;
+                else if(y < y_b)
+                    y_p+= y - y_b;
+                x_b = x;
+                y_b = y;
+                glfwSetWindowPos(GetWindow(), x_p, y_p);
+            }
+        }
+        
+        
         m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
     }
 
     void SandKenny::OnRender()
     {   
-        glClear(GL_COLOR_BUFFER_BIT);
         m_VertexBuffer -> Bind();
         glBufferSubData(GL_ARRAY_BUFFER, 0, m_Quard.GetSize(), m_Quard.GetVertex());
 
@@ -87,6 +112,14 @@ namespace box
         m_Shader -> Bind();
         
         m_Shader -> SetUniformMat4f("u_MVP", m_MVP);
-        m_KennyPick ->HitboxRender(m_IndexBuffer -> GetCount());
+        glClear(GL_COLOR_BUFFER_BIT);
+        m_Shader -> SetUniform1i("u_ViewMode", 1);
+        GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
+        m_FrameBuffer -> Unbind();
+
+        glClear(GL_COLOR_BUFFER_BIT);
+        m_Shader -> SetUniform1i("u_ViewMode", 0);
+        GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
+        m_FrameBuffer -> Bind();
     }   
 }
