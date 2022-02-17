@@ -109,7 +109,6 @@ namespace box
         }
         a = state;
         
-        
         m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
     }
 
