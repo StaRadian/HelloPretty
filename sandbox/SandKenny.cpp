@@ -71,6 +71,8 @@ namespace box
         y_p = 0;
         a = 0;
         b = 0;
+        x_speed = 0;
+        y_speed = 0;
         glfwGetCursorPos(m_Window, &x_pos, &y_pos);
     }
 
@@ -105,8 +107,28 @@ namespace box
                 x_p +=  x - x_pos;
                 y_p +=  y - y_pos;
             }
-            glfwSetWindowPos(GetWindow(), x_p, y_p);
+            if(y_p >= m_MonitorSize.height - m_WinSize.height)  //y limit
+                y_p = m_MonitorSize.height - m_WinSize.height;
+            else if(y_p <= 0.0f)
+                y_p = 0.0f;
+            if(x_p >= m_MonitorSize.width - m_WinSize.width)  //x limit
+                x_p = m_MonitorSize.width - m_WinSize.width;
+            else if(x_p <= 0.0f)
+                x_p = 0.0f;
+            y_speed = 0;
         }
+        else
+        {
+            y_speed += m_Delta * 100.0f;    //중력
+            y_p += y_speed;
+            
+            if(y_p >= m_MonitorSize.height - m_WinSize.height)
+            {
+                y_p = m_MonitorSize.height - m_WinSize.height;
+                y_speed = 0;
+            }
+        }
+        glfwSetWindowPos(GetWindow(), x_p, y_p);
         a = state;
         
         m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
