@@ -1,10 +1,5 @@
 #include "TexQuard2D.h"
 
-#include <math.h>
-
-#define SIN(x) sin(x)
-#define COS(x) cos(x)
-
 namespace spat
 {
     TexQuard2D::TexQuard2D()

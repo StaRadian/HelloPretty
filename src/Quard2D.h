@@ -3,6 +3,10 @@
 #include "VertexMat.h"
 #include <vector>
 
+#include <math.h>
+#define SIN(x) sin(x)
+#define COS(x) cos(x)
+
 namespace spat
 {
     class Quard2D
@@ -15,6 +19,8 @@ namespace spat
     public:
         Quard2D();
         ~Quard2D();
+        Vec2 Vec2Rotation(const Vec2& target, const Vec2& point, const float& degree);
+
         inline unsigned int *GetIndex() { return &(m_Index[0].i0);};
         inline unsigned int GetIndexSize() const { return m_Index.size() * 6;};
     };

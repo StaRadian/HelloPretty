@@ -6,10 +6,9 @@
 #include "src/IndexBuffer.h"
 #include "src/Shader.h"
 #include "src/Texture.h"
-#include "src/TexQuard2D.h"
+#include "src/FrameBuffer.h"
 
-#include "kenny/Kenny.h"
-#include "kenny/KennyPicking.h"
+#include "kenny/KennyPart.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -28,11 +27,8 @@ namespace box
         std::unique_ptr<spat::Texture> m_Main_charactersTex;
         std::unique_ptr<spat::FrameBuffer> m_FrameBuffer;
         spat::TexQuard2D m_Quard;
-        std::unique_ptr<kenny::Kenny> m_Kenny;
+        std::unique_ptr<kenny::KennyPart> m_KennyPart;
         glm::mat4 m_MVP;
-
-        double x_p, y_p, x_pos, y_pos, x_speed, y_speed;
-        int a, b;
     public:
         SandKenny();
         ~SandKenny();
