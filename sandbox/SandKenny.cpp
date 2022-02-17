@@ -22,6 +22,8 @@ namespace box
         glfwMakeContextCurrent(GetWindow());
         
         glfwSwapInterval(1);    //vsync 활성화
+
+        glfwSetWindowPos(GetWindow(), 0, 0);
     }
 
     SandKenny::~SandKenny()
@@ -66,7 +68,6 @@ namespace box
         m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
         m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
-        glfwSetWindowPos(GetWindow(), 0, 0);
         x_p = 0;
         y_p = 0;
         a = 0;
@@ -96,6 +97,7 @@ namespace box
                     x_pos = x;
                     y_pos = y;
                     b = 1;
+                    LOG(val);
                 }
             }
             else if(a == 0)
@@ -121,7 +123,7 @@ namespace box
         {
             y_speed += m_Delta * 100.0f;    //중력
             y_p += y_speed;
-            
+
             if(y_p >= m_MonitorSize.height - m_WinSize.height)
             {
                 y_p = m_MonitorSize.height - m_WinSize.height;
