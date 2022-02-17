@@ -29,6 +29,8 @@ int main(void)
 
     box -> RenderInit();
 
+    LOG(glGetString(GL_VERSION));
+
     while (!glfwWindowShouldClose(box -> GetWindow()))  //loop
     {
         box -> OnUpdate();

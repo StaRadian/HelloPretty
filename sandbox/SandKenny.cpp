@@ -6,11 +6,14 @@ namespace box
 {
     SandKenny::SandKenny()
     {
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);  //opengl 메이저 버전 v4.6   //3.0
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);  //opengl 마이너 버전
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         //glfwWindowHint(GLFW_DECORATED, false);
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
         glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 
-        m_WinSize = {951, 951};
+        m_WinSize = {471, 471};
 
         m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "My Title", NULL, NULL);
 
@@ -58,16 +61,17 @@ namespace box
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3((float)m_WinSize.width / 2.0f, (float)m_WinSize.height / 2.0f, 0.0f))
-            * glm::scale(glm::mat4(1.0f), glm::vec3(1.0, 1.0, 1.0));
+            * glm::scale(glm::mat4(1.0f), glm::vec3(0.5, 0.5, 0.5));
         
         m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
         m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
         glfwSetWindowPos(GetWindow(), 0, 0);
-        x_pos = 0;
-        y_pos = 0;
         x_p = 0;
         y_p = 0;
+        a = 0;
+        b = 0;
+        glfwGetCursorPos(m_Window, &x_pos, &y_pos);
     }
 
     void SandKenny::OnUpdate()
@@ -85,19 +89,25 @@ namespace box
             val = m_Kenny -> GetColorName(pixel[0]);
             if(val != -1)
             {
-                if(x > x_b)
-                    x_p+= x - x_b;
-                else if(x < x_b)
-                    x_p+= x - x_b;
-                if(y > y_b)
-                    y_p+= y - y_b;
-                else if(y < y_b)
-                    y_p+= y - y_b;
-                x_b = x;
-                y_b = y;
-                glfwSetWindowPos(GetWindow(), x_p, y_p);
+                if(a == 0)
+                {
+                    x_pos = x;
+                    y_pos = y;
+                    b = 1;
+                }
             }
+            else if(a == 0)
+            {
+                b = 0;
+            }
+            if(b != 0)
+            {
+                x_p +=  x - x_pos;
+                y_p +=  y - y_pos;
+            }
+            glfwSetWindowPos(GetWindow(), x_p, y_p);
         }
+        a = state;
         
         
         m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);

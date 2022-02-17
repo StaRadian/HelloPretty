@@ -31,8 +31,8 @@ namespace box
         std::unique_ptr<kenny::Kenny> m_Kenny;
         glm::mat4 m_MVP;
 
-        double x_b,y_b;
-        int x_pos, y_pos, x_p, y_p;
+        double x_pos, y_pos,x_b,y_b;
+        int x_p, y_p, a, b;
     public:
         SandKenny();
         ~SandKenny();
