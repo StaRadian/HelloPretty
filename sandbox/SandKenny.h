@@ -27,8 +27,11 @@ namespace box
         std::unique_ptr<spat::Texture> m_Main_charactersTex;
         std::unique_ptr<spat::FrameBuffer> m_FrameBuffer;
         spat::TexQuard2D m_Quard;
+
         std::unique_ptr<kenny::KennyPart> m_KennyPart;
         glm::mat4 m_MVP;
+
+        float i;
     public:
         SandKenny();
         ~SandKenny();

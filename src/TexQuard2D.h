@@ -39,5 +39,6 @@ namespace spat
         inline Vertex2D *GetElement(const int& target) { return &(m_Vertex[target]); }
         inline float *GetVertex() { return &(m_Vertex[0].v0.Position2D.x); }
         inline unsigned int GetSize() const { return m_Vertex.size() * sizeof(Vertex2D); }
+        float GetDegree(const int& target) const {return m_VertexCache[target].trig.degree;}
     };
 }

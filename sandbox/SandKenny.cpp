@@ -65,6 +65,7 @@ namespace box
         m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
         GetDelta();
+        m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Open));
     }
 
     void SandKenny::OnUpdate()
@@ -72,18 +73,21 @@ namespace box
         GetDelta();
 
         int state = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
+        
 
         if(state == 1)
         {
             double x,y;
             glfwGetCursorPos(m_Window, &x, &y);
             m_KennyPart -> SetBadyFront(
-                {(float)x * 4.0f, (m_WinSize.height - (float)y) * 4.0f}, 0.0f);
+                {(float)x * 4.0f, (m_WinSize.height - (float)y) * 4.0f}, 0);
+            i += 0.05;
         }
         //m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
         //glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
+            * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0))
             * glm::scale(glm::mat4(1.0f), glm::vec3(0.25, 0.25, 0.25));
     }
 
