@@ -65,7 +65,8 @@ namespace box
         m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
         GetDelta();
-        m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Open));
+        m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Bend));
+        m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Bend));
     }
 
     void SandKenny::OnUpdate()
@@ -80,7 +81,7 @@ namespace box
             double x,y;
             glfwGetCursorPos(m_Window, &x, &y);
             m_KennyPart -> SetBadyFront(
-                {(float)x * 4.0f, (m_WinSize.height - (float)y) * 4.0f}, 0);
+                {(float)x * 4.0f, (m_WinSize.height - (float)y) * 4.0f}, i);
             i += 0.05;
         }
         //m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);

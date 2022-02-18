@@ -31,7 +31,7 @@ namespace box
         std::unique_ptr<kenny::KennyPart> m_KennyPart;
         glm::mat4 m_MVP;
 
-        float i;
+        double i;
     public:
         SandKenny();
         ~SandKenny();

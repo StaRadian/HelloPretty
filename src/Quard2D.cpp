@@ -13,16 +13,13 @@ namespace spat
 
     }
 
-    Vec2 Quard2D::Vec2Rotation(const Vec2& target, const Vec2& point, const float& degree)
+    Vec2 Quard2D::Vec2Rotation(const Vec2& target, const Vec2& point, const double& degree)
     {
-        int sind = SIN(degree);
-        int cosd = COS(degree);
-        Vec2 result = {
-            target.x + point.x * cosd - point.y * sind,
-            target.y + point.x * sind + point.y * cosd
-        };
-
-        return result;
+        double sind = sin(degree);
+        double cosd = cos(degree);
+        float x = target.x + point.x * cosd - point.y * sind;
+        float y = target.y + point.x * sind + point.y * cosd;
+        return {x, y};
     }
 
     void Quard2D::PushIndex()

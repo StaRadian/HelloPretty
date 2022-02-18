@@ -19,19 +19,62 @@ namespace kenny
         spat::Vec2 Face;
     };
 
-    struct ArmRight_OpenJoint
+    struct PantFrontJoint
     {
         spat::Vec2 BadyFront;
-        spat::Vec2 HandLeft_Paper;    
-        spat::Vec2 HandRight_Paper;
+    };
+    struct ArmLeft_OpenJoint
+    {
+        spat::Vec2 BadyFront;
+        spat::Vec2 HandLeft_Paper; 
         spat::Vec2 HandLeft_Rock;
+    };
+
+    struct ArmRight_OpenJoint
+    {
+        spat::Vec2 BadyFront;    
+        spat::Vec2 HandRight_Paper;
+        spat::Vec2 HandRight_Rock;
+    };
+
+    struct ArmLeft_BendJoint
+    {
+        spat::Vec2 BadyFront;    
+        spat::Vec2 HandLeft_Paper;
+        spat::Vec2 HandLeft_Rock;
+    };
+    
+    struct ArmRight_BendJoint
+    {
+        spat::Vec2 BadyFront;    
+        spat::Vec2 HandRight_Paper;
+        spat::Vec2 HandRight_Rock;
+    };
+
+    struct ArmFrontLeft_BasicJoint
+    {
+        spat::Vec2 BadyFront;    
+        spat::Vec2 HandLeft_Paper;
+        spat::Vec2 HandLeft_Rock;
+    };
+
+    struct ArmFrontRight_BasicJoint
+    {
+        spat::Vec2 BadyFront;    
+        spat::Vec2 HandRight_Paper;
         spat::Vec2 HandRight_Rock;
     };
 
     struct Joint
     {
         BodyFrontJoint BodyFront;
+        PantFrontJoint PantFront;
+        ArmLeft_OpenJoint ArmLeft_Open;
         ArmRight_OpenJoint ArmRight_Open;
+        ArmLeft_BendJoint ArmLeft_Bend;
+        ArmRight_BendJoint ArmRight_Bend;
+        ArmFrontLeft_BasicJoint ArmFrontLeft_Basic;
+        ArmFrontRight_BasicJoint ArmFrontRight_Basic;
     };
 
     class KennyPart : public Kenny
@@ -39,8 +82,15 @@ namespace kenny
     private:
     public:
         void SetBadyFront(spat::Vec2 point, float degree);
+        void SetPantFront(spat::Vec2 point, float degree);
+        void SetArmLeft_Open(spat::Vec2 point, float degree);
         void SetArmRight_Open(spat::Vec2 point, float degree);
+        void SetArmLeft_Bend(spat::Vec2 point, float degree);
+        void SetArmRight_Bend(spat::Vec2 point, float degree);
+        void SetArmFrontLeft_Basic(spat::Vec2 point, float degree);
+        void SetArmFrontRight_Basic(spat::Vec2 point, float degree);
         
+        float m_f;
         Joint m_Joint;
     };
 }
