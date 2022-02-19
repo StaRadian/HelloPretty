@@ -1,6 +1,7 @@
 #include "SandKenny.h"
 
 #include "src/Debug.h"
+#include "imgui/imgui.h"
 
 namespace box
 {
@@ -23,7 +24,7 @@ namespace box
         
         glfwSwapInterval(1);    //vsync 활성화
 
-        glfwSetWindowPos(GetWindow(), 0, 0);
+        //glfwSetWindowPos(GetWindow(), 0, 0);
     }
 
     SandKenny::~SandKenny()
@@ -64,28 +65,26 @@ namespace box
         m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
         m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
+        m_x = m_WinSize.width / 2.0f;
+        m_y = m_WinSize.height / 2.0f;
+        m_degree = 0;
+        m_rotationspeed = 0;
+
         GetDelta();
-        m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Bend));
-        m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Bend));
-        m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Paper));
-        m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandRight_Paper));
     }
 
     void SandKenny::OnUpdate()
     {
         GetDelta();
+        m_FrameBuffer -> Bind();
+        float pixel[4];
+        m_mouse_click = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
+        glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
+        glReadPixels(cursor_x, m_WinSize.height - cursor_y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
+        m_state = m_KennyPart -> GetColorName(pixel[0]);
 
-        int state = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
-        
-
-        if(state == 1)
-        {
-            double x,y;
-            glfwGetCursorPos(m_Window, &x, &y);
-            m_KennyPart -> SetBadyFront(
-                {(float)x * 2.0f, (m_WinSize.height - (float)y) * 2.0f}, i);
-            i += 0.05;
-        }
+        m_KennyPart -> SetBadyFront(
+            {m_x * 2.0f, m_y * 2.0f}, m_degree);
         //m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
         //glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);
 
@@ -111,7 +110,80 @@ namespace box
         glClear(GL_COLOR_BUFFER_BIT);
         m_Shader -> SetUniform1i("u_ViewMode", 0);
         GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
-        m_FrameBuffer -> Bind();
+    }
+
+    void SandKenny::OnImGuiRender()
+    {
+        ImGui::Begin("Kenny");
+
+        ImGui::SliderFloat("position_x", &m_x, 0.0f, m_WinSize.width);
+        ImGui::SliderFloat("position_y", &m_y, 0.0f, m_WinSize.height);
+        ImGui::SliderFloat("RotationSpeed", &m_rotationspeed, -1.0f, 1.0f);
+        m_degree += m_rotationspeed;
+
+        ImGui::Text("x: %.1f, y: %.1f, click: %d, state: %d", cursor_x, cursor_y, m_mouse_click, m_state);
+
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        
+        ImGui::End();
+
+        ImGui::Begin("State");
+        if (ImGui::Button("ArmLeft_Open"))
+        {
+            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Open));
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("ArmRight_Open"))
+        {
+            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Open));
+        }
+        if (ImGui::Button("ArmLeft_Bend"))
+        {
+            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Bend));
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("ArmRight_Bend"))
+        {
+            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Bend));
+        }
+        if (ImGui::Button("ArmFrontLeft_Basic"))
+        {
+            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmFrontLeft_Basic));
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("ArmFrontRight_Basic"))
+        {
+            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmFrontRight_Basic));
+        }
+
+        if (ImGui::Button("HandLeft_Paper"))
+        {
+            m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Paper));
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("HandRight_Paper"))
+        {
+            m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandRight_Paper));
+        }
+        if (ImGui::Button("HandLeft_Rock"))
+        {
+            m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Rock));
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("HandRight_Rock"))
+        {
+            m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandRight_Rock));
+        }
+        if (ImGui::Button("Eyebrow"))
+        {
+            m_KennyPart -> ViewEyebrow(true);
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("NoneEyebrow"))
+        {
+            m_KennyPart -> ViewEyebrow(false);
+        }
+        ImGui::End();
     }
 }
 

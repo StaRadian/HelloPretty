@@ -66,6 +66,24 @@ namespace kenny
         spat::Vec2 EyebrowLeft;
         spat::Vec2 EyebrowRight;
     };
+    struct EyesFront_OpenJoint
+    {
+        spat::Vec2 Face;
+        spat::Vec2 EyeballLeft;
+        spat::Vec2 EyeballRight;
+    };
+    struct EyeballLeftJoint
+    {
+        spat::Vec2 EyesFront_Open;
+    };
+    struct EyeballRightJoint
+    {
+        spat::Vec2 EyesFront_Open;
+    };
+    struct HatFrontJoint
+    {
+        spat::Vec2 Face;
+    };
     struct HandLeft_PaperJoint
     {
         spat::Vec2 ArmLeft_Open;    
@@ -90,6 +108,14 @@ namespace kenny
         spat::Vec2 ArmRight_Bend;
         spat::Vec2 ArmFrontRight_Basic;
     };
+    struct EyebrowLeftJoint
+    {
+        spat::Vec2 Face;   
+    };
+    struct EyebrowRightJoint
+    {
+        spat::Vec2 Face;   
+    };
     struct Joint
     {
         PantFrontJoint PantFront;
@@ -101,10 +127,16 @@ namespace kenny
         ArmFrontLeft_BasicJoint ArmFrontLeft_Basic;
         ArmFrontRight_BasicJoint ArmFrontRight_Basic;
         FaceJoint Face;
+        EyesFront_OpenJoint EyesFront_Open;
+        EyeballLeftJoint EyeballLeft;
+        EyeballRightJoint EyeballRight;
+        HatFrontJoint HatFront;
         HandLeft_PaperJoint HandLeft_Paper;  
         HandRight_PaperJoint HandRight_Paper;
         HandLeft_RockJoint HandLeft_Rock;    
         HandRight_RockJoint HandRight_Rock;  
+        EyebrowLeftJoint EyebrowLeft;
+        EyebrowRightJoint EyebrowRight;
     };
 
     class KennyPart : public Kenny
@@ -120,10 +152,16 @@ namespace kenny
         void SetArmFrontLeft_Basic(spat::Vec2 point, float degree);
         void SetArmFrontRight_Basic(spat::Vec2 point, float degree);
         void SetFace(spat::Vec2 point, float degree);
+        void SetEyesFront_Open(spat::Vec2 point, float degree);
+        void SetEyeballLeft(spat::Vec2 point, float degree);
+        void SetEyeballRight(spat::Vec2 point, float degree);
+        void SetHatFront(spat::Vec2 point, float degree);
         void SetHandLeft_Paper(spat::Vec2 point, float degree);
         void SetHandRight_Paper(spat::Vec2 point, float degree);
         void SetHandLeft_Rock(spat::Vec2 point, float degree);
         void SetHandRight_Rock(spat::Vec2 point, float degree);
+        void SetEyebrowLeft(spat::Vec2 point, float degree);
+        void SetEyebrowRight(spat::Vec2 point, float degree);
         
         float m_f;
         Joint m_Joint;

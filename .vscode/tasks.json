@@ -15,6 +15,7 @@
                 "-L${workspaceFolder}\\dependencies\\glfw-3.3.6.bin.WIN64\\lib-mingw-w64",
                 "-L${workspaceFolder}\\dependencies\\glew-2.2.0\\lib\\Release\\x64",
                 "-g",
+                "${workspaceFolder}\\vendor\\imgui\\*.cpp",
                 "${workspaceFolder}\\vendor\\stb_image\\*.cpp",
                 "${workspaceFolder}\\kenny\\*.cpp",
                 "${workspaceFolder}\\sandbox\\*.cpp",
@@ -49,6 +50,7 @@
                 "-I${workspaceFolder}\\dependencies\\glew-2.2.0\\include",
                 "-L${workspaceFolder}\\dependencies\\glfw-3.3.6.bin.WIN64\\lib-mingw-w64",
                 "-L${workspaceFolder}\\dependencies\\glew-2.2.0\\lib\\Release\\x64",
+                "${workspaceFolder}\\vendor\\imgui\\*.cpp",     //it must be delete
                 "${workspaceFolder}\\vendor\\stb_image\\*.cpp",
                 "${workspaceFolder}\\kenny\\*.cpp",
                 "${workspaceFolder}\\sandbox\\*.cpp",

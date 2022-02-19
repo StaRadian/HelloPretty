@@ -31,5 +31,6 @@ namespace box
         virtual void RenderInit() {}
         virtual void OnUpdate() {}
         virtual void OnRender() {}
+        virtual void OnImGuiRender() {}
     };
 }

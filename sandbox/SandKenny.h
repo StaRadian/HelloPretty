@@ -31,12 +31,20 @@ namespace box
         std::unique_ptr<kenny::KennyPart> m_KennyPart;
         glm::mat4 m_MVP;
 
-        double i;
+        double cursor_x;
+        double cursor_y;
+        int m_mouse_click;
+        int m_state;
+        float m_x;
+        float m_y;
+        float m_degree;
+        float m_rotationspeed;
     public:
         SandKenny();
         ~SandKenny();
         void RenderInit() override;
         void OnUpdate() override;
         void OnRender() override;
+        void OnImGuiRender() override;
     };
 }
