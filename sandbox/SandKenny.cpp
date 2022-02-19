@@ -67,6 +67,8 @@ namespace box
         GetDelta();
         m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Bend));
         m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Bend));
+        m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Paper));
+        m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandRight_Paper));
     }
 
     void SandKenny::OnUpdate()
@@ -81,7 +83,7 @@ namespace box
             double x,y;
             glfwGetCursorPos(m_Window, &x, &y);
             m_KennyPart -> SetBadyFront(
-                {(float)x * 4.0f, (m_WinSize.height - (float)y) * 4.0f}, i);
+                {(float)x * 2.0f, (m_WinSize.height - (float)y) * 2.0f}, i);
             i += 0.05;
         }
         //m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
@@ -89,7 +91,7 @@ namespace box
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0))
-            * glm::scale(glm::mat4(1.0f), glm::vec3(0.25, 0.25, 0.25));
+            * glm::scale(glm::mat4(1.0f), glm::vec3(0.5, 0.5, 0.0));
     }
 
     void SandKenny::OnRender()
