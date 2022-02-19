@@ -240,6 +240,22 @@ namespace spat
         m_Vertex[target].v2.Position2D = { m_VertexCache[target].pos.x + hWidthcosd - hHeightsind, m_VertexCache[target].pos.y + hWidthsind + hHeightcosd };
         m_Vertex[target].v3.Position2D = { m_VertexCache[target].pos.x - hWidthcosd - hHeightsind, m_VertexCache[target].pos.y - hWidthsind + hHeightcosd };
     }
+    void TexQuard2D::SetDegree(const int& target, const float degree, const float sind, const float cosd)
+    {
+        m_VertexCache[target].trig.sind = sind;
+        m_VertexCache[target].trig.cosd = cosd;
+        m_VertexCache[target].trig.degree = degree;
+
+        float hWidthsind  = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.sind;
+        float hWidthcosd  = m_VertexCache[target].hsize.x * m_VertexCache[target].trig.cosd;
+        float hHeightsind = m_VertexCache[target].hsize.y * m_VertexCache[target].trig.sind;
+        float hHeightcosd = m_VertexCache[target].hsize.y * m_VertexCache[target].trig.cosd;
+
+        m_Vertex[target].v0.Position2D = { m_VertexCache[target].pos.x - hWidthcosd + hHeightsind, m_VertexCache[target].pos.y - hWidthsind - hHeightcosd };
+        m_Vertex[target].v1.Position2D = { m_VertexCache[target].pos.x + hWidthcosd + hHeightsind, m_VertexCache[target].pos.y + hWidthsind - hHeightcosd };
+        m_Vertex[target].v2.Position2D = { m_VertexCache[target].pos.x + hWidthcosd - hHeightsind, m_VertexCache[target].pos.y + hWidthsind + hHeightcosd };
+        m_Vertex[target].v3.Position2D = { m_VertexCache[target].pos.x - hWidthcosd - hHeightsind, m_VertexCache[target].pos.y - hWidthsind + hHeightcosd };
+    }
     void TexQuard2D::AddRotaion(const int& target, const float x, const float y, const float degree)
     {
         float sind = SIN(degree);

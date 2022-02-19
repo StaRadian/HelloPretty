@@ -19,7 +19,7 @@ namespace spat
     public:
         Quard2D();
         ~Quard2D();
-        Vec2 Vec2Rotation(const Vec2& target, const Vec2& point, const double& degree);
+        Vec2 Vec2Rotation(const Vec2& target, const Vec2& point, const double& sind, const double& cosd);
 
         inline unsigned int *GetIndex() { return &(m_Index[0].i0);};
         inline unsigned int GetIndexSize() const { return m_Index.size() * 6;};

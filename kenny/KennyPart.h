@@ -65,6 +65,15 @@ namespace kenny
         spat::Vec2 HandRight_Rock;
     };
 
+    struct FaceJoint
+    {
+        spat::Vec2 BadyFront;    
+        spat::Vec2 EyesFront_Open;
+        spat::Vec2 HatFront;
+        spat::Vec2 EyebrowLeft;
+        spat::Vec2 EyebrowRight;
+    };
+
     struct Joint
     {
         BodyFrontJoint BodyFront;
@@ -75,6 +84,7 @@ namespace kenny
         ArmRight_BendJoint ArmRight_Bend;
         ArmFrontLeft_BasicJoint ArmFrontLeft_Basic;
         ArmFrontRight_BasicJoint ArmFrontRight_Basic;
+        FaceJoint Face;
     };
 
     class KennyPart : public Kenny
@@ -89,6 +99,7 @@ namespace kenny
         void SetArmRight_Bend(spat::Vec2 point, float degree);
         void SetArmFrontLeft_Basic(spat::Vec2 point, float degree);
         void SetArmFrontRight_Basic(spat::Vec2 point, float degree);
+        void SetFace(spat::Vec2 point, float degree);
         
         float m_f;
         Joint m_Joint;
