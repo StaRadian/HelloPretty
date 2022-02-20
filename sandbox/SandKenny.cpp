@@ -24,7 +24,7 @@ namespace box
         
         glfwSwapInterval(1);    //vsync 활성화
 
-        //glfwSetWindowPos(GetWindow(), 0, 0);
+        glfwSetWindowPos(GetWindow(), 0, 0);
     }
 
     SandKenny::~SandKenny()
@@ -37,7 +37,7 @@ namespace box
         GLCall(glEnable(GL_BLEND));         //Blending
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  //GL_SRC_ALPHA: 0, GL_ONE_MINUS_SRC_ALPHA: 1 - 0 = 1
 
-        m_KennyPart = std::make_unique<kenny::KennyPart>(&m_Quard);
+        m_Kenny = std::make_unique<kenny::KennyControl>(&m_Quard);
         m_VertexBuffer = std::make_unique<spat::VertexBuffer>(nullptr, m_Quard.GetSize());
 
         spat::VertexBufferLayout layout;
@@ -67,7 +67,10 @@ namespace box
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
         m_x = m_WinSize.width / 2.0f;
         m_y = m_WinSize.height / 2.0f;
-        m_degree = 0;
+        // m_degree1 = 0;
+        // m_degree2 = 0;
+        m_val = 0;
+        m_height = 0;
         m_rotationspeed = 0;
 
         GetDelta();
@@ -81,10 +84,10 @@ namespace box
         m_mouse_click = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
         glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
         glReadPixels(cursor_x, m_WinSize.height - cursor_y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
-        m_state = m_KennyPart -> GetColorName(pixel[0]);
+        m_state = m_Kenny -> GetColorName(pixel[0]);
 
-        m_KennyPart -> SetBadyFront(
-            {m_x * 2.0f, m_y * 2.0f}, m_degree);
+        m_Kenny -> Test(
+            {m_x * 2.0f, m_y * 2.0f}, m_height, m_compact);
         //m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
         //glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);
 
@@ -118,7 +121,11 @@ namespace box
 
         ImGui::SliderFloat("position_x", &m_x, 0.0f, m_WinSize.width);
         ImGui::SliderFloat("position_y", &m_y, 0.0f, m_WinSize.height);
-        ImGui::SliderFloat("RotationSpeed", &m_rotationspeed, -1.0f, 1.0f);
+        ImGui::SliderFloat("m_height", &m_height, -1.2232080958047292571970774274258, 1.2232080958047292571970774274258);
+        ImGui::SliderInt("val", &m_val, -4, 4);
+        // ImGui::SliderFloat("degree1", &m_degree1, -4.0f, 4.0f);
+        // ImGui::SliderFloat("degree2", &m_degree2, -4.0f, 4.0f);
+        ImGui::SliderFloat("Compact", &m_compact, 0.0f, 65.0f);
         m_degree += m_rotationspeed;
 
         ImGui::Text("x: %.1f, y: %.1f, click: %d, state: %d", cursor_x, cursor_y, m_mouse_click, m_state);
@@ -130,58 +137,58 @@ namespace box
         ImGui::Begin("State");
         if (ImGui::Button("ArmLeft_Open"))
         {
-            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Open));
+            m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Open));
         }
         ImGui::SameLine();
         if (ImGui::Button("ArmRight_Open"))
         {
-            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Open));
+            m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Open));
         }
         if (ImGui::Button("ArmLeft_Bend"))
         {
-            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Bend));
+            m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Bend));
         }
         ImGui::SameLine();
         if (ImGui::Button("ArmRight_Bend"))
         {
-            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Bend));
+            m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Bend));
         }
         if (ImGui::Button("ArmFrontLeft_Basic"))
         {
-            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmFrontLeft_Basic));
+            m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmFrontLeft_Basic));
         }
         ImGui::SameLine();
         if (ImGui::Button("ArmFrontRight_Basic"))
         {
-            m_KennyPart -> ViewArm(static_cast<int>(kenny::Part::ArmFrontRight_Basic));
+            m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmFrontRight_Basic));
         }
 
         if (ImGui::Button("HandLeft_Paper"))
         {
-            m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Paper));
+            m_Kenny -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Paper));
         }
         ImGui::SameLine();
         if (ImGui::Button("HandRight_Paper"))
         {
-            m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandRight_Paper));
+            m_Kenny -> ViewHand(static_cast<int>(kenny::Part::HandRight_Paper));
         }
         if (ImGui::Button("HandLeft_Rock"))
         {
-            m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Rock));
+            m_Kenny -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Rock));
         }
         ImGui::SameLine();
         if (ImGui::Button("HandRight_Rock"))
         {
-            m_KennyPart -> ViewHand(static_cast<int>(kenny::Part::HandRight_Rock));
+            m_Kenny -> ViewHand(static_cast<int>(kenny::Part::HandRight_Rock));
         }
         if (ImGui::Button("Eyebrow"))
         {
-            m_KennyPart -> ViewEyebrow(true);
+            m_Kenny -> ViewEyebrow(true);
         }
         ImGui::SameLine();
         if (ImGui::Button("NoneEyebrow"))
         {
-            m_KennyPart -> ViewEyebrow(false);
+            m_Kenny -> ViewEyebrow(false);
         }
         ImGui::End();
     }

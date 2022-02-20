@@ -8,7 +8,7 @@
 #include "src/Texture.h"
 #include "src/FrameBuffer.h"
 
-#include "kenny/KennyPart.h"
+#include "kenny/KennyControl.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -28,17 +28,23 @@ namespace box
         std::unique_ptr<spat::FrameBuffer> m_FrameBuffer;
         spat::TexQuard2D m_Quard;
 
-        std::unique_ptr<kenny::KennyPart> m_KennyPart;
+        std::unique_ptr<kenny::KennyControl> m_Kenny;
         glm::mat4 m_MVP;
 
         double cursor_x;
         double cursor_y;
         int m_mouse_click;
         int m_state;
+        int m_val;
         float m_x;
         float m_y;
+        float m_height;
         float m_degree;
+        // float m_degree1;
+        // float m_degree2;
         float m_rotationspeed;
+        float m_rotationspeed2;
+        float m_compact;
     public:
         SandKenny();
         ~SandKenny();
