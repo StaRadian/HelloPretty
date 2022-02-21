@@ -13,6 +13,7 @@ namespace kenny
 
         }
         void PantFrontMain(spat::Vec2 point, float degree);
-        void Test(spat::Vec2 point, float height, float compact);
+        void SetEyeballsPos(spat::Vec2 target, const float viewSize, const int mode);
+        void Test(spat::Vec2 point, float height, float compact, const int mode);
     };
 }

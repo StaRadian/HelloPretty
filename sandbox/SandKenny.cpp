@@ -24,7 +24,7 @@ namespace box
         
         glfwSwapInterval(1);    //vsync 활성화
 
-        glfwSetWindowPos(GetWindow(), 0, 0);
+        //glfwSetWindowPos(GetWindow(), 0, 0);
     }
 
     SandKenny::~SandKenny()
@@ -85,9 +85,12 @@ namespace box
         glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
         glReadPixels(cursor_x, m_WinSize.height - cursor_y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
         m_state = m_Kenny -> GetColorName(pixel[0]);
+        m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
+        m_Kenny -> SetEyeballsPos(
+            {(float)cursor_x, (float)(m_WinSize.height - cursor_y)}, 
+            sqrt(m_MonitorSize.height * m_MonitorSize.height + m_MonitorSize.width * m_MonitorSize.width) / 4.0f,
+             0);
 
-        m_Kenny -> Test(
-            {m_x * 2.0f, m_y * 2.0f}, m_height, m_compact);
         //m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
         //glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);
 
@@ -121,14 +124,13 @@ namespace box
 
         ImGui::SliderFloat("position_x", &m_x, 0.0f, m_WinSize.width);
         ImGui::SliderFloat("position_y", &m_y, 0.0f, m_WinSize.height);
-        ImGui::SliderFloat("m_height", &m_height, -1.2232080958047292571970774274258, 1.2232080958047292571970774274258);
+        ImGui::SliderFloat("degree", &m_degree, PI * (-1), PI);
         ImGui::SliderInt("val", &m_val, -4, 4);
         // ImGui::SliderFloat("degree1", &m_degree1, -4.0f, 4.0f);
         // ImGui::SliderFloat("degree2", &m_degree2, -4.0f, 4.0f);
         ImGui::SliderFloat("Compact", &m_compact, 0.0f, 65.0f);
-        m_degree += m_rotationspeed;
-
-        ImGui::Text("x: %.1f, y: %.1f, click: %d, state: %d", cursor_x, cursor_y, m_mouse_click, m_state);
+        
+        ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_degree, m_mouse_click, m_state);
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         

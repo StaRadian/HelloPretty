@@ -44,6 +44,7 @@ namespace box
         // float m_degree2;
         float m_rotationspeed;
         float m_rotationspeed2;
+        float m_distance;
         float m_compact;
     public:
         SandKenny();
