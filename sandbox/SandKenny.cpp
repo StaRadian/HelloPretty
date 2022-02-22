@@ -69,6 +69,7 @@ namespace box
         m_y = m_WinSize.height / 2.0f;
         // m_degree1 = 0;
         // m_degree2 = 0;
+        m_degree = 0;
         m_val = 0;
         m_height = 0;
         m_rotationspeed = 0;
@@ -84,14 +85,13 @@ namespace box
         glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
         glReadPixels(cursor_x, (m_WinSize.height - cursor_y) * 2.0, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
         m_state = m_Kenny -> GetColorName(pixel[0]);
-        m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
+        m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, 0);
+        m_Kenny -> Test(m_degree);
         m_Kenny -> SetEyeballsPos(
             {(float)cursor_x * 2.0f, (float)(m_WinSize.height - cursor_y) * 2.0f}, 
-            sqrt(m_MonitorSize.height * m_MonitorSize.height + m_MonitorSize.width * m_MonitorSize.width) / 4.0f,
+             800.0f,
+             m_degree,
              0);
-
-        //m_Quard.AddRotaion(static_cast<int>(kenny::Part::ArmRight_Open), -187.0f, -184.0f, 0.05f);
-        //glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0))

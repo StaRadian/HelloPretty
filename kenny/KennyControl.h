@@ -6,8 +6,6 @@ namespace kenny
     class KennyControl : public KennyJoint
     {
     private:
-        float degreeL;
-        float degreeR;
     public:
         KennyControl(spat::TexQuard2D* quard) 
             : KennyJoint(quard) 
@@ -15,7 +13,7 @@ namespace kenny
 
         }
         void PantFrontMain(spat::Vec2 point, float degree);
-        void SetEyeballsPos(spat::Vec2 target, const float viewSize, const int mode);
-        void Test(spat::Vec2 point, float height, float compact, const int mode);
+        void SetEyeballsPos(spat::Vec2 target, const float distance, const float degree, const int mode);
+        void Test(float degree);
     };
 }

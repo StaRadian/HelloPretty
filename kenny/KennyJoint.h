@@ -158,8 +158,8 @@ namespace kenny
         void SetArmFrontRight_Basic(spat::Vec2 point, float degree);
         void SetFace(spat::Vec2 point, float degree);
         void SetEyesFront_Open(spat::Vec2 point, float degree);
-        void SetEyeballLeft(spat::Vec2 point, float degree);
-        void SetEyeballRight(spat::Vec2 point, float degree);
+        void SetEyeballLeft(spat::Vec2 point);
+        void SetEyeballRight(spat::Vec2 point);
         void SetHatFront(spat::Vec2 point, float degree);
         void SetHandLeft_Paper(spat::Vec2 point, float degree);
         void SetHandRight_Paper(spat::Vec2 point, float degree);
