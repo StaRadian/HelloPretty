@@ -6,6 +6,8 @@ namespace kenny
     class KennyControl : public KennyJoint
     {
     private:
+        float degreeL;
+        float degreeR;
     public:
         KennyControl(spat::TexQuard2D* quard) 
             : KennyJoint(quard) 

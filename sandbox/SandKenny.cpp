@@ -72,7 +72,6 @@ namespace box
         m_val = 0;
         m_height = 0;
         m_rotationspeed = 0;
-
         GetDelta();
     }
 
@@ -83,11 +82,11 @@ namespace box
         float pixel[4];
         m_mouse_click = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
         glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
-        glReadPixels(cursor_x, m_WinSize.height - cursor_y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
+        glReadPixels(cursor_x, (m_WinSize.height - cursor_y) * 2.0, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
         m_state = m_Kenny -> GetColorName(pixel[0]);
         m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
         m_Kenny -> SetEyeballsPos(
-            {(float)cursor_x, (float)(m_WinSize.height - cursor_y)}, 
+            {(float)cursor_x * 2.0f, (float)(m_WinSize.height - cursor_y) * 2.0f}, 
             sqrt(m_MonitorSize.height * m_MonitorSize.height + m_MonitorSize.width * m_MonitorSize.width) / 4.0f,
              0);
 

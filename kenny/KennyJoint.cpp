@@ -173,9 +173,9 @@ namespace kenny
     }
 
     const spat::Vec2 m_EyesFront_Openjoint[] = {
-           0.0f, 0.0f,     //Face
-         90.0f, 0.0f,     //EyeballLeft
-        -90.0f, 0.0f,     //EyeballRight
+          0.0f,  0.0f,     //Face
+         45.0f,  0.0f,     //EyeballLeft
+        -45.0f,  0.0f,     //EyeballRight
     };
 
     void KennyJoint::SetEyesFront_Open(spat::Vec2 point, float degree)
