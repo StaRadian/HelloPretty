@@ -14,6 +14,7 @@ namespace kenny
         m_Quard -> SetPosXY(static_cast<int>(Part::PantFront), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::PantFront), degree, sind, cosd);
         m_Joint.PantFront.BadyFront = m_Quard -> Vec2Rotation(pos, m_PantFrontjoint[0], sind, cosd);
+        m_Joint.PantFront.degree = degree;
     }
     
     const spat::Vec2 m_BodyFrontjoint[] = {
@@ -41,6 +42,7 @@ namespace kenny
         m_Joint.BodyFront.ArmRight_Bend = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[4], sind, cosd);
         m_Joint.BodyFront.ArmFrontRight_Basic = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[6], sind, cosd);
         m_Joint.BodyFront.Face = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[7], sind, cosd);
+        m_Joint.BodyFront.degree = degree;
     }
     const spat::Vec2 m_ArmLeft_Openjoint[] = {
         -65.0f,  18.0f,     //BadyFront
@@ -58,6 +60,7 @@ namespace kenny
         m_Joint.ArmLeft_Open.BadyFront         = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Openjoint[0], sind, cosd);
         m_Joint.ArmLeft_Open.HandLeft_Paper    = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Openjoint[1], sind, cosd);
         m_Joint.ArmLeft_Open.HandLeft_Rock     = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Openjoint[2], sind, cosd);
+        m_Joint.ArmLeft_Open.degree = degree;
     }
 
     const spat::Vec2 m_ArmRight_Openjoint[] = {
@@ -76,6 +79,7 @@ namespace kenny
         m_Joint.ArmRight_Open.BadyFront         = m_Quard -> Vec2Rotation(pos, m_ArmRight_Openjoint[0], sind, cosd);
         m_Joint.ArmRight_Open.HandRight_Paper   = m_Quard -> Vec2Rotation(pos, m_ArmRight_Openjoint[1], sind, cosd);
         m_Joint.ArmRight_Open.HandRight_Rock    = m_Quard -> Vec2Rotation(pos, m_ArmRight_Openjoint[2], sind, cosd);
+        m_Joint.ArmRight_Open.degree = degree;
     }
 
     const spat::Vec2 m_ArmLeft_Bendjoint[] = {
@@ -94,6 +98,7 @@ namespace kenny
         m_Joint.ArmLeft_Bend.BadyFront      = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Bendjoint[0], sind, cosd);
         m_Joint.ArmLeft_Bend.HandLeft_Paper = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Bendjoint[1], sind, cosd);
         m_Joint.ArmLeft_Bend.HandLeft_Rock  = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Bendjoint[2], sind, cosd);
+        m_Joint.ArmLeft_Bend.degree = degree;
     }
 
     const spat::Vec2 m_ArmRight_Bendjoint[] = {
@@ -112,6 +117,7 @@ namespace kenny
         m_Joint.ArmRight_Bend.BadyFront         = m_Quard -> Vec2Rotation(pos, m_ArmRight_Bendjoint[0], sind, cosd);
         m_Joint.ArmRight_Bend.HandRight_Paper   = m_Quard -> Vec2Rotation(pos, m_ArmRight_Bendjoint[1], sind, cosd);
         m_Joint.ArmRight_Bend.HandRight_Rock    = m_Quard -> Vec2Rotation(pos, m_ArmRight_Bendjoint[2], sind, cosd);
+        m_Joint.ArmRight_Bend.degree = degree;
     }
 
     const spat::Vec2 m_ArmFrontLeft_Basicjoint[] = {
@@ -130,6 +136,7 @@ namespace kenny
         m_Joint.ArmFrontLeft_Basic.BadyFront        = m_Quard -> Vec2Rotation(pos, m_ArmFrontLeft_Basicjoint[0], sind, cosd);
         m_Joint.ArmFrontLeft_Basic.HandLeft_Paper   = m_Quard -> Vec2Rotation(pos, m_ArmFrontLeft_Basicjoint[1], sind, cosd);
         m_Joint.ArmFrontLeft_Basic.HandLeft_Rock    = m_Quard -> Vec2Rotation(pos, m_ArmFrontLeft_Basicjoint[2], sind, cosd);
+        m_Joint.ArmFrontLeft_Basic.degree = degree;
     }
 
     const spat::Vec2 m_ArmFrontRight_Basicjoint[] = {
@@ -148,14 +155,15 @@ namespace kenny
         m_Joint.ArmFrontRight_Basic.BadyFront       = m_Quard -> Vec2Rotation(pos, m_ArmFrontRight_Basicjoint[0], sind, cosd);
         m_Joint.ArmFrontRight_Basic.HandRight_Paper = m_Quard -> Vec2Rotation(pos, m_ArmFrontRight_Basicjoint[1], sind, cosd);
         m_Joint.ArmFrontRight_Basic.HandRight_Rock  = m_Quard -> Vec2Rotation(pos, m_ArmFrontRight_Basicjoint[2], sind, cosd);
+        m_Joint.ArmFrontRight_Basic.degree = degree;
     }
 
     const spat::Vec2 m_Facejoint[] = {
-          0.0f, -120.0f,     //BadyFront
-          0.0f,    9.0f,     //EyesFront_Open
-          0.0f,    0.0f,     //HatFront
-        -89.0f,  116.0f,     //EyebrowLeft
-         89.0f,  116.0f      //EyebrowRight
+          0.0f, -70.0f,     //BadyFront
+          0.0f,   9.0f,     //EyesFront_Open
+          0.0f,   0.0f,     //HatFront
+        -89.0f, 116.0f,     //EyebrowLeft
+         89.0f, 116.0f      //EyebrowRight
     };
 
     void KennyJoint::SetFace(spat::Vec2 point, float degree)
@@ -170,6 +178,7 @@ namespace kenny
         m_Joint.Face.HatFront       = m_Quard -> Vec2Rotation(pos, m_Facejoint[2], sind, cosd);    
         m_Joint.Face.EyebrowLeft    = m_Quard -> Vec2Rotation(pos, m_Facejoint[3], sind, cosd);    
         m_Joint.Face.EyebrowRight   = m_Quard -> Vec2Rotation(pos, m_Facejoint[4], sind, cosd);    
+        m_Joint.Face.degree = degree;
     }
 
     const spat::Vec2 m_EyesFront_Openjoint[] = {
@@ -182,46 +191,33 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_EyesFront_Openjoint[0].x * (-1), m_EyesFront_Openjoint[0].y * (-1)}, sind, cosd);
-        m_Quard -> SetPosXY(static_cast<int>(Part::EyesFront_Open), pos.x, pos.y);
+        m_Quard -> SetPosXY(static_cast<int>(Part::EyesFront_Open), point.x, point.y);
         m_Quard -> SetDegree(static_cast<int>(Part::EyesFront_Open), degree, sind, cosd);
-        m_Joint.EyesFront_Open.Face         = m_Quard -> Vec2Rotation(pos, m_EyesFront_Openjoint[0], sind, cosd);
-        m_Joint.EyesFront_Open.EyeballLeft  = m_Quard -> Vec2Rotation(pos, m_EyesFront_Openjoint[1], sind, cosd);
-        m_Joint.EyesFront_Open.EyeballRight = m_Quard -> Vec2Rotation(pos, m_EyesFront_Openjoint[2], sind, cosd);
+        m_Joint.EyesFront_Open.Face         = m_Quard -> Vec2Rotation(point, m_EyesFront_Openjoint[0], sind, cosd);
+        m_Joint.EyesFront_Open.EyeballLeft  = m_Quard -> Vec2Rotation(point, m_EyesFront_Openjoint[1], sind, cosd);
+        m_Joint.EyesFront_Open.EyeballRight = m_Quard -> Vec2Rotation(point, m_EyesFront_Openjoint[2], sind, cosd);
+        m_Joint.EyesFront_Open.degree = degree;
     }
-
-    const spat::Vec2 m_EyeballLeftjoint[] = {
-           0.0f, 0.0f,     //EyesFront_Open
-    };
 
     void KennyJoint::SetEyeballLeft(spat::Vec2 point)
     {
         m_Quard -> SetPosXY(static_cast<int>(Part::EyeballLeft), point.x, point.y);
-        m_Joint.EyeballLeft.EyesFront_Open = m_Joint.EyesFront_Open.EyeballLeft;
+        m_Joint.EyeballLeft.EyesFront_Open = point;
     }
-
-    const spat::Vec2 m_EyeballRightjoint[] = {
-           0.0f, 0.0f,     //EyesFront_Open
-    };
 
     void KennyJoint::SetEyeballRight(spat::Vec2 point)
     {
         m_Quard -> SetPosXY(static_cast<int>(Part::EyeballRight), point.x, point.y);
-        m_Joint.EyeballRight.EyesFront_Open = m_Joint.EyesFront_Open.EyeballRight;
+        m_Joint.EyeballRight.EyesFront_Open = point;
     }
-
-    const spat::Vec2 m_HatFrontjoint[] = {
-           0.0f, 0.0f,     //Face
-    };
 
     void KennyJoint::SetHatFront(spat::Vec2 point, float degree)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_HatFrontjoint[0].x * (-1), m_HatFrontjoint[0].y * (-1)}, sind, cosd);
-        m_Quard -> SetPosXY(static_cast<int>(Part::HatFront), pos.x, pos.y);
+        m_Quard -> SetPosXY(static_cast<int>(Part::HatFront), point.x, point.y);
         m_Quard -> SetDegree(static_cast<int>(Part::HatFront), degree, sind, cosd);
-        m_Joint.HatFront.Face = m_Quard -> Vec2Rotation(pos, m_HatFrontjoint[0], sind, cosd);
+        m_Joint.HatFront.Face = point;
     }
 
     const spat::Vec2 m_HandLeft_PaperJoint[] = {
@@ -252,6 +248,7 @@ namespace kenny
         m_Joint.HandLeft_Paper.ArmLeft_Open          = m_Quard -> Vec2Rotation(pos, m_HandLeft_PaperJoint[0], sind, cosd);
         m_Joint.HandLeft_Paper.ArmLeft_Bend          = m_Quard -> Vec2Rotation(pos, m_HandLeft_PaperJoint[1], sind, cosd);
         m_Joint.HandLeft_Paper.ArmFrontLeft_Basic    = m_Quard -> Vec2Rotation(pos, m_HandLeft_PaperJoint[2], sind, cosd);    
+        m_Joint.HandLeft_Paper.degree = degree;
     }       
 
     const spat::Vec2 m_HandRight_PaperJoint[] = {
@@ -282,6 +279,7 @@ namespace kenny
         m_Joint.HandRight_Paper.ArmRight_Open          = m_Quard -> Vec2Rotation(pos, m_HandRight_PaperJoint[0], sind, cosd);
         m_Joint.HandRight_Paper.ArmRight_Bend          = m_Quard -> Vec2Rotation(pos, m_HandRight_PaperJoint[1], sind, cosd);
         m_Joint.HandRight_Paper.ArmFrontRight_Basic    = m_Quard -> Vec2Rotation(pos, m_HandRight_PaperJoint[2], sind, cosd);    
+        m_Joint.HandRight_Paper.degree = degree;
     }
 
     const spat::Vec2 m_HandLeft_RockJoint[] = {
@@ -312,12 +310,13 @@ namespace kenny
         m_Joint.HandLeft_Rock.ArmLeft_Open          = m_Quard -> Vec2Rotation(pos, m_HandLeft_RockJoint[0], sind, cosd);
         m_Joint.HandLeft_Rock.ArmLeft_Bend          = m_Quard -> Vec2Rotation(pos, m_HandLeft_RockJoint[1], sind, cosd);
         m_Joint.HandLeft_Rock.ArmFrontLeft_Basic    = m_Quard -> Vec2Rotation(pos, m_HandLeft_RockJoint[2], sind, cosd);    
+        m_Joint.HandLeft_Rock.degree = degree;
     }       
 
     const spat::Vec2 m_HandRight_RockJoint[] = {
         0.0f, 0.0f,     //ArmRight_Open    
         0.0f, 0.0f,     //ArmRight_Bend
-        0.0f, 0.0f      //ArmFrontRight_Basic
+        0.0f, 0.0f      //ArmFront Right_Basic
     };
 
     void KennyJoint::SetHandRight_Rock(spat::Vec2 point, float degree)
@@ -342,6 +341,7 @@ namespace kenny
         m_Joint.HandRight_Rock.ArmRight_Open          = m_Quard -> Vec2Rotation(pos, m_HandRight_RockJoint[0], sind, cosd);
         m_Joint.HandRight_Rock.ArmRight_Bend          = m_Quard -> Vec2Rotation(pos, m_HandRight_RockJoint[1], sind, cosd);
         m_Joint.HandRight_Rock.ArmFrontRight_Basic    = m_Quard -> Vec2Rotation(pos, m_HandRight_RockJoint[2], sind, cosd);    
+        m_Joint.HandRight_Rock.degree = degree;
     }       
 
     const spat::Vec2 m_EyebrowLeftJoint[] = {
@@ -356,6 +356,7 @@ namespace kenny
         m_Quard -> SetPosXY(static_cast<int>(Part::EyebrowLeft), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::EyebrowLeft), degree, sind, cosd);
         m_Joint.EyebrowLeft.Face = m_Quard -> Vec2Rotation(pos, m_EyebrowLeftJoint[0], sind, cosd);
+        m_Joint.EyebrowLeft.degree = degree;
     }    
 
     const spat::Vec2 m_EyebrowRightJoint[] = {
@@ -370,5 +371,6 @@ namespace kenny
         m_Quard -> SetPosXY(static_cast<int>(Part::EyebrowRight), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::EyebrowRight), degree, sind, cosd);
         m_Joint.EyebrowRight.Face = m_Quard -> Vec2Rotation(pos, m_EyebrowRightJoint[0], sind, cosd);
+        m_Joint.EyebrowRight.degree = degree;
     }       
 }

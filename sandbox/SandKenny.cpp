@@ -85,13 +85,12 @@ namespace box
         glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
         glReadPixels(cursor_x, (m_WinSize.height - cursor_y) * 2.0, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
         m_state = m_Kenny -> GetColorName(pixel[0]);
-        m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, 0);
-        m_Kenny -> Test(m_degree);
-        m_Kenny -> SetEyeballsPos(
+        m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
+        m_Kenny -> NeckControl(m_degree1, m_degree2);
+        m_Kenny -> EyeballsControl(
             {(float)cursor_x * 2.0f, (float)(m_WinSize.height - cursor_y) * 2.0f}, 
              800.0f,
-             m_degree,
-             0);
+             1);
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0))
@@ -125,9 +124,8 @@ namespace box
         ImGui::SliderFloat("position_y", &m_y, 0.0f, m_WinSize.height);
         ImGui::SliderFloat("degree", &m_degree, PI * (-1), PI);
         ImGui::SliderInt("val", &m_val, -4, 4);
-        // ImGui::SliderFloat("degree1", &m_degree1, -4.0f, 4.0f);
-        // ImGui::SliderFloat("degree2", &m_degree2, -4.0f, 4.0f);
-        ImGui::SliderFloat("Compact", &m_compact, 0.0f, 65.0f);
+        ImGui::SliderFloat("degree1", &m_degree1, 0, PI);
+        ImGui::SliderFloat("degree2", &m_degree2, PI * (-1), PI);
         
         ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_degree, m_mouse_click, m_state);
 

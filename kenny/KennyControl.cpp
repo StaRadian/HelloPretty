@@ -91,16 +91,50 @@ namespace kenny
         }
     }
 
+    void KennyControl::NeckControl(float bow_angle, float RL_angle)
+    {
+        const float neck = 100.0;
+        float neck_height;
+        float sind = SIN(m_Joint.BodyFront.degree);
+        float cosd = COS(m_Joint.BodyFront.degree);
+        spat::Vec2 trail;
+
+        if(bow_angle == 0)
+            neck_height = neck;
+        else
+            neck_height = neck * SIN(bow_angle) / bow_angle;
+
+        if(RL_angle == 0)
+        {
+            trail.x = 0;
+            trail.y = neck_height;
+        }
+        else
+        {
+            trail.x = (neck_height / RL_angle) * (1.0 - COS(RL_angle));
+            trail.y = (neck_height / RL_angle) * SIN(RL_angle);
+        }
+        trail = m_Quard -> Vec2Rotation({0, 0}, {trail.x, trail.y}, sind, cosd);
+        trail.x += m_Joint.BodyFront.Face.x;
+        trail.y += m_Joint.BodyFront.Face.y;
+
+        SetFace(trail, RL_angle * (-1) + m_Joint.BodyFront.degree);
+        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
+        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
+    }
     
-    void KennyControl::SetEyeballsPos(spat::Vec2 target, const float distance, const float degree, const int mode)
+    void KennyControl::EyeballsControl(spat::Vec2 target, const float distance, const int mode)
     {
         if(mode == 1)
         {
             const float ballsize = 400.0f;
             spat::Vec2 trailL;
             spat::Vec2 trailR;
-            spat::Vec2 centerL = {m_Joint.Face.EyesFront_Open.x + 90.0f, m_Joint.Face.EyesFront_Open.y};
-            spat::Vec2 centerR = {m_Joint.Face.EyesFront_Open.x - 90.0f, m_Joint.Face.EyesFront_Open.y};
+            spat::Vec2 LRdistance = {
+                m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
+                m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
+            spat::Vec2 centerL = {m_Joint.Face.EyesFront_Open.x + LRdistance.x, m_Joint.Face.EyesFront_Open.y + LRdistance.y};
+            spat::Vec2 centerR = {m_Joint.Face.EyesFront_Open.x - LRdistance.x, m_Joint.Face.EyesFront_Open.y - LRdistance.y};
             spat::Vec2 posL = {target.x - centerL.x, target.y - centerL.y};
             spat::Vec2 posR = {target.x - centerR.x, target.y - centerR.y};
             float degreeL = atan2(posL.y, posL.x);
@@ -132,19 +166,4 @@ namespace kenny
         }
     }
 
-    void KennyControl::Test(float degree)
-    {
-        const float neck = 500.0;
-        if(degree == 0)
-            m_Joint.BodyFront.Face.y += neck;
-        else
-        {
-            m_Joint.BodyFront.Face.x += (neck / PI / 2.0 - degree) * (1.0 + COS(PI / 2.0 - degree));
-            m_Joint.BodyFront.Face.y += (neck / PI / 2.0 - degree) * (1.0 + SIN(PI / 2.0 - degree));
-        }
-
-        SetFace(m_Joint.BodyFront.Face, degree);
-        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, degree);
-        SetHatFront(m_Joint.Face.HatFront, degree);       
-    }
 }

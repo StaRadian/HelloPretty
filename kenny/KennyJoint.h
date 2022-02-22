@@ -10,6 +10,7 @@ namespace kenny
     struct PantFrontJoint
     {
         spat::Vec2 BadyFront;
+        float degree;
     };
     struct BodyFrontJoint
     {
@@ -21,42 +22,49 @@ namespace kenny
         spat::Vec2 ArmFrontLeft_Basic; 
         spat::Vec2 ArmFrontRight_Basic;
         spat::Vec2 Face;
+        float degree;
     };
     struct ArmLeft_OpenJoint
     {
         spat::Vec2 BadyFront;
         spat::Vec2 HandLeft_Paper; 
         spat::Vec2 HandLeft_Rock;
+        float degree;
     };
     struct ArmRight_OpenJoint
     {
         spat::Vec2 BadyFront;    
         spat::Vec2 HandRight_Paper;
         spat::Vec2 HandRight_Rock;
+        float degree;
     };
     struct ArmLeft_BendJoint
     {
         spat::Vec2 BadyFront;    
         spat::Vec2 HandLeft_Paper;
         spat::Vec2 HandLeft_Rock;
+        float degree;
     };
     struct ArmRight_BendJoint
     {
         spat::Vec2 BadyFront;    
         spat::Vec2 HandRight_Paper;
         spat::Vec2 HandRight_Rock;
+        float degree;
     };
     struct ArmFrontLeft_BasicJoint
     {
         spat::Vec2 BadyFront;    
         spat::Vec2 HandLeft_Paper;
         spat::Vec2 HandLeft_Rock;
+        float degree;
     };
     struct ArmFrontRight_BasicJoint
     {
         spat::Vec2 BadyFront;    
         spat::Vec2 HandRight_Paper;
         spat::Vec2 HandRight_Rock;
+        float degree;
     };
     struct FaceJoint
     {
@@ -65,12 +73,14 @@ namespace kenny
         spat::Vec2 HatFront;
         spat::Vec2 EyebrowLeft;
         spat::Vec2 EyebrowRight;
+        float degree;
     };
     struct EyesFront_OpenJoint
     {
         spat::Vec2 Face;
         spat::Vec2 EyeballLeft;
         spat::Vec2 EyeballRight;
+        float degree;
     };
     struct EyeballLeftJoint
     {
@@ -89,32 +99,38 @@ namespace kenny
         spat::Vec2 ArmLeft_Open;    
         spat::Vec2 ArmLeft_Bend;
         spat::Vec2 ArmFrontLeft_Basic;
+        float degree;
     };
     struct HandRight_PaperJoint
     {
         spat::Vec2 ArmRight_Open;    
         spat::Vec2 ArmRight_Bend;
         spat::Vec2 ArmFrontRight_Basic;
+        float degree;
     };
     struct HandLeft_RockJoint
     {
         spat::Vec2 ArmLeft_Open;    
         spat::Vec2 ArmLeft_Bend;
         spat::Vec2 ArmFrontLeft_Basic;
+        float degree;
     };
     struct HandRight_RockJoint
     {
         spat::Vec2 ArmRight_Open;    
         spat::Vec2 ArmRight_Bend;
         spat::Vec2 ArmFrontRight_Basic;
+        float degree;
     };
     struct EyebrowLeftJoint
     {
         spat::Vec2 Face;   
+        float degree;
     };
     struct EyebrowRightJoint
     {
         spat::Vec2 Face;   
+        float degree;
     };
     struct Joint
     {
