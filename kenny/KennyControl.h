@@ -13,6 +13,7 @@ namespace kenny
 
         }
         void PantFrontMain(spat::Vec2 point, float degree);
+        void PantSpineControl(float height, float degree);
         void BadyNeckControl(float& bow_angle, float& RL_angle);
         void FaceNeckControl(float& bow_angle, float& RL_angle);
         void EyeballsControl(spat::Vec2 target, const float distance, const int mode);

@@ -93,8 +93,12 @@ namespace kenny
 
     void KennyControl::PantSpineControl(float height, float degree)
     {
-        
-        SetBadyFront(,,static_cast<int>(Part::PantFront));
+        degree +=  m_Joint.PantFront.degree;
+        float sind = SIN(degree);
+        float cosd = COS(degree);
+        m_Joint.PantFront.BadyFront = m_Quard -> Vec2Rotation(m_Joint.PantFront.BadyFront, {0, height}, sind, cosd);
+        SetBadyFront(m_Joint.PantFront.BadyFront, degree, static_cast<int>(Part::PantFront));
+
     }
 
     void KennyControl::BadyNeckControl(float& bow_angle, float& RL_angle)
@@ -178,8 +182,6 @@ namespace kenny
         if(mode == 1)
         {
             const float ballsize = 400.0f;
-            spat::Vec2 trailL;
-            spat::Vec2 trailR;
             spat::Vec2 LRdistance = {
                 m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
                 m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
@@ -239,18 +241,18 @@ namespace kenny
             if(sizeL > 65.0f) sizeL = 65.0f;
             if(sizeR > 65.0f) sizeR = 65.0f;
             
-            trailL.x = sizeL * COS(degreeL);
-            trailL.y = sizeL * SIN(degreeL);
-            trailR.x = sizeR * COS(degreeR);
-            trailR.y = sizeR * SIN(degreeR);
+            m_Joint.EyesFront_Open.EyeballLeft.x = sizeL * COS(degreeL);
+            m_Joint.EyesFront_Open.EyeballLeft.y = sizeL * SIN(degreeL);
+            m_Joint.EyesFront_Open.EyeballRight.x = sizeR * COS(degreeR);
+            m_Joint.EyesFront_Open.EyeballRight.y = sizeR * SIN(degreeR);
 
-            trailL.x += centerL.x;
-            trailL.y += centerL.y;
-            trailR.x += centerR.x;
-            trailR.y += centerR.y;
+            m_Joint.EyesFront_Open.EyeballLeft.x += centerL.x;
+            m_Joint.EyesFront_Open.EyeballLeft.y += centerL.y;
+            m_Joint.EyesFront_Open.EyeballRight.x += centerR.x;
+            m_Joint.EyesFront_Open.EyeballRight.y += centerR.y;
             
-            SetEyeballLeft(trailL);
-            SetEyeballRight(trailR);
+            SetEyeballLeft(m_Joint.EyesFront_Open.EyeballLeft);
+            SetEyeballRight(m_Joint.EyesFront_Open.EyeballRight);
         }
         else
         {
