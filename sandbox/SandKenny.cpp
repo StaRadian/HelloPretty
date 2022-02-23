@@ -82,10 +82,11 @@ namespace box
     {
         GetDelta();
         m_FrameBuffer -> Bind();
-        // m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
-        m_Kenny -> SetFace({m_x * 2.0f, m_y * 2.0f}, m_degree);
-        m_Kenny -> SetEyesFront_Open(m_Kenny -> m_Joint.Face.EyesFront_Open, m_Kenny -> m_Joint.Face.degree);
-        m_Kenny -> FaceNeckControl(m_degree1, m_degree2);
+        m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
+        // m_Kenny -> SetFace({m_x * 2.0f, m_y * 2.0f}, m_degree);
+        // m_Kenny -> SetEyesFront_Open(m_Kenny -> m_Joint.Face.EyesFront_Open, m_Kenny -> m_Joint.Face.degree);
+        m_Kenny -> BadyNeckControl(m_degree1, m_degree2);
+        // m_Kenny -> SetPantFront(m_Kenny -> m_Joint.BadyFront.PantFront, 0);
         m_Kenny -> EyeballsControl(
             {(float)cursor_x * 2.0f, (float)(m_WinSize.height - cursor_y) * 2.0f}, 
              800.0f,

@@ -91,6 +91,12 @@ namespace kenny
         }
     }
 
+    void KennyControl::PantSpineControl(float height, float degree)
+    {
+        
+        SetBadyFront(,,static_cast<int>(Part::PantFront));
+    }
+
     void KennyControl::BadyNeckControl(float& bow_angle, float& RL_angle)
     {
         const float neck = 100.0;
@@ -122,10 +128,10 @@ namespace kenny
             trail.y = (neck_height / RL_angle) * SIN(RL_angle);
         }
         trail = m_Quard -> Vec2Rotation({0, 0}, {trail.x, trail.y}, sind, cosd);
-        trail.x += m_Joint.BadyFront.Face.x;
-        trail.y += m_Joint.BadyFront.Face.y;
+        m_Joint.BadyFront.Face.x += trail.x;
+        m_Joint.BadyFront.Face.y += trail.y;
 
-        SetFace(trail, RL_angle * (-1) + m_Joint.BadyFront.degree);
+        SetFace(m_Joint.BadyFront.Face, RL_angle * (-1) + m_Joint.BadyFront.degree);
         SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
         SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
     }
@@ -161,10 +167,10 @@ namespace kenny
             trail.y = (neck_height / RL_angle) * SIN(RL_angle);
         }
         trail = m_Quard -> Vec2Rotation({0, 0}, {trail.x, trail.y}, sind, cosd);
-        trail.x += m_Joint.Face.BadyFront.x;
-        trail.y += m_Joint.Face.BadyFront.y;
+        m_Joint.BadyFront.Face.x += trail.x;
+        m_Joint.BadyFront.Face.y += trail.y;
 
-        SetBadyFront(trail, RL_angle * (-1) + m_Joint.Face.degree, static_cast<int>(Part::Face));
+        SetBadyFront(m_Joint.BadyFront.Face, RL_angle * (-1) + m_Joint.Face.degree, static_cast<int>(Part::Face));
     }
     
     void KennyControl::EyeballsControl(spat::Vec2 target, const float distance, const int mode)
