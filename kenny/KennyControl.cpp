@@ -120,7 +120,7 @@ namespace kenny
 
         SetFace(trail, RL_angle * (-1) + m_Joint.BodyFront.degree);
         SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
-        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
+        //SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
     }
     
     void KennyControl::EyeballsControl(spat::Vec2 target, const float distance, const int mode)
@@ -144,13 +144,45 @@ namespace kenny
             float sizeL = ballsize * SIN(atan2(lengthL, distance));
             float sizeR = ballsize * SIN(atan2(lengthR, distance));
 
+            //후드 필터
+            if(degreeL < 1.8f && degreeL > -1.3f)
+            {
+                float hoodvaltop = (32.0f / (1.8f * 1.8f)) * degreeL * degreeL;
+                float hoodvalbottom = (32.0f / (1.3f * 1.3f)) * degreeL * degreeL;
+                if(degreeL > 0.0f)
+                {
+                    if(sizeL > 33.0f + hoodvaltop) sizeL = 33.0f + hoodvaltop;
+                }
+                else
+                {
+                    if(sizeL > 33.0f + hoodvalbottom) sizeL = 33.0f + hoodvalbottom;
+                }
+            }
+            if(degreeR > PI - 1.8f || degreeR < 1.3f - PI)
+            {
+                float hoodvaltop = (32.0f / ((PI - 1.8) * (PI - 1.8))) * degreeR * degreeR;
+                float hoodvalbottom = (32.0f / ((1.3 - PI) * (1.3 - PI))) * degreeR * degreeR;
+                if(degreeR > 0.0f)
+                {
+                    if(sizeR > 33.0f + hoodvaltop) sizeR = 33.0f + hoodvaltop;
+                }
+                else
+                {
+                    if(sizeR > 33.0f + hoodvalbottom) sizeR = 33.0f + hoodvalbottom;
+                }
+                LOG(hoodvaltop << ", " << hoodvalbottom);
+            }
+
             if(sizeL > 65.0f) sizeL = 65.0f;
             if(sizeR > 65.0f) sizeR = 65.0f;
+
+            // LOG(sizeL << ", " <<sizeR << ", " << degreeL << ", " << degreeR);
             
             trailL.x = sizeL * COS(degreeL);
             trailL.y = sizeL * SIN(degreeL);
             trailR.x = sizeR * COS(degreeR);
             trailR.y = sizeR * SIN(degreeR);
+
             trailL.x += centerL.x;
             trailL.y += centerL.y;
             trailR.x += centerR.x;
