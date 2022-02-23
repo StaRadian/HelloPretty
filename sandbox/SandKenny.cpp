@@ -70,6 +70,8 @@ namespace box
         // m_degree1 = 0;
         // m_degree2 = 0;
         m_degree = 0;
+        m_degree1 = 1.9;
+        m_degree2 = 0;
         m_val = 0;
         m_height = 0;
         m_rotationspeed = 0;
@@ -80,17 +82,14 @@ namespace box
     {
         GetDelta();
         m_FrameBuffer -> Bind();
-        float pixel[4];
-        m_mouse_click = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
-        glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
-        glReadPixels(cursor_x, (m_WinSize.height - cursor_y) * 2.0, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
-        m_state = m_Kenny -> GetColorName(pixel[0]);
-        m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
-        m_Kenny -> NeckControl(m_degree1, m_degree2);
+        // m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
+        m_Kenny -> SetFace({m_x * 2.0f, m_y * 2.0f}, m_degree);
+        m_Kenny -> SetEyesFront_Open(m_Kenny -> m_Joint.Face.EyesFront_Open, m_Kenny -> m_Joint.Face.degree);
+        m_Kenny -> FaceNeckControl(m_degree1, m_degree2);
         m_Kenny -> EyeballsControl(
             {(float)cursor_x * 2.0f, (float)(m_WinSize.height - cursor_y) * 2.0f}, 
              800.0f,
-             1);
+             m_val);
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0))
@@ -99,16 +98,17 @@ namespace box
 
     void SandKenny::OnRender()
     {   
-        m_VertexBuffer -> Bind();
         glBufferSubData(GL_ARRAY_BUFFER, 0, m_Quard.GetSize(), m_Quard.GetVertex());
-
+        m_VertexBuffer -> Bind();
         m_Main_charactersTex -> Bind(0);
+
         m_Shader -> Bind();
         
         m_Shader -> SetUniformMat4f("u_MVP", m_MVP);
         glClear(GL_COLOR_BUFFER_BIT);
         m_Shader -> SetUniform1i("u_ViewMode", 1);
         GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
+        MouseCheck();
         m_FrameBuffer -> Unbind();
 
         glClear(GL_COLOR_BUFFER_BIT);
@@ -124,8 +124,8 @@ namespace box
         ImGui::SliderFloat("position_y", &m_y, 0.0f, m_WinSize.height);
         ImGui::SliderFloat("degree", &m_degree, PI * (-1), PI);
         ImGui::SliderInt("val", &m_val, -4, 4);
-        ImGui::SliderFloat("degree1", &m_degree1, 0, PI);
-        ImGui::SliderFloat("degree2", &m_degree2, PI * (-1), PI);
+        ImGui::SliderFloat("degree1", &m_degree1, PI / 3.0f, PI);
+        ImGui::SliderFloat("degree2", &m_degree2, PI / 8.0f * (-1), PI / 8.0f);
         
         ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_degree, m_mouse_click, m_state);
 
@@ -191,7 +191,17 @@ namespace box
         }
         ImGui::End();
     }
+
+    void SandKenny::MouseCheck()
+    {
+        float pixel[4];
+        m_mouse_click = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
+        glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
+        glReadPixels(cursor_x, (m_WinSize.height - cursor_y), 1, 1, GL_RGBA, GL_FLOAT, &pixel);
+        m_state = m_Kenny -> GetColorName(pixel[0]);
+    }
 }
+
 
 #if 0
 {

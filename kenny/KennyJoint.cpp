@@ -3,7 +3,7 @@
 namespace kenny
 {
     const spat::Vec2 m_PantFrontjoint[] = {
-         0.0f, 50.0f      //BadyFront
+         0.0f, 120.0f      //BadyFront
     };
 
     void KennyJoint::SetPantFront(spat::Vec2 point, float degree)
@@ -17,32 +17,63 @@ namespace kenny
         m_Joint.PantFront.degree = degree;
     }
     
-    const spat::Vec2 m_BodyFrontjoint[] = {
-           0.0f,  -21.0f,   //PantFront
-         197.0f,   75.0f,   //ArmLeft_Open
-        -187.0f,   70.0f,   //ArmRight_Open
-         140.0f,   23.0f,   //ArmLeft_Bend
-        -128.0f,   21.0f,   //ArmRight_Bend
-         246.0f,   48.0f,   //ArmFrontLeft_Basic
-        -226.0f,   46.0f,   //ArmFrontRight_Basic
-           0.0f,  251.0f    //Face
+    const spat::Vec2 m_BadyFrontjoint[] = {
+           0.0f,  49.0f,   //PantFront
+         197.0f,  75.0f,   //ArmLeft_Open
+        -187.0f,  70.0f,   //ArmRight_Open
+         140.0f,  23.0f,   //ArmLeft_Bend
+        -128.0f,  21.0f,   //ArmRight_Bend
+         246.0f,  48.0f,   //ArmFrontLeft_Basic
+        -226.0f,  46.0f,   //ArmFrontRight_Basic
+           0.0f, 171.0f    //Face
     };
 
-    void KennyJoint::SetBadyFront(spat::Vec2 point, float degree)
+    void KennyJoint::SetBadyFront(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        m_Quard -> SetPosXY(static_cast<int>(Part::BadyFront), point.x, point.y);
+        spat::Vec2 pos;
+        switch (rx)
+        {
+        case static_cast<int>(Part::PantFront):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[0].x * (-1), m_BadyFrontjoint[0].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::ArmLeft_Open):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[1].x * (-1), m_BadyFrontjoint[1].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::ArmRight_Open):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[2].x * (-1), m_BadyFrontjoint[2].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::ArmLeft_Bend):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[3].x * (-1), m_BadyFrontjoint[3].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::ArmRight_Bend):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[4].x * (-1), m_BadyFrontjoint[4].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::ArmFrontLeft_Basic):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[5].x * (-1), m_BadyFrontjoint[5].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::ArmFrontRight_Basic):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[6].x * (-1), m_BadyFrontjoint[6].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::Face):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[7].x * (-1), m_BadyFrontjoint[7].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
+        }
+        m_Quard -> SetPosXY(static_cast<int>(Part::BadyFront), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::BadyFront), degree, sind, cosd);
-        m_Joint.BodyFront.PantFront = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[0], sind, cosd);
-        m_Joint.BodyFront.ArmLeft_Open = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[1], sind, cosd);
-        m_Joint.BodyFront.ArmLeft_Bend = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[3], sind, cosd);
-        m_Joint.BodyFront.ArmFrontLeft_Basic = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[5], sind, cosd);
-        m_Joint.BodyFront.ArmRight_Open = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[2], sind, cosd);
-        m_Joint.BodyFront.ArmRight_Bend = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[4], sind, cosd);
-        m_Joint.BodyFront.ArmFrontRight_Basic = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[6], sind, cosd);
-        m_Joint.BodyFront.Face = m_Quard -> Vec2Rotation(point, m_BodyFrontjoint[7], sind, cosd);
-        m_Joint.BodyFront.degree = degree;
+        m_Joint.BadyFront.PantFront = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[0], sind, cosd);
+        m_Joint.BadyFront.ArmLeft_Open = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[1], sind, cosd);
+        m_Joint.BadyFront.ArmLeft_Bend = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[3], sind, cosd);
+        m_Joint.BadyFront.ArmFrontLeft_Basic = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[5], sind, cosd);
+        m_Joint.BadyFront.ArmRight_Open = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[2], sind, cosd);
+        m_Joint.BadyFront.ArmRight_Bend = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[4], sind, cosd);
+        m_Joint.BadyFront.ArmFrontRight_Basic = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[6], sind, cosd);
+        m_Joint.BadyFront.Face = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[7], sind, cosd);
+        m_Joint.BadyFront.degree = degree;
     }
     const spat::Vec2 m_ArmLeft_Openjoint[] = {
         -65.0f,  18.0f,     //BadyFront
@@ -50,11 +81,26 @@ namespace kenny
         108.0f,   3.0f      //HandLeft_Rock  
     };
 
-    void KennyJoint::SetArmLeft_Open(spat::Vec2 point, float degree)
+    void KennyJoint::SetArmLeft_Open(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_ArmLeft_Openjoint[0].x * (-1), m_ArmLeft_Openjoint[0].y * (-1)}, sind, cosd);
+        spat::Vec2 pos;
+        switch (rx)
+        {
+        case static_cast<int>(Part::BadyFront):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[0].x * (-1), m_BadyFrontjoint[0].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandLeft_Paper):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[1].x * (-1), m_BadyFrontjoint[1].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandLeft_Rock):
+            pos = m_Quard -> Vec2Rotation(point, {m_BadyFrontjoint[2].x * (-1), m_BadyFrontjoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
+        }
         m_Quard -> SetPosXY(static_cast<int>(Part::ArmLeft_Open), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::ArmLeft_Open), degree, sind, cosd);
         m_Joint.ArmLeft_Open.BadyFront         = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Openjoint[0], sind, cosd);
@@ -69,11 +115,26 @@ namespace kenny
         -108.0f,   3.0f      //HandRight_Rock
     };
 
-    void KennyJoint::SetArmRight_Open(spat::Vec2 point, float degree)
+    void KennyJoint::SetArmRight_Open(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_ArmRight_Openjoint[0].x * (-1), m_ArmRight_Openjoint[0].y * (-1)}, sind, cosd);
+        spat::Vec2 pos;
+        switch (rx)
+        {
+        case static_cast<int>(Part::BadyFront):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmRight_Openjoint[0].x * (-1), m_ArmRight_Openjoint[0].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandRight_Paper):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmRight_Openjoint[1].x * (-1), m_ArmRight_Openjoint[1].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandRight_Rock):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmRight_Openjoint[2].x * (-1), m_ArmRight_Openjoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
+        }
         m_Quard -> SetPosXY(static_cast<int>(Part::ArmRight_Open), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::ArmRight_Open), degree, sind, cosd);
         m_Joint.ArmRight_Open.BadyFront         = m_Quard -> Vec2Rotation(pos, m_ArmRight_Openjoint[0], sind, cosd);
@@ -88,11 +149,26 @@ namespace kenny
         -24.0f, -68.0f      //HandLeft_Rock
     };
 
-    void KennyJoint::SetArmLeft_Bend(spat::Vec2 point, float degree)
+    void KennyJoint::SetArmLeft_Bend(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_ArmLeft_Bendjoint[0].x * (-1), m_ArmLeft_Bendjoint[0].y * (-1)}, sind, cosd);
+        spat::Vec2 pos;
+        switch (rx)
+        {
+        case static_cast<int>(Part::BadyFront):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmLeft_Bendjoint[0].x * (-1), m_ArmLeft_Bendjoint[0].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandLeft_Paper):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmLeft_Bendjoint[1].x * (-1), m_ArmLeft_Bendjoint[1].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandLeft_Rock):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmLeft_Bendjoint[2].x * (-1), m_ArmLeft_Bendjoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
+        }
         m_Quard -> SetPosXY(static_cast<int>(Part::ArmLeft_Bend), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::ArmLeft_Bend), degree, sind, cosd);
         m_Joint.ArmLeft_Bend.BadyFront      = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Bendjoint[0], sind, cosd);
@@ -107,11 +183,26 @@ namespace kenny
         24.0f, -66.0f      //HandRight_Rock
     };
 
-    void KennyJoint::SetArmRight_Bend(spat::Vec2 point, float degree)
+    void KennyJoint::SetArmRight_Bend(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_ArmRight_Bendjoint[0].x * (-1), m_ArmRight_Bendjoint[0].y * (-1)}, sind, cosd);
+        spat::Vec2 pos;
+        switch (rx)
+        {
+        case static_cast<int>(Part::BadyFront):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmRight_Bendjoint[0].x * (-1), m_ArmRight_Bendjoint[0].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandRight_Paper):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmRight_Bendjoint[1].x * (-1), m_ArmRight_Bendjoint[1].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandRight_Rock):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmRight_Bendjoint[2].x * (-1), m_ArmRight_Bendjoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
+        }
         m_Quard -> SetPosXY(static_cast<int>(Part::ArmRight_Bend), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::ArmRight_Bend), degree, sind, cosd);
         m_Joint.ArmRight_Bend.BadyFront         = m_Quard -> Vec2Rotation(pos, m_ArmRight_Bendjoint[0], sind, cosd);
@@ -126,12 +217,27 @@ namespace kenny
         16.0f, -115.0f      //HandLeft_Rock
     };
 
-    void KennyJoint::SetArmFrontLeft_Basic(spat::Vec2 point, float degree)
+    void KennyJoint::SetArmFrontLeft_Basic(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_ArmFrontLeft_Basicjoint[0].x * (-1), m_ArmFrontLeft_Basicjoint[0].y * (-1)}, sind, cosd);
-        m_Quard -> SetPosXY(static_cast<int>(Part::ArmFrontLeft_Basic), point.x, point.y);
+        spat::Vec2 pos;
+        switch (rx)
+        {
+        case static_cast<int>(Part::BadyFront):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmFrontLeft_Basicjoint[0].x * (-1), m_ArmFrontLeft_Basicjoint[0].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandLeft_Paper):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmFrontLeft_Basicjoint[1].x * (-1), m_ArmFrontLeft_Basicjoint[1].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandLeft_Rock):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmFrontLeft_Basicjoint[2].x * (-1), m_ArmFrontLeft_Basicjoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
+        }
+        m_Quard -> SetPosXY(static_cast<int>(Part::ArmFrontLeft_Basic), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::ArmFrontLeft_Basic), degree, sind, cosd);
         m_Joint.ArmFrontLeft_Basic.BadyFront        = m_Quard -> Vec2Rotation(pos, m_ArmFrontLeft_Basicjoint[0], sind, cosd);
         m_Joint.ArmFrontLeft_Basic.HandLeft_Paper   = m_Quard -> Vec2Rotation(pos, m_ArmFrontLeft_Basicjoint[1], sind, cosd);
@@ -145,12 +251,27 @@ namespace kenny
         -21.0f, -107.0f      //HandRight_Rock
     };
 
-    void KennyJoint::SetArmFrontRight_Basic(spat::Vec2 point, float degree)
+    void KennyJoint::SetArmFrontRight_Basic(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
-        spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_ArmFrontRight_Basicjoint[0].x * (-1), m_ArmFrontRight_Basicjoint[0].y * (-1)}, sind, cosd);
-        m_Quard -> SetPosXY(static_cast<int>(Part::ArmFrontRight_Basic), point.x, point.y);
+        spat::Vec2 pos;
+        switch (rx)
+        {
+        case static_cast<int>(Part::BadyFront):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmFrontRight_Basicjoint[0].x * (-1), m_ArmFrontRight_Basicjoint[0].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandRight_Paper):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmFrontRight_Basicjoint[1].x * (-1), m_ArmFrontRight_Basicjoint[1].y * (-1)}, sind, cosd);
+            break;
+        case static_cast<int>(Part::HandRight_Rock):
+            pos = m_Quard -> Vec2Rotation(point, {m_ArmFrontRight_Basicjoint[2].x * (-1), m_ArmFrontRight_Basicjoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
+        }
+        m_Quard -> SetPosXY(static_cast<int>(Part::ArmFrontRight_Basic), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::ArmFrontRight_Basic), degree, sind, cosd);
         m_Joint.ArmFrontRight_Basic.BadyFront       = m_Quard -> Vec2Rotation(pos, m_ArmFrontRight_Basicjoint[0], sind, cosd);
         m_Joint.ArmFrontRight_Basic.HandRight_Paper = m_Quard -> Vec2Rotation(pos, m_ArmFrontRight_Basicjoint[1], sind, cosd);
@@ -159,7 +280,7 @@ namespace kenny
     }
 
     const spat::Vec2 m_Facejoint[] = {
-          0.0f, -70.0f,     //BadyFront
+          0.0f, -150.0f,     //BadyFront
           0.0f,   9.0f,     //EyesFront_Open
           0.0f,   0.0f,     //HatFront
         -89.0f, 116.0f,     //EyebrowLeft
@@ -226,22 +347,25 @@ namespace kenny
         -20.0f, -5.0f      //ArmFrontLeft_Basic
     };
 
-    void KennyJoint::SetHandLeft_Paper(spat::Vec2 point, float degree)
+    void KennyJoint::SetHandLeft_Paper(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
         spat::Vec2 pos;
-        if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
+        switch (rx)
         {
+        case static_cast<int>(Part::ArmLeft_Open):
             pos = m_Quard -> Vec2Rotation(point, {m_HandLeft_PaperJoint[0].x * (-1), m_HandLeft_PaperJoint[0].y * (-1)}, sind, cosd);
-        }
-        else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Bend))
-        {
+            break;
+        case static_cast<int>(Part::ArmLeft_Bend):
             pos = m_Quard -> Vec2Rotation(point, {m_HandLeft_PaperJoint[1].x * (-1), m_HandLeft_PaperJoint[1].y * (-1)}, sind, cosd);
-        }
-        else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmFrontLeft_Basic))
-        {
+            break;
+        case static_cast<int>(Part::ArmFrontLeft_Basic):
             pos = m_Quard -> Vec2Rotation(point, {m_HandLeft_PaperJoint[2].x * (-1), m_HandLeft_PaperJoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
         }
         m_Quard -> SetPosXY(static_cast<int>(Part::HandLeft_Paper), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::HandLeft_Paper), degree, sind, cosd);
@@ -257,22 +381,25 @@ namespace kenny
         20.0f, -5.0f      //ArmFrontRight_Basic
     };
 
-    void KennyJoint::SetHandRight_Paper(spat::Vec2 point, float degree)
+    void KennyJoint::SetHandRight_Paper(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
         spat::Vec2 pos;
-        if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Open))
+        switch (rx)
         {
+        case static_cast<int>(Part::ArmRight_Open):
             pos = m_Quard -> Vec2Rotation(point, {m_HandRight_PaperJoint[0].x * (-1), m_HandRight_PaperJoint[0].y * (-1)}, sind, cosd);
-        }
-        else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Bend))
-        {
+            break;
+        case static_cast<int>(Part::ArmRight_Bend):
             pos = m_Quard -> Vec2Rotation(point, {m_HandRight_PaperJoint[1].x * (-1), m_HandRight_PaperJoint[1].y * (-1)}, sind, cosd);
-        }
-        else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmFrontRight_Basic))
-        {
+            break;
+        case static_cast<int>(Part::ArmFrontRight_Basic):
             pos = m_Quard -> Vec2Rotation(point, {m_HandRight_PaperJoint[2].x * (-1), m_HandRight_PaperJoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
         }
         m_Quard -> SetPosXY(static_cast<int>(Part::HandRight_Paper), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::HandRight_Paper), degree, sind, cosd);
@@ -288,22 +415,25 @@ namespace kenny
         0.0f, 0.0f      //ArmFrontLeft_Basic
     };
 
-    void KennyJoint::SetHandLeft_Rock(spat::Vec2 point, float degree)
+    void KennyJoint::SetHandLeft_Rock(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
         spat::Vec2 pos;
-        if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
+        switch (rx)
         {
+        case static_cast<int>(Part::ArmLeft_Open):
             pos = m_Quard -> Vec2Rotation(point, {m_HandLeft_RockJoint[0].x * (-1), m_HandLeft_RockJoint[0].y * (-1)}, sind, cosd);
-        }
-        else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Bend))
-        {
+            break;
+        case static_cast<int>(Part::ArmLeft_Bend):
             pos = m_Quard -> Vec2Rotation(point, {m_HandLeft_RockJoint[1].x * (-1), m_HandLeft_RockJoint[1].y * (-1)}, sind, cosd);
-        }
-        else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmFrontLeft_Basic))
-        {
+            break;
+        case static_cast<int>(Part::ArmFrontLeft_Basic):
             pos = m_Quard -> Vec2Rotation(point, {m_HandLeft_RockJoint[2].x * (-1), m_HandLeft_RockJoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
         }
         m_Quard -> SetPosXY(static_cast<int>(Part::HandLeft_Rock), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::HandLeft_Rock), degree, sind, cosd);
@@ -316,25 +446,28 @@ namespace kenny
     const spat::Vec2 m_HandRight_RockJoint[] = {
         0.0f, 0.0f,     //ArmRight_Open    
         0.0f, 0.0f,     //ArmRight_Bend
-        0.0f, 0.0f      //ArmFront Right_Basic
+        0.0f, 0.0f      //ArmFrontRight_Basic
     };
 
-    void KennyJoint::SetHandRight_Rock(spat::Vec2 point, float degree)
+    void KennyJoint::SetHandRight_Rock(spat::Vec2 point, float degree, int rx)
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
         spat::Vec2 pos;
-        if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Open))
+        switch (rx)
         {
+        case static_cast<int>(Part::ArmRight_Open):
             pos = m_Quard -> Vec2Rotation(point, {m_HandRight_RockJoint[0].x * (-1), m_HandRight_RockJoint[0].y * (-1)}, sind, cosd);
-        }
-        else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Bend))
-        {
+            break;
+        case static_cast<int>(Part::ArmRight_Bend):
             pos = m_Quard -> Vec2Rotation(point, {m_HandRight_RockJoint[1].x * (-1), m_HandRight_RockJoint[1].y * (-1)}, sind, cosd);
-        }
-        else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmFrontRight_Basic))
-        {
+            break;
+        case static_cast<int>(Part::ArmFrontRight_Basic):
             pos = m_Quard -> Vec2Rotation(point, {m_HandRight_RockJoint[2].x * (-1), m_HandRight_RockJoint[2].y * (-1)}, sind, cosd);
+            break;
+        default:
+            pos = point;
+            break;
         }
         m_Quard -> SetPosXY(static_cast<int>(Part::HandRight_Rock), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::HandRight_Rock), degree, sind, cosd);

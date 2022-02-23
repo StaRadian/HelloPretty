@@ -53,5 +53,6 @@ namespace box
         void OnUpdate() override;
         void OnRender() override;
         void OnImGuiRender() override;
+        void MouseCheck();
     };
 }

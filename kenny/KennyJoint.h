@@ -12,7 +12,7 @@ namespace kenny
         spat::Vec2 BadyFront;
         float degree;
     };
-    struct BodyFrontJoint
+    struct BadyFrontJoint
     {
         spat::Vec2 PantFront;
         spat::Vec2 ArmLeft_Open;       
@@ -135,7 +135,7 @@ namespace kenny
     struct Joint
     {
         PantFrontJoint PantFront;
-        BodyFrontJoint BodyFront;
+        BadyFrontJoint BadyFront;
         ArmLeft_OpenJoint ArmLeft_Open;
         ArmRight_OpenJoint ArmRight_Open;
         ArmLeft_BendJoint ArmLeft_Bend;
@@ -165,22 +165,22 @@ namespace kenny
 
         }
         void SetPantFront(spat::Vec2 point, float degree);
-        void SetBadyFront(spat::Vec2 point, float degree);
-        void SetArmLeft_Open(spat::Vec2 point, float degree);
-        void SetArmRight_Open(spat::Vec2 point, float degree);
-        void SetArmLeft_Bend(spat::Vec2 point, float degree);
-        void SetArmRight_Bend(spat::Vec2 point, float degree);
-        void SetArmFrontLeft_Basic(spat::Vec2 point, float degree);
-        void SetArmFrontRight_Basic(spat::Vec2 point, float degree);
+        void SetBadyFront(spat::Vec2 point, float degree, int rx);
+        void SetArmLeft_Open(spat::Vec2 point, float degree, int rx);
+        void SetArmRight_Open(spat::Vec2 point, float degree, int rx);
+        void SetArmLeft_Bend(spat::Vec2 point, float degree, int rx);
+        void SetArmRight_Bend(spat::Vec2 point, float degree, int rx);
+        void SetArmFrontLeft_Basic(spat::Vec2 point, float degree, int rx);
+        void SetArmFrontRight_Basic(spat::Vec2 point, float degree, int rx);
         void SetFace(spat::Vec2 point, float degree);
         void SetEyesFront_Open(spat::Vec2 point, float degree);
         void SetEyeballLeft(spat::Vec2 point);
         void SetEyeballRight(spat::Vec2 point);
         void SetHatFront(spat::Vec2 point, float degree);
-        void SetHandLeft_Paper(spat::Vec2 point, float degree);
-        void SetHandRight_Paper(spat::Vec2 point, float degree);
-        void SetHandLeft_Rock(spat::Vec2 point, float degree);
-        void SetHandRight_Rock(spat::Vec2 point, float degree);
+        void SetHandLeft_Paper(spat::Vec2 point, float degree, int rx);
+        void SetHandRight_Paper(spat::Vec2 point, float degree, int rx);
+        void SetHandLeft_Rock(spat::Vec2 point, float degree, int rx);
+        void SetHandRight_Rock(spat::Vec2 point, float degree, int rx);
         void SetEyebrowLeft(spat::Vec2 point, float degree);
         void SetEyebrowRight(spat::Vec2 point, float degree);
         

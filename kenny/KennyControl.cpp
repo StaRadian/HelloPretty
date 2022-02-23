@@ -7,97 +7,104 @@ namespace kenny
     void KennyControl::PantFrontMain(spat::Vec2 point, float degree)
     {
         SetPantFront(point, degree);
-        SetBadyFront(m_Joint.PantFront.BadyFront, degree);
+        SetBadyFront(m_Joint.PantFront.BadyFront, degree, static_cast<int>(Part::PantFront));
         if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
         {
-            SetArmLeft_Open(m_Joint.BodyFront.ArmLeft_Open, degree );
+            SetArmLeft_Open(m_Joint.BadyFront.ArmLeft_Open, degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
             {
-                SetHandLeft_Paper(m_Joint.ArmLeft_Open.HandLeft_Paper, degree );
+                SetHandLeft_Paper(m_Joint.ArmLeft_Open.HandLeft_Paper, degree, static_cast<int>(Part::ArmLeft_Open));
             }
             else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
             {
-                SetHandLeft_Rock(m_Joint.ArmLeft_Open.HandLeft_Rock, degree );
+                SetHandLeft_Rock(m_Joint.ArmLeft_Open.HandLeft_Rock, degree, static_cast<int>(Part::ArmLeft_Open));
             }
         }
         else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Bend))
         {
-            SetArmLeft_Bend(m_Joint.BodyFront.ArmLeft_Bend, degree);
+            SetArmLeft_Bend(m_Joint.BadyFront.ArmLeft_Bend, degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
             {
-                SetHandLeft_Paper(m_Joint.ArmLeft_Bend.HandLeft_Paper, degree );
+                SetHandLeft_Paper(m_Joint.ArmLeft_Bend.HandLeft_Paper, degree, static_cast<int>(Part::ArmLeft_Bend));
             }
             else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
             {
-                SetHandLeft_Rock(m_Joint.ArmLeft_Bend.HandLeft_Rock, degree );
+                SetHandLeft_Rock(m_Joint.ArmLeft_Bend.HandLeft_Rock, degree, static_cast<int>(Part::ArmLeft_Bend));
             }
         }
         else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmFrontLeft_Basic))
         {
-            SetArmFrontLeft_Basic(m_Joint.BodyFront.ArmFrontLeft_Basic, degree);
+            SetArmFrontLeft_Basic(m_Joint.BadyFront.ArmFrontLeft_Basic, degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
             {
-                SetHandLeft_Paper(m_Joint.ArmFrontLeft_Basic.HandLeft_Paper, degree );
+                SetHandLeft_Paper(m_Joint.ArmFrontLeft_Basic.HandLeft_Paper, degree, static_cast<int>(Part::ArmFrontLeft_Basic));
             }
             else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
             {
-                SetHandLeft_Rock(m_Joint.ArmFrontLeft_Basic.HandLeft_Rock, degree );
+                SetHandLeft_Rock(m_Joint.ArmFrontLeft_Basic.HandLeft_Rock, degree, static_cast<int>(Part::ArmFrontLeft_Basic));
             }
         }
         if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Open))
         {
-            SetArmRight_Open(m_Joint.BodyFront.ArmRight_Open, degree );
+            SetArmRight_Open(m_Joint.BadyFront.ArmRight_Open, degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
             {
-                SetHandRight_Paper(m_Joint.ArmRight_Open.HandRight_Paper, degree );
+                SetHandRight_Paper(m_Joint.ArmRight_Open.HandRight_Paper, degree, static_cast<int>(Part::ArmRight_Open));
             }
             else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
             {
-                SetHandRight_Rock(m_Joint.ArmRight_Open.HandRight_Rock, degree );
+                SetHandRight_Rock(m_Joint.ArmRight_Open.HandRight_Rock, degree, static_cast<int>(Part::ArmRight_Open));
             }
         }
         else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Bend))
         {
-            SetArmRight_Bend(m_Joint.BodyFront.ArmRight_Bend, degree);
+            SetArmRight_Bend(m_Joint.BadyFront.ArmRight_Bend, degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
             {
-                SetHandRight_Paper(m_Joint.ArmRight_Bend.HandRight_Paper, degree );
+                SetHandRight_Paper(m_Joint.ArmRight_Bend.HandRight_Paper, degree, static_cast<int>(Part::ArmRight_Bend));
             }
             else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
             {
-                SetHandRight_Rock(m_Joint.ArmRight_Bend.HandRight_Rock, degree );
+                SetHandRight_Rock(m_Joint.ArmRight_Bend.HandRight_Rock, degree, static_cast<int>(Part::ArmRight_Bend));
             }
         }
         else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmFrontRight_Basic))
         {
-            SetArmFrontRight_Basic(m_Joint.BodyFront.ArmFrontRight_Basic, degree);
+            SetArmFrontRight_Basic(m_Joint.BadyFront.ArmFrontRight_Basic, degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
             {
-                SetHandRight_Paper(m_Joint.ArmFrontRight_Basic.HandRight_Paper, degree );
+                SetHandRight_Paper(m_Joint.ArmFrontRight_Basic.HandRight_Paper, degree, static_cast<int>(Part::ArmFrontRight_Basic));
             }
             else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
             {
-                SetHandRight_Rock(m_Joint.ArmFrontRight_Basic.HandRight_Rock, degree );
+                SetHandRight_Rock(m_Joint.ArmFrontRight_Basic.HandRight_Rock, degree, static_cast<int>(Part::ArmFrontRight_Basic));
             }
         }
-        // SetFace(m_Joint.BodyFront.Face, degree);
+        // SetFace(m_Joint.BadyFront.Face, degree);
         // SetEyesFront_Open(m_Joint.Face.EyesFront_Open, degree);
         // SetHatFront(m_Joint.Face.HatFront, degree);
         m_Quard -> DeleteSize(static_cast<int>(Part::HatFront));
         if(m_CurrentStyle.eyebrow == true)
         {
-            SetEyebrowLeft(m_Joint.Face.EyebrowLeft, degree);
-            SetEyebrowRight(m_Joint.Face.EyebrowRight, degree);
+            SetEyebrowLeft(m_Joint.Face.EyebrowLeft, m_Joint.Face.degree);
+            SetEyebrowRight(m_Joint.Face.EyebrowRight, m_Joint.Face.degree);
         }
     }
 
-    void KennyControl::NeckControl(float bow_angle, float RL_angle)
+    void KennyControl::BadyNeckControl(float& bow_angle, float& RL_angle)
     {
         const float neck = 100.0;
         float neck_height;
-        float sind = SIN(m_Joint.BodyFront.degree);
-        float cosd = COS(m_Joint.BodyFront.degree);
+        float sind = SIN(m_Joint.BadyFront.degree);
+        float cosd = COS(m_Joint.BadyFront.degree);
         spat::Vec2 trail;
+
+        if(bow_angle > PI / 3.0f && bow_angle < (PI * 2.0f) / 3.0f)
+        {
+            if(RL_angle > (bow_angle - PI / 3.0f) * 3.0f / 8.0f) RL_angle = (bow_angle - PI / 3.0f) * 3.0f / 8.0f;
+            else if(RL_angle < (bow_angle - PI / 3.0f) * -3.0f / 8.0f) RL_angle = (bow_angle - PI / 3.0f) * -3.0f / 8.0f;
+        }
+        
 
         if(bow_angle == 0)
             neck_height = neck;
@@ -115,12 +122,49 @@ namespace kenny
             trail.y = (neck_height / RL_angle) * SIN(RL_angle);
         }
         trail = m_Quard -> Vec2Rotation({0, 0}, {trail.x, trail.y}, sind, cosd);
-        trail.x += m_Joint.BodyFront.Face.x;
-        trail.y += m_Joint.BodyFront.Face.y;
+        trail.x += m_Joint.BadyFront.Face.x;
+        trail.y += m_Joint.BadyFront.Face.y;
 
-        SetFace(trail, RL_angle * (-1) + m_Joint.BodyFront.degree);
+        SetFace(trail, RL_angle * (-1) + m_Joint.BadyFront.degree);
         SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
-        //SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
+        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
+    }
+
+    void KennyControl::FaceNeckControl(float& bow_angle, float& RL_angle)
+    {
+        const float neck = -100.0;
+        float neck_height;
+        float sind = SIN(m_Joint.Face.degree);
+        float cosd = COS(m_Joint.Face.degree);
+        spat::Vec2 trail;
+
+        if(bow_angle > PI / 3.0f && bow_angle < (PI * 2.0f) / 3.0f)
+        {
+            if(RL_angle > (bow_angle - PI / 3.0f) * 3.0f / 8.0f) RL_angle = (bow_angle - PI / 3.0f) * 3.0f / 8.0f;
+            else if(RL_angle < (bow_angle - PI / 3.0f) * -3.0f / 8.0f) RL_angle = (bow_angle - PI / 3.0f) * -3.0f / 8.0f;
+        }
+        
+
+        if(bow_angle == 0)
+            neck_height = neck;
+        else
+            neck_height = neck * SIN(bow_angle) / bow_angle;
+
+        if(RL_angle == 0)
+        {
+            trail.x = 0;
+            trail.y = neck_height;
+        }
+        else
+        {
+            trail.x = (neck_height / RL_angle) * (1.0 - COS(RL_angle));
+            trail.y = (neck_height / RL_angle) * SIN(RL_angle);
+        }
+        trail = m_Quard -> Vec2Rotation({0, 0}, {trail.x, trail.y}, sind, cosd);
+        trail.x += m_Joint.Face.BadyFront.x;
+        trail.y += m_Joint.Face.BadyFront.y;
+
+        SetBadyFront(trail, RL_angle * (-1) + m_Joint.Face.degree, static_cast<int>(Part::Face));
     }
     
     void KennyControl::EyeballsControl(spat::Vec2 target, const float distance, const int mode)
@@ -145,38 +189,49 @@ namespace kenny
             float sizeR = ballsize * SIN(atan2(lengthR, distance));
 
             //후드 필터
-            if(degreeL < 1.8f && degreeL > -1.3f)
+            float degreeLhood =  degreeL - m_Joint.EyesFront_Open.degree;
+            float degreeRhood =  degreeR - m_Joint.EyesFront_Open.degree;
+            for(;degreeLhood > PI;)
             {
-                float hoodvaltop = (32.0f / (1.8f * 1.8f)) * degreeL * degreeL;
-                float hoodvalbottom = (32.0f / (1.3f * 1.3f)) * degreeL * degreeL;
-                if(degreeL > 0.0f)
-                {
-                    if(sizeL > 33.0f + hoodvaltop) sizeL = 33.0f + hoodvaltop;
-                }
-                else
-                {
-                    if(sizeL > 33.0f + hoodvalbottom) sizeL = 33.0f + hoodvalbottom;
-                }
+                degreeLhood -= PI * 2.0;
             }
-            if(degreeR > PI - 1.8f || degreeR < 1.3f - PI)
+            for(;degreeLhood < PI * (-1);)
             {
-                float hoodvaltop = (32.0f / ((PI - 1.8) * (PI - 1.8))) * degreeR * degreeR;
-                float hoodvalbottom = (32.0f / ((1.3 - PI) * (1.3 - PI))) * degreeR * degreeR;
-                if(degreeR > 0.0f)
-                {
-                    if(sizeR > 33.0f + hoodvaltop) sizeR = 33.0f + hoodvaltop;
-                }
-                else
-                {
-                    if(sizeR > 33.0f + hoodvalbottom) sizeR = 33.0f + hoodvalbottom;
-                }
-                LOG(hoodvaltop << ", " << hoodvalbottom);
+                degreeLhood += PI * 2.0;
+            }
+            for(;degreeRhood > PI;)
+            {
+                degreeRhood -= PI * 2.0;
+            }
+            for(;degreeRhood < PI * (-1);)
+            {
+                degreeRhood += PI * 2.0;
+            }
+            if(degreeLhood < 1.8f && degreeLhood > 0.0f)
+            {
+                float hoodvaltop = (32.0f / (1.8f * 1.8f)) * degreeLhood * degreeLhood;
+                if(sizeL > 33.0f + hoodvaltop) sizeL = 33.0f + hoodvaltop;
+            }
+            else if(degreeLhood < 0.0f && degreeLhood > -1.3f)
+            {
+                float hoodvalbottom = (32.0f / (1.3f * 1.3f)) * degreeLhood * degreeLhood;
+                if(sizeL > 33.0f + hoodvalbottom) sizeL = 33.0f + hoodvalbottom;
+            }
+            float topDegreeR = PI - degreeRhood;
+            float bottomDegreeR = PI * (-1) - degreeRhood;
+            if(topDegreeR > 0.0f && topDegreeR < 1.8f)
+            {
+                float hoodvaltop = (32.0f / (1.8f * 1.8f)) * topDegreeR * topDegreeR;
+                if(sizeR > 33.0f + hoodvaltop) sizeR = 33.0f + hoodvaltop;
+            }
+            else if(bottomDegreeR > -1.3f && bottomDegreeR < 0.0f)
+            {
+                float hoodvalbottom = (32.0f / (1.3f * 1.3f)) * bottomDegreeR * bottomDegreeR;
+                if(sizeR > 33.0f + hoodvalbottom) sizeR = 33.0f + hoodvalbottom;
             }
 
             if(sizeL > 65.0f) sizeL = 65.0f;
             if(sizeR > 65.0f) sizeR = 65.0f;
-
-            // LOG(sizeL << ", " <<sizeR << ", " << degreeL << ", " << degreeR);
             
             trailL.x = sizeL * COS(degreeL);
             trailL.y = sizeL * SIN(degreeL);
