@@ -15,6 +15,10 @@ namespace kenny
         m_Quard -> SetDegree(static_cast<int>(Part::PantFront), degree, sind, cosd);
         m_Joint.PantFront.BadyFront = m_Quard -> Vec2Rotation(pos, m_PantFrontjoint[0], sind, cosd);
         m_Joint.PantFront.degree = degree;
+        m_Joint.PantFront.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::PantFront)].size.x / 2.0f;
+        m_Joint.PantFront.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::PantFront)].size.y / 2.0f;
+        m_Joint.PantFront.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::PantFront)].size.x / 2.0f;
+        m_Joint.PantFront.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::PantFront)].size.y / 2.0f;
     }
     
     const spat::Vec2 m_BadyFrontjoint[] = {
@@ -74,6 +78,10 @@ namespace kenny
         m_Joint.BadyFront.ArmFrontRight_Basic = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[6], sind, cosd);
         m_Joint.BadyFront.Face = m_Quard -> Vec2Rotation(pos, m_BadyFrontjoint[7], sind, cosd);
         m_Joint.BadyFront.degree = degree;
+        m_Joint.BadyFront.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::BadyFront)].size.x / 2.0f;
+        m_Joint.BadyFront.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::BadyFront)].size.y / 2.0f;
+        m_Joint.BadyFront.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::BadyFront)].size.x / 2.0f;
+        m_Joint.BadyFront.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::BadyFront)].size.y / 2.0f;
     }
     const spat::Vec2 m_ArmLeft_Openjoint[] = {
         -65.0f,  18.0f,     //BadyFront
@@ -107,6 +115,10 @@ namespace kenny
         m_Joint.ArmLeft_Open.HandLeft_Paper    = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Openjoint[1], sind, cosd);
         m_Joint.ArmLeft_Open.HandLeft_Rock     = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Openjoint[2], sind, cosd);
         m_Joint.ArmLeft_Open.degree = degree;
+        m_Joint.ArmLeft_Open.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::ArmLeft_Open)].size.x / 2.0f;
+        m_Joint.ArmLeft_Open.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::ArmLeft_Open)].size.y / 2.0f;
+        m_Joint.ArmLeft_Open.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::ArmLeft_Open)].size.x / 2.0f;
+        m_Joint.ArmLeft_Open.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::ArmLeft_Open)].size.y / 2.0f;
     }
 
     const spat::Vec2 m_ArmRight_Openjoint[] = {
@@ -141,6 +153,10 @@ namespace kenny
         m_Joint.ArmRight_Open.HandRight_Paper   = m_Quard -> Vec2Rotation(pos, m_ArmRight_Openjoint[1], sind, cosd);
         m_Joint.ArmRight_Open.HandRight_Rock    = m_Quard -> Vec2Rotation(pos, m_ArmRight_Openjoint[2], sind, cosd);
         m_Joint.ArmRight_Open.degree = degree;
+        m_Joint.ArmRight_Open.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::ArmRight_Open)].size.x / 2.0f;
+        m_Joint.ArmRight_Open.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::ArmRight_Open)].size.y / 2.0f;
+        m_Joint.ArmRight_Open.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::ArmRight_Open)].size.x / 2.0f;
+        m_Joint.ArmRight_Open.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::ArmRight_Open)].size.y / 2.0f;
     }
 
     const spat::Vec2 m_ArmLeft_Bendjoint[] = {
@@ -175,6 +191,10 @@ namespace kenny
         m_Joint.ArmLeft_Bend.HandLeft_Paper = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Bendjoint[1], sind, cosd);
         m_Joint.ArmLeft_Bend.HandLeft_Rock  = m_Quard -> Vec2Rotation(pos, m_ArmLeft_Bendjoint[2], sind, cosd);
         m_Joint.ArmLeft_Bend.degree = degree;
+        m_Joint.ArmLeft_Bend.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::ArmLeft_Bend)].size.x / 2.0f;
+        m_Joint.ArmLeft_Bend.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::ArmLeft_Bend)].size.y / 2.0f;
+        m_Joint.ArmLeft_Bend.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::ArmLeft_Bend)].size.x / 2.0f;
+        m_Joint.ArmLeft_Bend.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::ArmLeft_Bend)].size.y / 2.0f;
     }
 
     const spat::Vec2 m_ArmRight_Bendjoint[] = {
@@ -209,6 +229,10 @@ namespace kenny
         m_Joint.ArmRight_Bend.HandRight_Paper   = m_Quard -> Vec2Rotation(pos, m_ArmRight_Bendjoint[1], sind, cosd);
         m_Joint.ArmRight_Bend.HandRight_Rock    = m_Quard -> Vec2Rotation(pos, m_ArmRight_Bendjoint[2], sind, cosd);
         m_Joint.ArmRight_Bend.degree = degree;
+        m_Joint.ArmRight_Bend.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::ArmRight_Bend)].size.x / 2.0f;
+        m_Joint.ArmRight_Bend.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::ArmRight_Bend)].size.y / 2.0f;
+        m_Joint.ArmRight_Bend.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::ArmRight_Bend)].size.x / 2.0f;
+        m_Joint.ArmRight_Bend.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::ArmRight_Bend)].size.y / 2.0f;
     }
 
     const spat::Vec2 m_ArmFrontLeft_Basicjoint[] = {
@@ -243,6 +267,10 @@ namespace kenny
         m_Joint.ArmFrontLeft_Basic.HandLeft_Paper   = m_Quard -> Vec2Rotation(pos, m_ArmFrontLeft_Basicjoint[1], sind, cosd);
         m_Joint.ArmFrontLeft_Basic.HandLeft_Rock    = m_Quard -> Vec2Rotation(pos, m_ArmFrontLeft_Basicjoint[2], sind, cosd);
         m_Joint.ArmFrontLeft_Basic.degree = degree;
+        m_Joint.ArmFrontLeft_Basic.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::ArmFrontLeft_Basic)].size.x / 2.0f;
+        m_Joint.ArmFrontLeft_Basic.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::ArmFrontLeft_Basic)].size.y / 2.0f;
+        m_Joint.ArmFrontLeft_Basic.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::ArmFrontLeft_Basic)].size.x / 2.0f;
+        m_Joint.ArmFrontLeft_Basic.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::ArmFrontLeft_Basic)].size.y / 2.0f;
     }
 
     const spat::Vec2 m_ArmFrontRight_Basicjoint[] = {
@@ -277,6 +305,10 @@ namespace kenny
         m_Joint.ArmFrontRight_Basic.HandRight_Paper = m_Quard -> Vec2Rotation(pos, m_ArmFrontRight_Basicjoint[1], sind, cosd);
         m_Joint.ArmFrontRight_Basic.HandRight_Rock  = m_Quard -> Vec2Rotation(pos, m_ArmFrontRight_Basicjoint[2], sind, cosd);
         m_Joint.ArmFrontRight_Basic.degree = degree;
+        m_Joint.ArmFrontRight_Basic.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::ArmFrontRight_Basic)].size.x / 2.0f;
+        m_Joint.ArmFrontRight_Basic.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::ArmFrontRight_Basic)].size.y / 2.0f;
+        m_Joint.ArmFrontRight_Basic.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::ArmFrontRight_Basic)].size.x / 2.0f;
+        m_Joint.ArmFrontRight_Basic.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::ArmFrontRight_Basic)].size.y / 2.0f;
     }
 
     const spat::Vec2 m_Facejoint[] = {
@@ -300,9 +332,16 @@ namespace kenny
         m_Joint.Face.EyebrowLeft    = m_Quard -> Vec2Rotation(pos, m_Facejoint[3], sind, cosd);    
         m_Joint.Face.EyebrowRight   = m_Quard -> Vec2Rotation(pos, m_Facejoint[4], sind, cosd);    
         m_Joint.Face.degree = degree;
+        m_Joint.Face.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::Face)].size.x / 2.0f;
+        m_Joint.Face.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::Face)].size.y / 2.0f;
+        m_Joint.Face.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::Face)].size.x / 2.0f;
+        m_Joint.Face.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::Face)].size.y / 2.0f;
     }
+    
+
 
     const spat::Vec2 m_EyesFront_Openjoint[] = {
+        
           0.0f,  0.0f,     //Face
          45.0f,  0.0f,     //EyeballLeft
         -45.0f,  0.0f,     //EyeballRight
@@ -339,6 +378,10 @@ namespace kenny
         m_Quard -> SetPosXY(static_cast<int>(Part::HatFront), point.x, point.y);
         m_Quard -> SetDegree(static_cast<int>(Part::HatFront), degree, sind, cosd);
         m_Joint.HatFront.Face = point;
+        m_Joint.HatFront.RDPos.right   = point.x + g_TexData[static_cast<int>(Part::HatFront)].size.x / 2.0f;
+        m_Joint.HatFront.RDPos.top     = point.y + g_TexData[static_cast<int>(Part::HatFront)].size.y / 2.0f;
+        m_Joint.HatFront.RDPos.left    = point.x - g_TexData[static_cast<int>(Part::HatFront)].size.x / 2.0f;
+        m_Joint.HatFront.RDPos.bottom  = point.y - g_TexData[static_cast<int>(Part::HatFront)].size.y / 2.0f;
     }
 
     const spat::Vec2 m_HandLeft_PaperJoint[] = {
@@ -373,6 +416,10 @@ namespace kenny
         m_Joint.HandLeft_Paper.ArmLeft_Bend          = m_Quard -> Vec2Rotation(pos, m_HandLeft_PaperJoint[1], sind, cosd);
         m_Joint.HandLeft_Paper.ArmFrontLeft_Basic    = m_Quard -> Vec2Rotation(pos, m_HandLeft_PaperJoint[2], sind, cosd);    
         m_Joint.HandLeft_Paper.degree = degree;
+        m_Joint.HandLeft_Paper.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::HandLeft_Paper)].size.x / 2.0f;
+        m_Joint.HandLeft_Paper.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::HandLeft_Paper)].size.y / 2.0f;
+        m_Joint.HandLeft_Paper.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::HandLeft_Paper)].size.x / 2.0f;
+        m_Joint.HandLeft_Paper.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::HandLeft_Paper)].size.y / 2.0f;
     }       
 
     const spat::Vec2 m_HandRight_PaperJoint[] = {
@@ -407,6 +454,10 @@ namespace kenny
         m_Joint.HandRight_Paper.ArmRight_Bend          = m_Quard -> Vec2Rotation(pos, m_HandRight_PaperJoint[1], sind, cosd);
         m_Joint.HandRight_Paper.ArmFrontRight_Basic    = m_Quard -> Vec2Rotation(pos, m_HandRight_PaperJoint[2], sind, cosd);    
         m_Joint.HandRight_Paper.degree = degree;
+        m_Joint.HandRight_Paper.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::HandRight_Paper)].size.x / 2.0f;
+        m_Joint.HandRight_Paper.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::HandRight_Paper)].size.y / 2.0f;
+        m_Joint.HandRight_Paper.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::HandRight_Paper)].size.x / 2.0f;
+        m_Joint.HandRight_Paper.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::HandRight_Paper)].size.y / 2.0f;
     }
 
     const spat::Vec2 m_HandLeft_RockJoint[] = {
@@ -441,6 +492,10 @@ namespace kenny
         m_Joint.HandLeft_Rock.ArmLeft_Bend          = m_Quard -> Vec2Rotation(pos, m_HandLeft_RockJoint[1], sind, cosd);
         m_Joint.HandLeft_Rock.ArmFrontLeft_Basic    = m_Quard -> Vec2Rotation(pos, m_HandLeft_RockJoint[2], sind, cosd);    
         m_Joint.HandLeft_Rock.degree = degree;
+        m_Joint.HandLeft_Rock.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::HandLeft_Rock)].size.x / 2.0f;
+        m_Joint.HandLeft_Rock.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::HandLeft_Rock)].size.y / 2.0f;
+        m_Joint.HandLeft_Rock.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::HandLeft_Rock)].size.x / 2.0f;
+        m_Joint.HandLeft_Rock.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::HandLeft_Rock)].size.y / 2.0f;
     }       
 
     const spat::Vec2 m_HandRight_RockJoint[] = {
@@ -475,6 +530,10 @@ namespace kenny
         m_Joint.HandRight_Rock.ArmRight_Bend          = m_Quard -> Vec2Rotation(pos, m_HandRight_RockJoint[1], sind, cosd);
         m_Joint.HandRight_Rock.ArmFrontRight_Basic    = m_Quard -> Vec2Rotation(pos, m_HandRight_RockJoint[2], sind, cosd);    
         m_Joint.HandRight_Rock.degree = degree;
+        m_Joint.HandRight_Rock.RDPos.right   = pos.x + g_TexData[static_cast<int>(Part::HandRight_Rock)].size.x / 2.0f;
+        m_Joint.HandRight_Rock.RDPos.top     = pos.y + g_TexData[static_cast<int>(Part::HandRight_Rock)].size.y / 2.0f;
+        m_Joint.HandRight_Rock.RDPos.left    = pos.x - g_TexData[static_cast<int>(Part::HandRight_Rock)].size.x / 2.0f;
+        m_Joint.HandRight_Rock.RDPos.bottom  = pos.y - g_TexData[static_cast<int>(Part::HandRight_Rock)].size.y / 2.0f;
     }       
 
     const spat::Vec2 m_EyebrowLeftJoint[] = {
@@ -505,5 +564,5 @@ namespace kenny
         m_Quard -> SetDegree(static_cast<int>(Part::EyebrowRight), degree, sind, cosd);
         m_Joint.EyebrowRight.Face = m_Quard -> Vec2Rotation(pos, m_EyebrowRightJoint[0], sind, cosd);
         m_Joint.EyebrowRight.degree = degree;
-    }       
+    }
 }
