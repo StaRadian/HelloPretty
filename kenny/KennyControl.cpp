@@ -6,78 +6,78 @@ namespace kenny
 {
     void KennyControl::PantFrontMain(spat::Vec2 point, float degree)
     {
-        SetPantFront(point, degree);
-        SetBadyFront(m_Joint.PantFront.BadyFront, degree, static_cast<int>(Part::PantFront));
+        // SetPantFront(point, degree);
+        //SetBadyFront(m_Joint.PantFront.BadyFront, degree, static_cast<int>(Part::PantFront));
         if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
         {
-            SetArmLeft_Open(m_Joint.BadyFront.ArmLeft_Open, degree, static_cast<int>(Part::BadyFront));
+            SetArmLeft_Open(m_Joint.BadyFront.ArmLeft_Open, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
             {
-                SetHandLeft_Paper(m_Joint.ArmLeft_Open.HandLeft_Paper, degree, static_cast<int>(Part::ArmLeft_Open));
+                SetHandLeft_Paper(m_Joint.ArmLeft_Open.HandLeft_Paper, m_Joint.ArmLeft_Open.degree, static_cast<int>(Part::ArmLeft_Open));
             }
             else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
             {
-                SetHandLeft_Rock(m_Joint.ArmLeft_Open.HandLeft_Rock, degree, static_cast<int>(Part::ArmLeft_Open));
+                SetHandLeft_Rock(m_Joint.ArmLeft_Open.HandLeft_Rock, m_Joint.ArmLeft_Open.degree, static_cast<int>(Part::ArmLeft_Open));
             }
         }
         else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Bend))
         {
-            SetArmLeft_Bend(m_Joint.BadyFront.ArmLeft_Bend, degree, static_cast<int>(Part::BadyFront));
+            SetArmLeft_Bend(m_Joint.BadyFront.ArmLeft_Bend, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
             {
-                SetHandLeft_Paper(m_Joint.ArmLeft_Bend.HandLeft_Paper, degree, static_cast<int>(Part::ArmLeft_Bend));
+                SetHandLeft_Paper(m_Joint.ArmLeft_Bend.HandLeft_Paper, m_Joint.ArmLeft_Bend.degree, static_cast<int>(Part::ArmLeft_Bend));
             }
             else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
             {
-                SetHandLeft_Rock(m_Joint.ArmLeft_Bend.HandLeft_Rock, degree, static_cast<int>(Part::ArmLeft_Bend));
+                SetHandLeft_Rock(m_Joint.ArmLeft_Bend.HandLeft_Rock, m_Joint.ArmLeft_Bend.degree, static_cast<int>(Part::ArmLeft_Bend));
             }
         }
         else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmFrontLeft_Basic))
         {
-            SetArmFrontLeft_Basic(m_Joint.BadyFront.ArmFrontLeft_Basic, degree, static_cast<int>(Part::BadyFront));
+            SetArmFrontLeft_Basic(m_Joint.BadyFront.ArmFrontLeft_Basic, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
             {
-                SetHandLeft_Paper(m_Joint.ArmFrontLeft_Basic.HandLeft_Paper, degree, static_cast<int>(Part::ArmFrontLeft_Basic));
+                SetHandLeft_Paper(m_Joint.ArmFrontLeft_Basic.HandLeft_Paper, m_Joint.ArmFrontLeft_Basic.degree, static_cast<int>(Part::ArmFrontLeft_Basic));
             }
             else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
             {
-                SetHandLeft_Rock(m_Joint.ArmFrontLeft_Basic.HandLeft_Rock, degree, static_cast<int>(Part::ArmFrontLeft_Basic));
+                SetHandLeft_Rock(m_Joint.ArmFrontLeft_Basic.HandLeft_Rock, m_Joint.ArmFrontLeft_Basic.degree, static_cast<int>(Part::ArmFrontLeft_Basic));
             }
         }
         if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Open))
         {
-            SetArmRight_Open(m_Joint.BadyFront.ArmRight_Open, degree, static_cast<int>(Part::BadyFront));
+            SetArmRight_Open(m_Joint.BadyFront.ArmRight_Open, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
             {
-                SetHandRight_Paper(m_Joint.ArmRight_Open.HandRight_Paper, degree, static_cast<int>(Part::ArmRight_Open));
+                SetHandRight_Paper(m_Joint.ArmRight_Open.HandRight_Paper, m_Joint.ArmRight_Open.degree, static_cast<int>(Part::ArmRight_Open));
             }
             else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
             {
-                SetHandRight_Rock(m_Joint.ArmRight_Open.HandRight_Rock, degree, static_cast<int>(Part::ArmRight_Open));
+                SetHandRight_Rock(m_Joint.ArmRight_Open.HandRight_Rock, m_Joint.ArmRight_Open.degree, static_cast<int>(Part::ArmRight_Open));
             }
         }
         else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Bend))
         {
-            SetArmRight_Bend(m_Joint.BadyFront.ArmRight_Bend, degree, static_cast<int>(Part::BadyFront));
+            SetArmRight_Bend(m_Joint.BadyFront.ArmRight_Bend, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
             {
-                SetHandRight_Paper(m_Joint.ArmRight_Bend.HandRight_Paper, degree, static_cast<int>(Part::ArmRight_Bend));
+                SetHandRight_Paper(m_Joint.ArmRight_Bend.HandRight_Paper, m_Joint.ArmRight_Bend.degree, static_cast<int>(Part::ArmRight_Bend));
             }
             else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
             {
-                SetHandRight_Rock(m_Joint.ArmRight_Bend.HandRight_Rock, degree, static_cast<int>(Part::ArmRight_Bend));
+                SetHandRight_Rock(m_Joint.ArmRight_Bend.HandRight_Rock, m_Joint.ArmRight_Bend.degree, static_cast<int>(Part::ArmRight_Bend));
             }
         }
         else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmFrontRight_Basic))
         {
-            SetArmFrontRight_Basic(m_Joint.BadyFront.ArmFrontRight_Basic, degree, static_cast<int>(Part::BadyFront));
+            SetArmFrontRight_Basic(m_Joint.BadyFront.ArmFrontRight_Basic, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
             if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
             {
-                SetHandRight_Paper(m_Joint.ArmFrontRight_Basic.HandRight_Paper, degree, static_cast<int>(Part::ArmFrontRight_Basic));
+                SetHandRight_Paper(m_Joint.ArmFrontRight_Basic.HandRight_Paper, m_Joint.ArmFrontRight_Basic.degree, static_cast<int>(Part::ArmFrontRight_Basic));
             }
             else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
             {
-                SetHandRight_Rock(m_Joint.ArmFrontRight_Basic.HandRight_Rock, degree, static_cast<int>(Part::ArmFrontRight_Basic));
+                SetHandRight_Rock(m_Joint.ArmFrontRight_Basic.HandRight_Rock, m_Joint.ArmFrontRight_Basic.degree, static_cast<int>(Part::ArmFrontRight_Basic));
             }
         }
         // SetFace(m_Joint.BadyFront.Face, degree);
@@ -98,7 +98,6 @@ namespace kenny
         float cosd = COS(degree);
         m_Joint.PantFront.BadyFront = m_Quard -> Vec2Rotation(m_Joint.PantFront.BadyFront, {0, height}, sind, cosd);
         SetBadyFront(m_Joint.PantFront.BadyFront, degree, static_cast<int>(Part::PantFront));
-
     }
 
     void KennyControl::BadyNeckControl(float& bow_angle, float& RL_angle)

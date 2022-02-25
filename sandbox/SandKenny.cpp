@@ -75,6 +75,7 @@ namespace box
         m_val = 0;
         m_height = 0;
         m_rotationspeed = 0;
+        m_degree3 = 0;
         GetDelta();
     }
 
@@ -82,6 +83,8 @@ namespace box
     {
         GetDelta();
         m_FrameBuffer -> Bind();
+        m_Kenny -> SetPantFront({m_x * 2.0f, m_y * 2.0f}, m_degree);
+        m_Kenny -> PantSpineControl(m_height, m_degree3);
         m_Kenny -> PantFrontMain({m_x * 2.0f, m_y * 2.0f}, m_degree);
         // m_Kenny -> SetFace({m_x * 2.0f, m_y * 2.0f}, m_degree);
         // m_Kenny -> SetEyesFront_Open(m_Kenny -> m_Joint.Face.EyesFront_Open, m_Kenny -> m_Joint.Face.degree);
@@ -127,7 +130,8 @@ namespace box
         ImGui::SliderInt("val", &m_val, -4, 4);
         ImGui::SliderFloat("degree1", &m_degree1, PI / 3.0f, PI);
         ImGui::SliderFloat("degree2", &m_degree2, PI / 8.0f * (-1), PI / 8.0f);
-        
+        ImGui::SliderFloat("degree3", &m_degree3, PI / 20.0f * (-1), PI / 20.0f);
+        ImGui::SliderFloat("m_height", &m_height, -25.0, 25.0);
         ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_degree, m_mouse_click, m_state);
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);

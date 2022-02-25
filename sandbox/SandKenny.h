@@ -42,6 +42,7 @@ namespace box
         float m_degree;
         float m_degree1;
         float m_degree2;
+        float m_degree3;
         float m_rotationspeed;
         float m_rotationspeed2;
         float m_distance;
