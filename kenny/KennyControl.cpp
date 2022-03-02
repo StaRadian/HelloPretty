@@ -262,8 +262,6 @@ namespace kenny
 
     void KennyControl::KennySize()
     {
-        RelativeDirectionPos maxPos = m_Joint.PantFront.RDPos;
-        maxPos = m_Joint.PantFront.RDPos;
         if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
         {
         }

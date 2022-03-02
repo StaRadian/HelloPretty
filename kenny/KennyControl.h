@@ -17,5 +17,6 @@ namespace kenny
         void BadyNeckControl(float& bow_angle, float& RL_angle);
         void FaceNeckControl(float& bow_angle, float& RL_angle);
         void EyeballsControl(spat::Vec2 target, const float distance, const int mode);
+        void KennySize();
     };
 }
