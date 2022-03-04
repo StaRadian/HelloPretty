@@ -42,7 +42,6 @@ namespace kenny
     
     struct Style
     {
-        int eyes;
         bool eyebrow;
         DirX arm;
         DirX hand;

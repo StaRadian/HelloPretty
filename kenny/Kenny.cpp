@@ -26,7 +26,6 @@ namespace kenny
         m_Quard -> DeleteSize(static_cast<int>(Part::HandRight_Paper));
 
         ViewEyebrow(false);
-        m_CurrentStyle.eyes = static_cast<int>(Part::EyebrowRight);
         m_CurrentStyle.arm = {static_cast<int>(Part::ArmFrontRight_Basic), static_cast<int>(Part::ArmFrontLeft_Basic)};
         m_CurrentStyle.hand = {static_cast<int>(Part::HandRight_Rock), static_cast<int>(Part::HandLeft_Rock)};
     }
@@ -34,6 +33,52 @@ namespace kenny
     Kenny::~Kenny()
     {
 
+    }
+
+    void Kenny::ViewArm(int shape)
+    {
+        switch (shape)
+        {
+        case static_cast<int>(Part::ArmLeft_Open):
+            m_Quard -> RestoreSize(static_cast<int>(Part::ArmLeft_Open));
+            m_Quard -> DeleteSize(m_CurrentStyle.arm.left);
+            m_CurrentStyle.arm.left = shape;
+            break;
+
+        case static_cast<int>(Part::ArmRight_Open):
+            m_Quard -> RestoreSize(static_cast<int>(Part::ArmRight_Open));
+            m_Quard -> DeleteSize(m_CurrentStyle.arm.right);
+            m_CurrentStyle.arm.right = shape;
+            break;
+
+        case static_cast<int>(Part::ArmLeft_Bend):
+            m_Quard -> RestoreSize(static_cast<int>(Part::ArmLeft_Bend));
+            m_Quard -> DeleteSize(m_CurrentStyle.arm.left);
+            m_CurrentStyle.arm.left = shape;
+            break;
+
+        case static_cast<int>(Part::ArmRight_Bend):
+            m_Quard -> RestoreSize(static_cast<int>(Part::ArmRight_Bend));
+            m_Quard -> DeleteSize(m_CurrentStyle.arm.right);
+            m_CurrentStyle.arm.right = shape;
+            break;
+
+        case static_cast<int>(Part::ArmFrontLeft_Basic):
+            m_Quard -> RestoreSize(static_cast<int>(Part::ArmFrontLeft_Basic));
+            m_Quard -> DeleteSize(m_CurrentStyle.arm.left);
+            m_CurrentStyle.arm.left = shape;
+            break;
+
+        case static_cast<int>(Part::ArmFrontRight_Basic):
+            m_Quard -> RestoreSize(static_cast<int>(Part::ArmFrontRight_Basic));
+            m_Quard -> DeleteSize(m_CurrentStyle.arm.right);
+            m_CurrentStyle.arm.right = shape;
+            break;
+        
+        default:
+
+            break;
+        }
     }
 
     void Kenny::ViewHand(int shape)
@@ -86,51 +131,6 @@ namespace kenny
         }
     }
 
-    void Kenny::ViewArm(int shape)
-    {
-        switch (shape)
-        {
-        case static_cast<int>(Part::ArmLeft_Open):
-            m_Quard -> RestoreSize(static_cast<int>(Part::ArmLeft_Open));
-            m_Quard -> DeleteSize(m_CurrentStyle.arm.left);
-            m_CurrentStyle.arm.left = shape;
-            break;
-
-        case static_cast<int>(Part::ArmRight_Open):
-            m_Quard -> RestoreSize(static_cast<int>(Part::ArmRight_Open));
-            m_Quard -> DeleteSize(m_CurrentStyle.arm.right);
-            m_CurrentStyle.arm.right = shape;
-            break;
-
-        case static_cast<int>(Part::ArmLeft_Bend):
-            m_Quard -> RestoreSize(static_cast<int>(Part::ArmLeft_Bend));
-            m_Quard -> DeleteSize(m_CurrentStyle.arm.left);
-            m_CurrentStyle.arm.left = shape;
-            break;
-
-        case static_cast<int>(Part::ArmRight_Bend):
-            m_Quard -> RestoreSize(static_cast<int>(Part::ArmRight_Bend));
-            m_Quard -> DeleteSize(m_CurrentStyle.arm.right);
-            m_CurrentStyle.arm.right = shape;
-            break;
-
-        case static_cast<int>(Part::ArmFrontLeft_Basic):
-            m_Quard -> RestoreSize(static_cast<int>(Part::ArmFrontLeft_Basic));
-            m_Quard -> DeleteSize(m_CurrentStyle.arm.left);
-            m_CurrentStyle.arm.left = shape;
-            break;
-
-        case static_cast<int>(Part::ArmFrontRight_Basic):
-            m_Quard -> RestoreSize(static_cast<int>(Part::ArmFrontRight_Basic));
-            m_Quard -> DeleteSize(m_CurrentStyle.arm.right);
-            m_CurrentStyle.arm.right = shape;
-            break;
-        
-        default:
-
-            break;
-        }
-    }
 
     int Kenny::GetColorName(float color)
     {
@@ -142,5 +142,78 @@ namespace kenny
             }
         }
         return -1;
+    }
+
+    void Kenny::GetKennySize()
+    {
+        m_MaxSize.x = m_Quard -> GetElement(static_cast<int>(Part::PantFront)) -> v0.Position2D.x;
+        m_MaxSize.y = m_Quard -> GetElement(static_cast<int>(Part::PantFront)) -> v0.Position2D.y;
+        m_MinSize.x = m_MaxSize.x;
+        m_MinSize.y = m_MaxSize.y;
+
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::PantFront)) -> v1.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::PantFront)) -> v2.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::PantFront)) -> v3.Position2D);
+
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::BadyFront)) -> v0.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::BadyFront)) -> v1.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::BadyFront)) -> v2.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::BadyFront)) -> v3.Position2D);
+        
+#if 0
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::Face)) -> v0.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::Face)) -> v1.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::Face)) -> v2.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::Face)) -> v3.Position2D);
+#endif
+
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::HatFront)) -> v0.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::HatFront)) -> v1.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::HatFront)) -> v2.Position2D);
+        ComparisonSize(m_Quard -> GetElement(static_cast<int>(Part::HatFront)) -> v3.Position2D);
+        
+
+
+        //////////////////////////////
+
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.arm.left) -> v0.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.arm.left) -> v1.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.arm.left) -> v2.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.arm.left) -> v3.Position2D);
+
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.arm.right) -> v0.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.arm.right) -> v1.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.arm.right) -> v2.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.arm.right) -> v3.Position2D);
+
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.hand.left) -> v0.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.hand.left) -> v1.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.hand.left) -> v2.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.hand.left) -> v3.Position2D);
+
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.hand.right) -> v0.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.hand.right) -> v1.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.hand.right) -> v2.Position2D);
+        ComparisonSize(m_Quard -> GetElement(m_CurrentStyle.hand.right) -> v3.Position2D);
+    }
+    
+    void Kenny::ComparisonSize(spat::Vec2 input)
+    {
+        if(m_MaxSize.x < input.x)
+        {
+            m_MaxSize.x = input.x;
+        }
+        else if(m_MinSize.x > input.x)
+        {
+            m_MinSize.x = input.x;
+        }
+        if(m_MaxSize.y < input.y)
+        {
+            m_MaxSize.y = input.y;
+        }
+        else if(m_MinSize.y > input.y)
+        {
+            m_MinSize.y = input.y;
+        }
     }
 }

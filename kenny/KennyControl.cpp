@@ -259,45 +259,4 @@ namespace kenny
             SetEyeballRight(m_Joint.EyesFront_Open.EyeballRight);
         }
     }
-
-    void KennyControl::KennySize()
-    {
-        if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
-        {
-        }
-        else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Bend))
-        {
-
-        }
-        else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmFrontLeft_Basic))
-        {
-
-        }
-        if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Open))
-        {
-
-        }
-        else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Bend))
-        {
-
-        }
-        else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmFrontRight_Basic))
-        {
-
-        }
-
-        if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
-        {
-        }
-        else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
-        {
-        }
-        if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
-        {
-        }
-        else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
-        {
-        }
-    }
-
 }
