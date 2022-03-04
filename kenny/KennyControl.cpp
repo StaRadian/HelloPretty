@@ -4,10 +4,93 @@
 
 namespace kenny
 {
-    void KennyControl::PantFrontMain(spat::Vec2 point, float degree)
+    void KennyControl::PantFrontMain(KennyMoveData value)
     {
-        // SetPantFront(point, degree);
-        //SetBadyFront(m_Joint.PantFront.BadyFront, degree, static_cast<int>(Part::PantFront));
+        if(value.update == true)
+        {
+            SetPantFront({0.0}, value.degree);
+            PantSpineControl(value.PantHeight, value.PantDegree);
+            if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
+            {
+                SetArmLeft_Open(m_Joint.BadyFront.ArmLeft_Open, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
+                if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
+                {
+                    SetHandLeft_Paper(m_Joint.ArmLeft_Open.HandLeft_Paper, m_Joint.ArmLeft_Open.degree, static_cast<int>(Part::ArmLeft_Open));
+                }
+                else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
+                {
+                    SetHandLeft_Rock(m_Joint.ArmLeft_Open.HandLeft_Rock, m_Joint.ArmLeft_Open.degree, static_cast<int>(Part::ArmLeft_Open));
+                }
+            }
+            else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Bend))
+            {
+                SetArmLeft_Bend(m_Joint.BadyFront.ArmLeft_Bend, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
+                if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
+                {
+                    SetHandLeft_Paper(m_Joint.ArmLeft_Bend.HandLeft_Paper, m_Joint.ArmLeft_Bend.degree, static_cast<int>(Part::ArmLeft_Bend));
+                }
+                else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
+                {
+                    SetHandLeft_Rock(m_Joint.ArmLeft_Bend.HandLeft_Rock, m_Joint.ArmLeft_Bend.degree, static_cast<int>(Part::ArmLeft_Bend));
+                }
+            }
+            else if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmFrontLeft_Basic))
+            {
+                SetArmFrontLeft_Basic(m_Joint.BadyFront.ArmFrontLeft_Basic, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
+                if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Paper))
+                {
+                    SetHandLeft_Paper(m_Joint.ArmFrontLeft_Basic.HandLeft_Paper, m_Joint.ArmFrontLeft_Basic.degree, static_cast<int>(Part::ArmFrontLeft_Basic));
+                }
+                else if(m_CurrentStyle.hand.left == static_cast<int>(Part::HandLeft_Rock))
+                {
+                    SetHandLeft_Rock(m_Joint.ArmFrontLeft_Basic.HandLeft_Rock, m_Joint.ArmFrontLeft_Basic.degree, static_cast<int>(Part::ArmFrontLeft_Basic));
+                }
+            }
+            if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Open))
+            {
+                SetArmRight_Open(m_Joint.BadyFront.ArmRight_Open, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
+                if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
+                {
+                    SetHandRight_Paper(m_Joint.ArmRight_Open.HandRight_Paper, m_Joint.ArmRight_Open.degree, static_cast<int>(Part::ArmRight_Open));
+                }
+                else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
+                {
+                    SetHandRight_Rock(m_Joint.ArmRight_Open.HandRight_Rock, m_Joint.ArmRight_Open.degree, static_cast<int>(Part::ArmRight_Open));
+                }
+            }
+            else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Bend))
+            {
+                SetArmRight_Bend(m_Joint.BadyFront.ArmRight_Bend, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
+                if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
+                {
+                    SetHandRight_Paper(m_Joint.ArmRight_Bend.HandRight_Paper, m_Joint.ArmRight_Bend.degree, static_cast<int>(Part::ArmRight_Bend));
+                }
+                else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
+                {
+                    SetHandRight_Rock(m_Joint.ArmRight_Bend.HandRight_Rock, m_Joint.ArmRight_Bend.degree, static_cast<int>(Part::ArmRight_Bend));
+                }
+            }
+            else if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmFrontRight_Basic))
+            {
+                SetArmFrontRight_Basic(m_Joint.BadyFront.ArmFrontRight_Basic, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
+                if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Paper))
+                {
+                    SetHandRight_Paper(m_Joint.ArmFrontRight_Basic.HandRight_Paper, m_Joint.ArmFrontRight_Basic.degree, static_cast<int>(Part::ArmFrontRight_Basic));
+                }
+                else if(m_CurrentStyle.hand.right == static_cast<int>(Part::HandRight_Rock))
+                {
+                    SetHandRight_Rock(m_Joint.ArmFrontRight_Basic.HandRight_Rock, m_Joint.ArmFrontRight_Basic.degree, static_cast<int>(Part::ArmFrontRight_Basic));
+                }
+            }
+            BadyNeckControl(value.NeckBow, value.NeckRL);
+            SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
+            GetKennySize();
+            m_point.x = m_MinSize.x * (-1);
+            m_point.y = m_MinSize.y * (-1);
+        }
+
+        SetPantFront(m_point, value.degree);
+        PantSpineControl(value.PantHeight, value.PantDegree);
         if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
         {
             SetArmLeft_Open(m_Joint.BadyFront.ArmLeft_Open, m_Joint.BadyFront.degree, static_cast<int>(Part::BadyFront));
@@ -80,10 +163,9 @@ namespace kenny
                 SetHandRight_Rock(m_Joint.ArmFrontRight_Basic.HandRight_Rock, m_Joint.ArmFrontRight_Basic.degree, static_cast<int>(Part::ArmFrontRight_Basic));
             }
         }
-        // SetFace(m_Joint.BadyFront.Face, degree);
-        // SetEyesFront_Open(m_Joint.Face.EyesFront_Open, degree);
-        // SetHatFront(m_Joint.Face.HatFront, degree);
-        m_Quard -> DeleteSize(static_cast<int>(Part::HatFront));
+        BadyNeckControl(value.NeckBow, value.NeckRL);
+        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
+        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
         if(m_CurrentStyle.eyebrow == true)
         {
             SetEyebrowLeft(m_Joint.Face.EyebrowLeft, m_Joint.Face.degree);
@@ -135,8 +217,6 @@ namespace kenny
         m_Joint.BadyFront.Face.y += trail.y;
 
         SetFace(m_Joint.BadyFront.Face, RL_angle * (-1) + m_Joint.BadyFront.degree);
-        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
-        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
     }
 
     void KennyControl::FaceNeckControl(float& bow_angle, float& RL_angle)

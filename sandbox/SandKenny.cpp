@@ -62,13 +62,11 @@ namespace box
         int samplers[1] = { 0 };
         m_Shader -> SetUniform1iv("u_Texture", 1, samplers);
         
-        // m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
-        // m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
+        m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
+        m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
-        m_x = m_WinSize.width / 2.0f;
-        m_y = m_WinSize.height / 2.0f;
-        // m_degree1 = 0;
-        // m_degree2 = 0;
+        m_KennySize = 0.5f;
+
         m_degree = 0;
         m_degree1 = 1.9;
         m_degree2 = 0;
@@ -76,36 +74,35 @@ namespace box
         m_height = 0;
         m_rotationspeed = 0;
         m_degree3 = 0;
+
         GetDelta();
     }
 
     void SandKenny::OnUpdate()
     {
         GetDelta();
-        // m_FrameBuffer -> Bind();
-        m_WinSize.width = (m_Kenny -> m_MaxSize.x - m_Kenny -> m_MinSize.x);
-        m_WinSize.height = (m_Kenny -> m_MaxSize.y - m_Kenny -> m_MinSize.y);
+        m_FrameBuffer -> Bind();
+    
 
-        m_x = m_WinSize.width / 2.0;
-        m_y = m_WinSize.height / 2.0;
-
-        m_Kenny -> SetPantFront({m_x, m_y}, m_degree);
-        m_Kenny -> PantSpineControl(m_height, m_degree3);
-        m_Kenny -> PantFrontMain({m_x, m_y}, m_degree);
-        // m_Kenny -> SetFace({m_x * 2.0f, m_y * 2.0f}, m_degree);
-        // m_Kenny -> SetEyesFront_Open(m_Kenny -> m_Joint.Face.EyesFront_Open, m_Kenny -> m_Joint.Face.degree);
-        m_Kenny -> BadyNeckControl(m_degree1, m_degree2);
-        // m_Kenny -> SetPantFront(m_Kenny -> m_Joint.BadyFront.PantFront, 0);
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        kenny::KennyMoveData val = 
+            {m_degree, 
+            m_height, m_degree3, 
+            0.0f, 0.0f, 
+            m_degree1, m_degree2,
+            true};
+        m_Kenny -> PantFrontMain(val);
         m_Kenny -> EyeballsControl(
-            {(float)cursor_x, (float)(m_WinSize.height - cursor_y)}, 
+            {(float)cursor_x / m_KennySize, (float)(m_WinSize.height - cursor_y) / m_KennySize}, 
              800.0f,
              m_val);
-
-        m_Kenny -> GetKennySize();        
+        m_WinSize.width = (m_Kenny -> m_MaxSize.x - m_Kenny -> m_MinSize.x) * m_KennySize;
+        m_WinSize.height = (m_Kenny -> m_MaxSize.y - m_Kenny -> m_MinSize.y) * m_KennySize;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         m_MVP = glm::ortho(0.0f, 941.0f, 0.0f, 941.0f, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0))
-            * glm::scale(glm::mat4(1.0f), glm::vec3(1.0, 1.0, 0.0));
+            * glm::scale(glm::mat4(1.0f), glm::vec3(m_KennySize, m_KennySize, 0.0));
         glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);
     }
 
@@ -122,7 +119,7 @@ namespace box
         m_Shader -> SetUniform1i("u_ViewMode", 1);
         GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
         MouseCheck();
-        // m_FrameBuffer -> Unbind();
+        m_FrameBuffer -> Unbind();
 
         glClear(GL_COLOR_BUFFER_BIT);
         m_Shader -> SetUniform1i("u_ViewMode", 0);

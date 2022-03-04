@@ -35,6 +35,8 @@ namespace box
         double cursor_y;
         int m_mouse_click;
         int m_state;
+        float m_KennySize;
+
         int m_val;
         float m_x;
         float m_y;
