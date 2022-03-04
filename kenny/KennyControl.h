@@ -22,6 +22,7 @@ namespace kenny
         void PantSpineControl(float height, float degree);
         void BadyNeckControl(float& bow_angle, float& RL_angle);
         void FaceNeckControl(float& bow_angle, float& RL_angle);
+        inline void ArmsControl(float& leftArmAdd, float& rightArmAdd);
     public:
         KennyControl(spat::TexQuard2D* quard) 
             : KennyJoint(quard), m_point({0,0})

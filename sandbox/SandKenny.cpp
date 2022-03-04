@@ -67,9 +67,11 @@ namespace box
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
         m_KennySize = 0.5f;
 
-        m_degree = 0;
-        m_degree1 = 1.9;
-        m_degree2 = 0;
+        m_degree = 0.0f;
+        m_degree1 = 1.9f;
+        m_degree2 = 0.0f;
+        m_degree4 = 0.0f;
+        m_degree5 = 0.0f;
         m_val = 0;
         m_height = 0;
         m_rotationspeed = 0;
@@ -88,7 +90,7 @@ namespace box
         kenny::KennyMoveData val = 
             {m_degree, 
             m_height, m_degree3, 
-            0.0f, 0.0f, 
+            m_degree4, m_degree5, 
             m_degree1, m_degree2,
             true};
         m_Kenny -> PantFrontMain(val);
@@ -137,6 +139,8 @@ namespace box
         ImGui::SliderFloat("degree1", &m_degree1, PI / 3.0f, PI);
         ImGui::SliderFloat("degree2", &m_degree2, PI / 8.0f * (-1), PI / 8.0f);
         ImGui::SliderFloat("degree3", &m_degree3, PI / 20.0f * (-1), PI / 20.0f);
+        ImGui::SliderFloat("degree4", &m_degree4, PI * (-1), PI);
+        ImGui::SliderFloat("degree5", &m_degree5, PI * (-1), PI);
         ImGui::SliderFloat("m_height", &m_height, -25.0, 25.0);
         ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_degree, m_mouse_click, m_state);
 
