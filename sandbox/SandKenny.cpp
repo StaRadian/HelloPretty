@@ -95,6 +95,7 @@ namespace box
              m_val);
         m_WinSize.width = (m_Kenny -> m_MaxSize.x - m_Kenny -> m_MinSize.x) * m_KennySize;
         m_WinSize.height = (m_Kenny -> m_MaxSize.y - m_Kenny -> m_MinSize.y) * m_KennySize;
+        // LOG(m_WinPos.x << ", " << m_WinPos.y);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         m_MVP = glm::ortho(0.0f, 1000.0f, 0.0f, 1000.0f, -1.0f, 1.0f)
@@ -119,7 +120,8 @@ namespace box
 
         glClear(GL_COLOR_BUFFER_BIT);
         m_Shader -> SetUniform1i("u_ViewMode", 0);
-        glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);     //사이즈 설정
+        glfwSetWindowPos(GetWindow(), 500 + m_Kenny -> m_MinSize.x * m_KennySize, 800 - m_Kenny -> m_MaxSize.y * m_KennySize);
+        glfwSetWindowSize(GetWindow(), m_WinSize.width, m_WinSize.height);     //사이즈 설정
         GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
     }
 
