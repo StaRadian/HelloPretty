@@ -27,7 +27,7 @@ namespace kenny
         EyebrowLeft         = 19,
         EyebrowRight        = 20,
 
-        PartNumber          = 19
+        PartNumber          = 21
     };
 
     enum class Sheetsize : int

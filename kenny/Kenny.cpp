@@ -117,7 +117,7 @@ namespace kenny
 
     void Kenny::ViewEyebrow(bool state)
     {
-        if(state)
+        if(state == true)
         {
             m_Quard -> RestoreSize(static_cast<int>(Part::EyebrowRight));
             m_Quard -> RestoreSize(static_cast<int>(Part::EyebrowLeft));

@@ -16,8 +16,7 @@ namespace kenny
             SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
             GetKennySize();
             m_point.x = m_MinSize.x * (-1);
-            m_point.y = m_MinSize.y * (-1); 
-            LOG(m_MinSize.x << ", " << m_MinSize.y << ", " << m_MaxSize.x << ", " << m_MaxSize.y);
+            m_point.y = m_MinSize.y * (-1);
         }
 
         SetPantFront(m_point, value.degree);
