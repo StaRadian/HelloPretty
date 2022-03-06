@@ -74,6 +74,8 @@ namespace kenny
     {
         spat::Vec2 BadyFront;    
         spat::Vec2 EyesFront_Open;
+        spat::Vec2 EyeCloseLeft;
+        spat::Vec2 EyeCloseRight;
         spat::Vec2 HatFront;
         spat::Vec2 EyebrowLeft;
         spat::Vec2 EyebrowRight;
@@ -94,6 +96,14 @@ namespace kenny
     struct EyeballRightJoint
     {
         spat::Vec2 EyesFront_Open;
+    };
+    struct EyeCloseLeftJoint
+    {
+        spat::Vec2 Face;
+    };
+    struct EyeCloseRightJoint
+    {
+        spat::Vec2 Face;
     };
     struct HatFrontJoint
     {
@@ -156,6 +166,8 @@ namespace kenny
         EyesFront_OpenJoint         EyesFront_Open;
         EyeballLeftJoint            EyeballLeft;
         EyeballRightJoint           EyeballRight;
+        EyeCloseLeftJoint           EyeCloseLeft;
+        EyeCloseRightJoint          EyeCloseRight;
         HatFrontJoint               HatFront;
         HandLeft_PaperJoint         HandLeft_Paper;  
         HandRight_PaperJoint        HandRight_Paper;
@@ -185,6 +197,8 @@ namespace kenny
         void SetEyesFront_Open(spat::Vec2 point, float degree);
         void SetEyeballLeft(spat::Vec2 point);
         void SetEyeballRight(spat::Vec2 point);
+        void SetEyeCloseLeft(spat::Vec2 point, float degree);
+        void SetEyeCloseRight(spat::Vec2 point, float degree);
         void SetHatFront(spat::Vec2 point, float degree);
         void SetHandLeft_Paper(spat::Vec2 point, float degree, int rx);
         void SetHandRight_Paper(spat::Vec2 point, float degree, int rx);

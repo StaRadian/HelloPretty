@@ -57,7 +57,7 @@ namespace box
 
         m_Shader -> Bind();
 
-        m_Main_charactersTex = std::make_unique<spat::Texture>("./res/textures/Kenny_sheet.png");
+        m_Main_charactersTex = std::make_unique<spat::Texture>("./res/textures/Kenny_sheet_v2.png");
         
         int samplers[1] = { 0 };
         m_Shader -> SetUniform1iv("u_Texture", 1, samplers);

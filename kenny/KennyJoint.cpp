@@ -280,11 +280,13 @@ namespace kenny
     }
 
     const spat::Vec2 m_Facejoint[] = {
-          0.0f, -150.0f,     //BadyFront
+          0.0f, -150.0f,    //BadyFront
           0.0f,   9.0f,     //EyesFront_Open
+         90.0f,   9.0f,     //EyeCloseLeft   
+        -90.0f,   9.0f,     //EyeCloseRight  
           0.0f,   0.0f,     //HatFront
-        -89.0f, 116.0f,     //EyebrowLeft
-         89.0f, 116.0f      //EyebrowRight
+         89.0f, 116.0f,     //EyebrowLeft
+        -89.0f, 116.0f      //EyebrowRight
     };
 
     void KennyJoint::SetFace(spat::Vec2 point, float degree)
@@ -296,9 +298,11 @@ namespace kenny
         m_Quard -> SetDegree(static_cast<int>(Part::Face), degree, sind, cosd);
         m_Joint.Face.BadyFront      = m_Quard -> Vec2Rotation(pos, m_Facejoint[0], sind, cosd);
         m_Joint.Face.EyesFront_Open = m_Quard -> Vec2Rotation(pos, m_Facejoint[1], sind, cosd);
-        m_Joint.Face.HatFront       = m_Quard -> Vec2Rotation(pos, m_Facejoint[2], sind, cosd);    
-        m_Joint.Face.EyebrowLeft    = m_Quard -> Vec2Rotation(pos, m_Facejoint[3], sind, cosd);    
-        m_Joint.Face.EyebrowRight   = m_Quard -> Vec2Rotation(pos, m_Facejoint[4], sind, cosd);    
+        m_Joint.Face.EyeCloseLeft   = m_Quard -> Vec2Rotation(pos, m_Facejoint[2], sind, cosd);    
+        m_Joint.Face.EyeCloseRight  = m_Quard -> Vec2Rotation(pos, m_Facejoint[3], sind, cosd);    
+        m_Joint.Face.HatFront       = m_Quard -> Vec2Rotation(pos, m_Facejoint[4], sind, cosd);    
+        m_Joint.Face.EyebrowLeft    = m_Quard -> Vec2Rotation(pos, m_Facejoint[5], sind, cosd);    
+        m_Joint.Face.EyebrowRight   = m_Quard -> Vec2Rotation(pos, m_Facejoint[6], sind, cosd);    
         m_Joint.Face.degree = degree;
     }
     
@@ -333,6 +337,24 @@ namespace kenny
     {
         m_Quard -> SetPosXY(static_cast<int>(Part::EyeballRight), point.x, point.y);
         m_Joint.EyeballRight.EyesFront_Open = point;
+    }
+
+    void KennyJoint::SetEyeCloseLeft(spat::Vec2 point, float degree)
+    {
+        double sind = SIN(degree);
+        double cosd = COS(degree);
+        m_Quard -> SetPosXY(static_cast<int>(Part::EyeCloseLeft), point.x, point.y);
+        m_Quard -> SetDegree(static_cast<int>(Part::EyeCloseLeft), degree, sind, cosd);
+        m_Joint.EyeCloseLeft.Face = point;
+    }
+
+    void KennyJoint::SetEyeCloseRight(spat::Vec2 point, float degree)
+    {
+        double sind = SIN(degree);
+        double cosd = COS(degree);
+        m_Quard -> SetPosXY(static_cast<int>(Part::EyeCloseRight), point.x, point.y);
+        m_Quard -> SetDegree(static_cast<int>(Part::EyeCloseRight), degree, sind, cosd);
+        m_Joint.EyeCloseRight.Face = point;
     }
 
     void KennyJoint::SetHatFront(spat::Vec2 point, float degree)

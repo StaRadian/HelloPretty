@@ -17,13 +17,15 @@ namespace kenny
         EyesFront_Open      = 9,
         EyeballLeft         = 10,   
         EyeballRight        = 11,   
-        HatFront            = 12,
-        HandLeft_Paper      = 13,
-        HandRight_Paper     = 14,
-        HandLeft_Rock       = 15,
-        HandRight_Rock      = 16,
-        EyebrowLeft         = 17,
-        EyebrowRight        = 18,
+        EyeCloseLeft        = 12,
+        EyeCloseRight       = 13,
+        HatFront            = 14,
+        HandLeft_Paper      = 15,
+        HandRight_Paper     = 16,
+        HandLeft_Rock       = 17,
+        HandRight_Rock      = 18,
+        EyebrowLeft         = 19,
+        EyebrowRight        = 20,
 
         PartNumber          = 19
     };
@@ -31,7 +33,7 @@ namespace kenny
     enum class Sheetsize : int
     {
         x = 1710,
-        y = 1018
+        y = 1289
     };
 
     struct DirX
@@ -55,24 +57,26 @@ namespace kenny
     };
     
     const KennyTexData g_TexData[] = {
-        450.0f, 250.0f,   1260.0f,  122.0f,        0.0f, -325.0f,     //PantFront             
-        250.0f, 150.0f,    250.0f,    0.0f,      262.0f, -197.0f,     //ArmLeft_Open       
-        250.0f, 150.0f,      0.0f,    0.0f,     -252.0f, -201.0f,     //ArmRight_Open      
-        200.0f, 300.0f,   1450.0f,  418.0f,      220.0f, -231.0f,     //ArmLeft_Bend       
-        200.0f, 300.0f,   1450.0f,  718.0f,     -208.0f, -233.0f,     //ArmRight_Bend      
-        500.0f, 300.0f,    760.0f,   50.0f,        0.0f, -254.0f,     //BadyFront          
-        180.0f, 200.0f,    580.0f,  150.0f,      246.0f, -206.0f,     //ArmFrontLeft_Basic 
-        180.0f, 200.0f,    400.0f,  150.0f,     -226.0f, -208.0f,     //ArmFrontRight_Basic      
-        635.0f, 646.0f,    815.0f,  372.0f,        0.0f,  117.0f,     //Face               
-        400.0f, 200.0f,      0.0f,  150.0f,        0.0f,  126.0f,     //EyesFront_Open     
-         24.0f,  24.0f,    120.0f,  994.0f,       45.0f,  122.0f,     //EyeballLeft         
-         24.0f,  24.0f,    120.0f,  994.0f,      -45.0f,  122.0f,     //EyeballRight       
-        665.0f, 668.0f,    150.0f,  350.0f,        0.0f,  117.0f,     //HatFront           
-        150.0f, 150.0f,      0.0f,  466.0f,      262.0f, -321.0f,     //HandLeft_Paper     
-        150.0f, 150.0f,      0.0f,  616.0f,     -247.0f, -315.0f,     //HandRight_Paper    
-        120.0f, 120.0f,      0.0f,  886.0f,      262.0f, -321.0f,     //HandLeft_Rock
-        120.0f, 120.0f,      0.0f,  766.0f,     -247.0f, -315.0f,     //HandRight_Rock      
-        100.0f,  12.0f,      0.0f, 1006.0f,      -89.0f,  233.0f,     //EyebrowLeft        
-        100.0f,  12.0f,      0.0f, 1006.0f,       89.0f,  233.0f      //EyebrowRight       
+        450.0f, 250.0f,   1260.0f,  122.0f + 271.0f,        0.0f, -325.0f,   //PantFront             
+        250.0f, 150.0f,    250.0f,    0.0f + 271.0f,      262.0f, -197.0f,   //ArmLeft_Open       
+        250.0f, 150.0f,      0.0f,    0.0f + 271.0f,     -252.0f, -201.0f,   //ArmRight_Open      
+        200.0f, 300.0f,   1450.0f,  418.0f + 271.0f,      220.0f, -231.0f,   //ArmLeft_Bend       
+        200.0f, 300.0f,   1450.0f,  718.0f + 271.0f,     -208.0f, -233.0f,   //ArmRight_Bend      
+        500.0f, 300.0f,    760.0f,   50.0f + 271.0f,        0.0f, -254.0f,   //BadyFront          
+        180.0f, 200.0f,    580.0f,  150.0f + 271.0f,      246.0f, -206.0f,   //ArmFrontLeft_Basic 
+        180.0f, 200.0f,    400.0f,  150.0f + 271.0f,     -226.0f, -208.0f,   //ArmFrontRight_Basic      
+        635.0f, 646.0f,    815.0f,  372.0f + 271.0f,        0.0f,  117.0f,   //Face               
+        400.0f, 200.0f,      0.0f,  150.0f + 271.0f,        0.0f,  126.0f,   //EyesFront_Open     
+         24.0f,  24.0f,    120.0f,  994.0f + 271.0f,       45.0f,  122.0f,   //EyeballLeft         
+         24.0f,  24.0f,    120.0f,  994.0f + 271.0f,      -45.0f,  122.0f,   //EyeballRight                                                                                                            
+        259.0f, 271.0f,      0.0f,    0.0f,               603.0f,  324.0f,   //EyeCloseLeft                                                                                                   
+        259.0f, 271.0f,    259.0f,    0.0f,               423.0f,  324.0f,   //EyeCloseRight                                                                                                            
+        665.0f, 668.0f,    150.0f,  350.0f + 271.0f,        0.0f,  117.0f,   //HatFront           
+        150.0f, 150.0f,      0.0f,  466.0f + 271.0f,      262.0f, -321.0f,   //HandLeft_Paper     
+        150.0f, 150.0f,      0.0f,  616.0f + 271.0f,     -247.0f, -315.0f,   //HandRight_Paper    
+        120.0f, 120.0f,      0.0f,  886.0f + 271.0f,      262.0f, -321.0f,   //HandLeft_Rock
+        120.0f, 120.0f,      0.0f,  766.0f + 271.0f,     -247.0f, -315.0f,   //HandRight_Rock      
+        100.0f,  12.0f,      0.0f, 1006.0f + 271.0f,      -89.0f,  233.0f,   //EyebrowLeft        
+        100.0f,  12.0f,      0.0f, 1006.0f + 271.0f,       89.0f,  233.0f    //EyebrowRight       
     };
 }
