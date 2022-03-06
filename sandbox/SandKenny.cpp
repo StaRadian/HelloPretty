@@ -14,7 +14,7 @@ namespace box
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
         glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 
-        m_WinSize = {941, 941};
+        m_WinSize = {1000, 1000};
 
         m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "My Title", NULL, NULL);
 
@@ -65,17 +65,19 @@ namespace box
         m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
         m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
-        m_KennySize = 0.5f;
+        m_KennySize = 0.8f;
 
-        m_degree = 0.0f;
-        m_degree1 = 1.9f;
-        m_degree2 = 0.0f;
-        m_degree4 = 0.0f;
-        m_degree5 = 0.0f;
+        m_kennyMovedata = {
+            0.0f,                       //main
+            0.0f, 0.0f,                 //Pant
+            0.0f, 0.0f,                 //Arm
+            1.9f, 0.0f,                 //Neck
+            {0.0f, 0.0f}, {0.0f, 0.0f}, //HandPos
+            0.0f, 0.0f,                 //HandDegree
+            true
+        };
+
         m_val = 0;
-        m_height = 0;
-        m_rotationspeed = 0;
-        m_degree3 = 0;
 
         GetDelta();
     }
@@ -85,15 +87,8 @@ namespace box
         GetDelta();
         m_FrameBuffer -> Bind();
     
-
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        kenny::KennyMoveData val = 
-            {m_degree, 
-            m_height, m_degree3, 
-            m_degree4, m_degree5, 
-            m_degree1, m_degree2,
-            true};
-        m_Kenny -> PantFrontMain(val);
+        m_Kenny -> PantFrontMain(m_kennyMovedata);
         m_Kenny -> EyeballsControl(
             {(float)cursor_x / m_KennySize, (float)(m_WinSize.height - cursor_y) / m_KennySize}, 
              800.0f,
@@ -102,10 +97,9 @@ namespace box
         m_WinSize.height = (m_Kenny -> m_MaxSize.y - m_Kenny -> m_MinSize.y) * m_KennySize;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        m_MVP = glm::ortho(0.0f, 941.0f, 0.0f, 941.0f, -1.0f, 1.0f)
+        m_MVP = glm::ortho(0.0f, 1000.0f, 0.0f, 1000.0f, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0))
             * glm::scale(glm::mat4(1.0f), glm::vec3(m_KennySize, m_KennySize, 0.0));
-        glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);
     }
 
     void SandKenny::OnRender()
@@ -125,6 +119,7 @@ namespace box
 
         glClear(GL_COLOR_BUFFER_BIT);
         m_Shader -> SetUniform1i("u_ViewMode", 0);
+        glfwSetWindowSize(m_Window, m_WinSize.width, m_WinSize.height);     //사이즈 설정
         GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
     }
 
@@ -132,17 +127,15 @@ namespace box
     {
         ImGui::Begin("Kenny");
 
-        ImGui::SliderFloat("position_x", &m_x, 0.0f, m_WinSize.width);
-        ImGui::SliderFloat("position_y", &m_y, 0.0f, m_WinSize.height);
-        ImGui::SliderFloat("degree", &m_degree, PI * (-1), PI);
+        ImGui::SliderFloat("degree", &m_kennyMovedata.degree, PI * (-1), PI);
+        ImGui::SliderFloat("NeckBow", &m_kennyMovedata.NeckBow, PI / 3.0f, PI);
+        ImGui::SliderFloat("NeckRL", &m_kennyMovedata.NeckRL, PI / 8.0f * (-1), PI / 8.0f);
+        ImGui::SliderFloat("PantHeight", &m_kennyMovedata.PantHeight, -25.0, 25.0);
+        ImGui::SliderFloat("PantDegree", &m_kennyMovedata.PantDegree, PI / 20.0f * (-1), PI / 20.0f);
+        ImGui::SliderFloat("LeftArmAdd", &m_kennyMovedata.LeftArmAdd, -1.5, 1.4);
+        ImGui::SliderFloat("RightArmAdd", &m_kennyMovedata.RightArmAdd, -1.4, 1.5);
         ImGui::SliderInt("val", &m_val, -4, 4);
-        ImGui::SliderFloat("degree1", &m_degree1, PI / 3.0f, PI);
-        ImGui::SliderFloat("degree2", &m_degree2, PI / 8.0f * (-1), PI / 8.0f);
-        ImGui::SliderFloat("degree3", &m_degree3, PI / 20.0f * (-1), PI / 20.0f);
-        ImGui::SliderFloat("degree4", &m_degree4, PI * (-1), PI);
-        ImGui::SliderFloat("degree5", &m_degree5, PI * (-1), PI);
-        ImGui::SliderFloat("m_height", &m_height, -25.0, 25.0);
-        ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_degree, m_mouse_click, m_state);
+        ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_kennyMovedata.degree, m_mouse_click, m_state);
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         

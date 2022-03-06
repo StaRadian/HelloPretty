@@ -38,19 +38,7 @@ namespace box
         float m_KennySize;
 
         int m_val;
-        float m_x;
-        float m_y;
-        float m_height;
-        float m_degree;
-        float m_degree1;
-        float m_degree2;
-        float m_degree3;
-        float m_degree4;
-        float m_degree5;
-        float m_rotationspeed;
-        float m_rotationspeed2;
-        float m_distance;
-        float m_compact;
+        kenny::KennyMoveData m_kennyMovedata;
     public:
         SandKenny();
         ~SandKenny();

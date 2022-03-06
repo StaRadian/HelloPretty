@@ -4,13 +4,14 @@
 
 namespace kenny
 {
-    void KennyControl::PantFrontMain(KennyMoveData value)
+    void KennyControl::PantFrontMain(KennyMoveData& value)
     {
         if(value.update == true)
         {
             SetPantFront({0.0}, value.degree);
             PantSpineControl(value.PantHeight, value.PantDegree);
-            ArmsControl(value.LeftArmAdd, value.RightArmAdd);
+            LeftArmsControl(value.LeftArmAdd, value.NeckRL);
+            RightArmsControl(value.RightArmAdd, value.NeckRL);
             BadyNeckControl(value.NeckBow, value.NeckRL);
             SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
             GetKennySize();
@@ -20,7 +21,8 @@ namespace kenny
 
         SetPantFront(m_point, value.degree);
         PantSpineControl(value.PantHeight, value.PantDegree);
-        ArmsControl(value.LeftArmAdd, value.RightArmAdd);
+        LeftArmsControl(value.LeftArmAdd, value.NeckRL);
+        RightArmsControl(value.RightArmAdd, value.NeckRL);
         BadyNeckControl(value.NeckBow, value.NeckRL);
         SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
         SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
@@ -91,7 +93,6 @@ namespace kenny
             else if(RL_angle < (bow_angle - PI / 3.0f) * -3.0f / 8.0f) RL_angle = (bow_angle - PI / 3.0f) * -3.0f / 8.0f;
         }
         
-
         if(bow_angle == 0)
             neck_height = neck;
         else
@@ -198,8 +199,14 @@ namespace kenny
         }
     }
 
-    inline void KennyControl::ArmsControl(float& leftArmAdd, float& rightArmAdd)
+    inline void KennyControl::LeftArmsControl(float& leftArmAdd, float& NeckRL)
     {
+        float maxangle = 1.0f - NeckRL * (8.0f / PI) * 0.4f;
+        if(maxangle < leftArmAdd)
+        {
+            leftArmAdd = maxangle;
+        }
+        
         if(m_CurrentStyle.arm.left == static_cast<int>(Part::ArmLeft_Open))
         {
             SetArmLeft_Open(m_Joint.BadyFront.ArmLeft_Open, m_Joint.BadyFront.degree + leftArmAdd, static_cast<int>(Part::BadyFront));
@@ -236,6 +243,16 @@ namespace kenny
                 SetHandLeft_Rock(m_Joint.ArmFrontLeft_Basic.HandLeft_Rock, m_Joint.ArmFrontLeft_Basic.degree, static_cast<int>(Part::ArmFrontLeft_Basic));
             }
         }
+    }
+
+    inline void KennyControl::RightArmsControl(float& rightArmAdd, float& NeckRL)
+    {
+        float maxangle = NeckRL * (8.0f / PI) * (-0.4f) - 1.0f;
+        if(maxangle > rightArmAdd)
+        {
+            rightArmAdd = maxangle;
+        }
+
         if(m_CurrentStyle.arm.right == static_cast<int>(Part::ArmRight_Open))
         {
             SetArmRight_Open(m_Joint.BadyFront.ArmRight_Open, m_Joint.BadyFront.degree + rightArmAdd, static_cast<int>(Part::BadyFront));
