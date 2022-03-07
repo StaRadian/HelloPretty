@@ -30,6 +30,7 @@ namespace box
 
         std::unique_ptr<kenny::KennyControl> m_Kenny;
         glm::mat4 m_MVP;
+        spat::Vec2 m_WinPos;
 
         double cursor_x;
         double cursor_y;

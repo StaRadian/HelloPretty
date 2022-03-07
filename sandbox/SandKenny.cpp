@@ -10,21 +10,19 @@ namespace box
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);  //opengl 메이저 버전 v4.6   //3.0
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);  //opengl 마이너 버전
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        //glfwWindowHint(GLFW_DECORATED, false);
+        glfwWindowHint(GLFW_DECORATED, false);
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
         glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 
-        m_WinSize = {1000, 1000};
+        m_WinSize = {m_MonitorSize.width - 2, m_MonitorSize.height - 2};
 
-        m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "My Title", NULL, NULL);
+        m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "HelloPretty", NULL, NULL);
 
         SetIcon("./res/textures/kenny.png");
 
         glfwMakeContextCurrent(GetWindow());
         
         glfwSwapInterval(1);    //vsync 활성화
-
-        //glfwSetWindowPos(GetWindow(), 0, 0);
     }
 
     SandKenny::~SandKenny()
@@ -64,7 +62,6 @@ namespace box
         
         m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
         m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
-        GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
         m_KennySize = 0.8f;
 
         m_kennyMovedata = {
@@ -78,7 +75,7 @@ namespace box
         };
 
         m_val = 0;
-
+    
         GetDelta();
     }
 
@@ -86,15 +83,16 @@ namespace box
     {
         GetDelta();
         m_FrameBuffer -> Bind();
-    
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         m_Kenny -> PantFrontMain(m_kennyMovedata);
         m_Kenny -> EyeballsControl(
             {(float)cursor_x / m_KennySize, (float)(m_WinSize.height - cursor_y) / m_KennySize}, 
              800.0f,
              m_val);
-        m_WinSize.width = (m_Kenny -> m_MaxSize.x - m_Kenny -> m_MinSize.x) * m_KennySize;
-        m_WinSize.height = (m_Kenny -> m_MaxSize.y - m_Kenny -> m_MinSize.y) * m_KennySize;
+        // m_WinSize.width = (m_Kenny -> m_MaxSize.x - m_Kenny -> m_MinSize.x) * m_KennySize;
+        // m_WinSize.height = (m_Kenny -> m_MaxSize.y - m_Kenny -> m_MinSize.y) * m_KennySize;
+        m_WinPos.x = 500 + m_Kenny -> m_MinSize.x * m_KennySize;
+        m_WinPos.y = 800 - m_Kenny -> m_MaxSize.y * m_KennySize;
         // LOG(m_WinPos.x << ", " << m_WinPos.y);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -112,16 +110,14 @@ namespace box
         m_Shader -> Bind();
         
         m_Shader -> SetUniformMat4f("u_MVP", m_MVP);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         m_Shader -> SetUniform1i("u_ViewMode", 1);
         GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
         MouseCheck();
         m_FrameBuffer -> Unbind();
-
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
         m_Shader -> SetUniform1i("u_ViewMode", 0);
-        glfwSetWindowPos(GetWindow(), 500 + m_Kenny -> m_MinSize.x * m_KennySize, 800 - m_Kenny -> m_MaxSize.y * m_KennySize);
-        glfwSetWindowSize(GetWindow(), m_WinSize.width, m_WinSize.height);     //사이즈 설정
         GLCall(glDrawElements(GL_TRIANGLES,  m_IndexBuffer -> GetCount(), GL_UNSIGNED_INT, nullptr));
     }
 
