@@ -11,8 +11,9 @@ namespace box
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);  //opengl 마이너 버전
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_DECORATED, false);
-        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
-        glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, true);
+        glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, true);
+        glfwWindowHint(GLFW_FLOATING, true);
 
         m_WinSize = {m_MonitorSize.width - 2, m_MonitorSize.height - 2};
 
@@ -96,7 +97,7 @@ namespace box
         // LOG(m_WinPos.x << ", " << m_WinPos.y);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        m_MVP = glm::ortho(0.0f, 1000.0f, 0.0f, 1000.0f, -1.0f, 1.0f)
+        m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
             * glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0))
             * glm::scale(glm::mat4(1.0f), glm::vec3(m_KennySize, m_KennySize, 0.0));
     }
@@ -205,6 +206,14 @@ namespace box
         glfwGetCursorPos(m_Window, &cursor_x, &cursor_y);
         glReadPixels(cursor_x, (m_WinSize.height - cursor_y), 1, 1, GL_RGBA, GL_FLOAT, &pixel);
         m_state = m_Kenny -> GetColorName(pixel[0]);
+        if(m_state != -1)
+        {
+            glfwSetWindowAttrib(GetWindow(), GLFW_MOUSE_PASSTHROUGH, false);
+        }
+        else
+        {
+            glfwSetWindowAttrib(GetWindow(), GLFW_MOUSE_PASSTHROUGH, true);
+        }
     }
 }
 
