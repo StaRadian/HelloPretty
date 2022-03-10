@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 
 #include "sandbox/SandKenny.h"
+#include "sandbox/SandImgui.h"
 
 #include "src/Debug.h"
 #include "imgui/imgui.h"
@@ -32,32 +33,38 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    box::Sandbox *box = nullptr;
-    box = new box::SandKenny;
+    box::Sandbox *boxKenny = nullptr;
+    boxKenny = new box::SandKenny;
+    box::Sandbox *boxImgui = nullptr;
+    boxImgui = new box::SandImgui;
 
-    if (!box -> GetWindow())
+    if ((!boxKenny -> GetWindow()) || (!boxImgui -> GetWindow()))
     {
-        delete box;
+        delete boxKenny;
+        delete boxImgui;
         glfwTerminate();
         return -1;
     }
     
     if (glewInit() != GLEW_OK)
     {
-        delete box;
+        delete boxKenny;
+        delete boxImgui;
         glfwTerminate();
         return -1;
     }
 
-    box -> RenderInit();
+    boxKenny -> RenderInit();
+    boxImgui -> RenderInit();
 
-    imgui_init(box -> GetWindow());
+    imgui_init(boxKenny -> GetWindow());
 
     LOG(glGetString(GL_VERSION));
 
-    box -> OnRender();
+    boxKenny -> OnRender();
+    boxImgui -> OnRender();
     
-    while (!glfwWindowShouldClose(box -> GetWindow()))  //loop
+    while (!glfwWindowShouldClose(boxKenny -> GetWindow()) && !glfwWindowShouldClose(boxImgui -> GetWindow()))  //loop
     {
         glfwPollEvents();
         // Start the Dear ImGui frame
@@ -65,23 +72,39 @@ int main(void)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        box -> OnUpdate();
+        boxKenny -> OnUpdate();
 
-        box -> OnRender();
+        boxKenny -> OnRender();
 
-        box -> OnImGuiRender();
+        boxKenny -> OnImGuiRender();
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        glfwSwapBuffers(box -> GetWindow());
+        glfwSwapBuffers(boxKenny -> GetWindow());
+        /////////////////////////////////////////////////////////
+        // ImGui_ImplOpenGL3_NewFrame();
+        // ImGui_ImplGlfw_NewFrame();
+        // ImGui::NewFrame();
+
+        boxImgui -> OnUpdate();
+
+        boxImgui -> OnRender();
+
+        boxImgui -> OnImGuiRender();
+
+        // ImGui::Render();
+        // ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        glfwSwapBuffers(boxImgui -> GetWindow());
     }    
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
     
-    delete box;
+    delete boxKenny;
+    delete boxImgui;
     glfwTerminate();
     return 0;
 }
