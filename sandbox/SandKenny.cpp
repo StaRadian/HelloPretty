@@ -7,14 +7,6 @@ namespace box
 {
     SandKenny::SandKenny()
     {
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);  //opengl 메이저 버전 v4.6   //3.0
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);  //opengl 마이너 버전
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_DECORATED, false);
-        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, true);
-        glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, true);
-        glfwWindowHint(GLFW_FLOATING, true);
-
         m_WinSize = {m_MonitorSize.width - 2, m_MonitorSize.height - 2};
 
         m_Window = glfwCreateWindow(m_WinSize.width, m_WinSize.height, "HelloPretty", NULL, NULL);
