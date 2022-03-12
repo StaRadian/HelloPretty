@@ -13,9 +13,8 @@ namespace box
 
         SetIcon("./res/textures/kenny.png");
 
-        glfwMakeContextCurrent(GetWindow());
-        
         glfwSwapInterval(1);    //vsync 활성화
+        glfwMakeContextCurrent(GetWindow());
     }
 
     SandKenny::~SandKenny()

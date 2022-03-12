@@ -23,7 +23,7 @@ namespace box
 
     void SandImgui::OnUpdate()
     {
-        
+    
     }
 
     void SandImgui::OnRender()
@@ -33,6 +33,6 @@ namespace box
 
     void SandImgui::OnImGuiRender()
     {
-        
+
     }
 }
