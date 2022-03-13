@@ -33,6 +33,13 @@ int main(void)
     if (!glfwInit())
         return -1;
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);  //opengl 메이저 버전 v4.6   //3.0
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);  //opengl 마이너 버전
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // glfwWindowHint(GLFW_DECORATED, false);
+    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, true);
+    // glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, true);
+    glfwWindowHint(GLFW_FLOATING, true);
     box::Sandbox *boxKenny = nullptr;
     boxKenny = new box::SandKenny;
 
@@ -52,6 +59,7 @@ int main(void)
 
     boxKenny -> RenderInit();
 
+    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, false);
     box::Sandbox *boxImgui = nullptr;
     boxImgui = new box::SandImgui;
 
@@ -81,17 +89,10 @@ int main(void)
     {
         glfwPollEvents();
         glfwMakeContextCurrent(boxKenny -> GetWindow());
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
 
         boxKenny -> OnUpdate();
 
         boxKenny -> OnRender();
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(boxKenny -> GetWindow());
         /////////////////////////////////////////////////////////

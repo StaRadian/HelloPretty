@@ -24,8 +24,8 @@ namespace kenny
         LeftArmsControl(value.LeftArmAdd, value.NeckRL);
         RightArmsControl(value.RightArmAdd, value.NeckRL);
         BadyNeckControl(value.NeckBow, value.NeckRL);
-        SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
-        SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
+        // SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
+        // SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
         SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
         SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
         if(m_CurrentStyle.eyebrow == true)
