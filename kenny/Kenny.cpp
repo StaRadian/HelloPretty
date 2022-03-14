@@ -133,21 +133,40 @@ namespace kenny
         }
     }
 
-    // void Kenny::ViewEyebrow(bool state)
-    // {
-    //     if(state == true)
-    //     {
-    //         m_Quard -> RestoreSize(static_cast<int>(Part::EyebrowRight));
-    //         m_Quard -> RestoreSize(static_cast<int>(Part::EyebrowLeft));
-    //         m_CurrentStyle.eyebrow = true;
-    //     }
-    //     else
-    //     {
-    //         m_Quard -> DeleteSize(static_cast<int>(Part::EyebrowRight));
-    //         m_Quard -> DeleteSize(static_cast<int>(Part::EyebrowLeft));
-    //         m_CurrentStyle.eyebrow = false;
-    //     }
-    // }
+    void Kenny::ViewEye(DirX shape)
+    {
+        switch (shape.left)
+        {
+        case 0:
+            m_Quard -> RestoreSize(static_cast<int>(Part::EyeCloseLeft));
+            m_CurrentStyle.eye.left = shape.left;
+            break;
+
+        case 1:
+            m_Quard -> DeleteSize(static_cast<int>(Part::EyeCloseLeft));
+            m_CurrentStyle.eye.left = shape.left;
+            break;
+        
+        default:
+            break;
+        }
+
+        switch (shape.right)
+        {
+        case 0:
+            m_Quard -> RestoreSize(static_cast<int>(Part::EyeCloseRight));
+            m_CurrentStyle.eye.right = shape.right;
+            break;
+
+        case 1:
+            m_Quard -> DeleteSize(static_cast<int>(Part::EyeCloseRight));
+            m_CurrentStyle.eye.right = shape.right;
+            break;
+        
+        default:
+            break;
+        }
+    }
 
 
     int Kenny::GetColorName(float color)
