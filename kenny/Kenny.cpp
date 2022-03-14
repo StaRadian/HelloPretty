@@ -133,6 +133,22 @@ namespace kenny
         }
     }
 
+    // void Kenny::ViewEyebrow(bool state)
+    // {
+    //     if(state == true)
+    //     {
+    //         m_Quard -> RestoreSize(static_cast<int>(Part::EyebrowRight));
+    //         m_Quard -> RestoreSize(static_cast<int>(Part::EyebrowLeft));
+    //         m_CurrentStyle.eyebrow = true;
+    //     }
+    //     else
+    //     {
+    //         m_Quard -> DeleteSize(static_cast<int>(Part::EyebrowRight));
+    //         m_Quard -> DeleteSize(static_cast<int>(Part::EyebrowLeft));
+    //         m_CurrentStyle.eyebrow = false;
+    //     }
+    // }
+
 
     int Kenny::GetColorName(float color)
     {

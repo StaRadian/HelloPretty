@@ -16,19 +16,18 @@ namespace kenny
         spat::Vec2 RightHandPos;    // 
         float LeftHandDegree;       // 
         float RightHandDegree;      // 
-        bool update;                // ture, false
     };
 
     class KennyControl : public KennyJoint
     {
     private:
-        spat::Vec2 m_point;
         void PantSpineControl(float height, float degree);
         void BadyNeckControl(float& bow_angle, float& RL_angle);
         void FaceNeckControl(float& bow_angle, float& RL_angle);
         inline void LeftArmsControl(float& leftArmAdd, float& NeckRL);
         inline void RightArmsControl(float& rightArmAdd, float& NeckRL);
     public:
+        spat::Vec2 m_point;
         KennyControl(spat::TexQuard2D* quard) 
             : KennyJoint(quard), m_point({0,0})
         {

@@ -6,26 +6,20 @@ namespace kenny
 {
     void KennyControl::PantFrontMain(KennyMoveData& value)
     {
-        if(value.update == true)
-        {
-            SetPantFront({0.0}, value.degree);
-            PantSpineControl(value.PantHeight, value.PantDegree);
-            LeftArmsControl(value.LeftArmAdd, value.NeckRL);
-            RightArmsControl(value.RightArmAdd, value.NeckRL);
-            BadyNeckControl(value.NeckBow, value.NeckRL);
-            SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
-            GetKennySize();
-            m_point.x = m_MinSize.x * (-1);
-            m_point.y = m_MinSize.y * (-1);
-        }
-
         SetPantFront(m_point, value.degree);
         PantSpineControl(value.PantHeight, value.PantDegree);
         LeftArmsControl(value.LeftArmAdd, value.NeckRL);
         RightArmsControl(value.RightArmAdd, value.NeckRL);
         BadyNeckControl(value.NeckBow, value.NeckRL);
-        // SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
-        // SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
+        if()
+        {
+            SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
+            SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
+        }
+        else
+        {
+            
+        }
         SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
         SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
         if(m_CurrentStyle.eyebrow == true)

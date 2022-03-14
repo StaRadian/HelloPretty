@@ -63,7 +63,6 @@ namespace box
             1.9f, 0.0f,                 //Neck
             {0.0f, 0.0f}, {0.0f, 0.0f}, //HandPos
             0.0f, 0.0f,                 //HandDegree
-            true
         };
 
         m_val = 0;
@@ -81,11 +80,6 @@ namespace box
             {(float)cursor_x / m_KennySize, (float)(m_WinSize.height - cursor_y) / m_KennySize}, 
              800.0f,
              m_val);
-        // m_WinSize.width = (m_Kenny -> m_MaxSize.x - m_Kenny -> m_MinSize.x) * m_KennySize;
-        // m_WinSize.height = (m_Kenny -> m_MaxSize.y - m_Kenny -> m_MinSize.y) * m_KennySize;
-        m_WinPos.x = 500 + m_Kenny -> m_MinSize.x * m_KennySize;
-        m_WinPos.y = 800 - m_Kenny -> m_MaxSize.y * m_KennySize;
-        // LOG(m_WinPos.x << ", " << m_WinPos.y);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
@@ -117,6 +111,8 @@ namespace box
     {
         ImGui::Begin("Kenny");
 
+        ImGui::SliderFloat("PositionX", &(m_Kenny -> m_point.x), 0, m_WinSize.width);
+        ImGui::SliderFloat("PositionY", &(m_Kenny -> m_point.y), 0, m_WinSize.height);
         ImGui::SliderFloat("degree", &m_kennyMovedata.degree, PI * (-1), PI);
         ImGui::SliderFloat("NeckBow", &m_kennyMovedata.NeckBow, PI / 3.0f, PI);
         ImGui::SliderFloat("NeckRL", &m_kennyMovedata.NeckRL, PI / 8.0f * (-1), PI / 8.0f);
