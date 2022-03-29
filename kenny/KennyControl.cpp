@@ -11,14 +11,13 @@ namespace kenny
         LeftArmsControl(value.LeftArmAdd, value.NeckRL);
         RightArmsControl(value.RightArmAdd, value.NeckRL);
         BadyNeckControl(value.NeckBow, value.NeckRL);
-        if()
+        if(m_CurrentStyle.eye.left == 0)
         {
             SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
-            SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
         }
-        else
+        if(m_CurrentStyle.eye.right == 0)
         {
-            
+            SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
         }
         SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
         SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
