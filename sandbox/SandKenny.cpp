@@ -54,8 +54,8 @@ namespace box
         
         m_FrameBuffer = std::make_unique<spat::FrameBuffer>();
         m_FrameBuffer -> TextureAttach(m_WinSize.width, m_WinSize.height);
-        m_KennySize = 0.8f;
 
+        m_KennySize = 0.2f;
         m_kennyMovedata = {
             0.0f,                       //main
             0.0f, 0.0f,                 //Pant
@@ -63,10 +63,13 @@ namespace box
             1.9f, 0.0f,                 //Neck
             {0.0f, 0.0f}, {0.0f, 0.0f}, //HandPos
             0.0f, 0.0f,                 //HandDegree
+            {                           //Eyeball
+                {0.0f, 0.0f},
+                800.0f,
+                0
+            }
         };
 
-        m_val = 0;
-    
         GetDelta();
     }
 
@@ -75,11 +78,12 @@ namespace box
         GetDelta();
         m_FrameBuffer -> Bind();
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if(m_kennyMovedata.EyesData.mode == 1)
+        {
+            m_kennyMovedata.EyesData.target.x = (float)cursor_x / m_KennySize;
+            m_kennyMovedata.EyesData.target.y = (float)(m_WinSize.height - cursor_y) / m_KennySize;
+        }
         m_Kenny -> PantFrontMain(m_kennyMovedata);
-        m_Kenny -> EyeballsControl(
-            {(float)cursor_x / m_KennySize, (float)(m_WinSize.height - cursor_y) / m_KennySize}, 
-             800.0f,
-             m_val);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
@@ -111,16 +115,16 @@ namespace box
     {
         ImGui::Begin("Kenny");
 
-        ImGui::SliderFloat("PositionX", &(m_Kenny -> m_point.x), 0, m_WinSize.width);
-        ImGui::SliderFloat("PositionY", &(m_Kenny -> m_point.y), 0, m_WinSize.height);
+        ImGui::SliderFloat("PositionX", &(m_Kenny -> m_point.x), 0, m_WinSize.width / m_KennySize);
+        ImGui::SliderFloat("PositionY", &(m_Kenny -> m_point.y), 0, m_WinSize.height / m_KennySize);
+        ImGui::SliderFloat("Size", &m_KennySize, 0.0f, 1.0f);
         ImGui::SliderFloat("degree", &m_kennyMovedata.degree, PI * (-1), PI);
         ImGui::SliderFloat("NeckBow", &m_kennyMovedata.NeckBow, PI / 3.0f, PI);
         ImGui::SliderFloat("NeckRL", &m_kennyMovedata.NeckRL, PI / 8.0f * (-1), PI / 8.0f);
         ImGui::SliderFloat("PantHeight", &m_kennyMovedata.PantHeight, -25.0, 25.0);
         ImGui::SliderFloat("PantDegree", &m_kennyMovedata.PantDegree, PI / 20.0f * (-1), PI / 20.0f);
-        ImGui::SliderFloat("LeftArmAdd", &m_kennyMovedata.LeftArmAdd, -1.5, 1.4);
-        ImGui::SliderFloat("RightArmAdd", &m_kennyMovedata.RightArmAdd, -1.4, 1.5);
-        ImGui::SliderInt("val", &m_val, -4, 4);
+        ImGui::SliderFloat("LeftArmAdd", &m_kennyMovedata.LeftArmAdd, -1.5f, 1.4f);
+        ImGui::SliderFloat("RightArmAdd", &m_kennyMovedata.RightArmAdd, -1.4f, 1.5f);
         ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_kennyMovedata.degree, m_mouse_click, m_state);
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
@@ -128,60 +132,84 @@ namespace box
         ImGui::End();
 
         ImGui::Begin("State");
-        if (ImGui::Button("ArmLeft_Open"))
+        if (ImGui::Button("Left Open  "))
         {
             m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Open));
         }
         ImGui::SameLine();
-        if (ImGui::Button("ArmRight_Open"))
+        if (ImGui::Button("Right Open "))
         {
             m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Open));
         }
-        if (ImGui::Button("ArmLeft_Bend"))
+        if (ImGui::Button("Left Bend  "))
         {
             m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmLeft_Bend));
         }
         ImGui::SameLine();
-        if (ImGui::Button("ArmRight_Bend"))
+        if (ImGui::Button("Right Bend "))
         {
             m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmRight_Bend));
         }
-        if (ImGui::Button("ArmFrontLeft_Basic"))
+        if (ImGui::Button("Left Basic "))
         {
             m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmFrontLeft_Basic));
         }
         ImGui::SameLine();
-        if (ImGui::Button("ArmFrontRight_Basic"))
+        if (ImGui::Button("Right Basic"))
         {
             m_Kenny -> ViewArm(static_cast<int>(kenny::Part::ArmFrontRight_Basic));
         }
 
-        if (ImGui::Button("HandLeft_Paper"))
+        if (ImGui::Button("Left Paper "))
         {
             m_Kenny -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Paper));
         }
         ImGui::SameLine();
-        if (ImGui::Button("HandRight_Paper"))
+        if (ImGui::Button("Right Paper"))
         {
             m_Kenny -> ViewHand(static_cast<int>(kenny::Part::HandRight_Paper));
         }
-        if (ImGui::Button("HandLeft_Rock"))
+        if (ImGui::Button("Left Rock  "))
         {
             m_Kenny -> ViewHand(static_cast<int>(kenny::Part::HandLeft_Rock));
         }
         ImGui::SameLine();
-        if (ImGui::Button("HandRight_Rock"))
+        if (ImGui::Button("Right Rock "))
         {
             m_Kenny -> ViewHand(static_cast<int>(kenny::Part::HandRight_Rock));
         }
-        if (ImGui::Button("Eyebrow"))
+        if (ImGui::Button("Eyebrow    "))
         {
             m_Kenny -> ViewEyebrow(true);
         }
         ImGui::SameLine();
-        if (ImGui::Button("NoneEyebrow"))
+        if (ImGui::Button("Not Eyebrow"))
         {
             m_Kenny -> ViewEyebrow(false);
+        }
+        if (ImGui::Button("Left Eye   "))
+        {
+            if(m_Kenny -> m_CurrentStyle.eye.left == 0)
+                m_Kenny -> ViewEyeL(true);
+            else
+                m_Kenny -> ViewEyeL(false);
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Right Eye  "))
+        {
+            if(m_Kenny -> m_CurrentStyle.eye.right == 0)
+                m_Kenny -> ViewEyeR(true);
+            else
+                m_Kenny -> ViewEyeR(false);
+        }
+        if (ImGui::Button("Targeting  "))
+        {
+            m_kennyMovedata.EyesData.mode = 1;
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Untargeting"))
+        {
+            m_kennyMovedata.EyesData.mode = 0;
         }
         ImGui::End();
     }

@@ -3,6 +3,13 @@
 
 namespace kenny
 {
+    struct EyeballData
+    {
+        spat::Vec2 target;
+        float distance;
+        int mode;
+    };
+
     struct KennyMoveData
     {
         float degree;               // PI * (-1), PI
@@ -15,7 +22,8 @@ namespace kenny
         spat::Vec2 LeftHandPos;     // 
         spat::Vec2 RightHandPos;    // 
         float LeftHandDegree;       // 
-        float RightHandDegree;      // 
+        float RightHandDegree;      //
+        EyeballData EyesData; 
     };
 
     class KennyControl : public KennyJoint
@@ -34,6 +42,7 @@ namespace kenny
 
         }
         void PantFrontMain(KennyMoveData& value);
-        void EyeballsControl(spat::Vec2 target, const float distance, const int mode);
+        void EyeballsControlLeft(EyeballData& value, spat::Vec2& LRdistance);
+        void EyeballsControlRight(EyeballData& value, spat::Vec2& LRdistance);
     };
 }

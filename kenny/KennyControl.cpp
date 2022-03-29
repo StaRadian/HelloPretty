@@ -11,15 +11,27 @@ namespace kenny
         LeftArmsControl(value.LeftArmAdd, value.NeckRL);
         RightArmsControl(value.RightArmAdd, value.NeckRL);
         BadyNeckControl(value.NeckBow, value.NeckRL);
+        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
+
+        spat::Vec2 LRdistance = {
+            m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
+            m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
         if(m_CurrentStyle.eye.left == 0)
         {
             SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
+        }
+        else
+        {
+            EyeballsControlLeft(value.EyesData, LRdistance);
         }
         if(m_CurrentStyle.eye.right == 0)
         {
             SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
         }
-        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
+        else
+        {
+            EyeballsControlRight(value.EyesData, LRdistance);
+        }
         SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
         if(m_CurrentStyle.eyebrow == true)
         {
@@ -110,28 +122,19 @@ namespace kenny
         SetBadyFront(m_Joint.BadyFront.Face, RL_angle * (-1) + m_Joint.Face.degree, static_cast<int>(Part::Face));
     }
     
-    void KennyControl::EyeballsControl(spat::Vec2 target, const float distance, const int mode)
+    void KennyControl::EyeballsControlLeft(EyeballData& value, spat::Vec2& LRdistance)
     {
-        if(mode == 1)
+        if(value.mode == 1)
         {
             const float ballsize = 400.0f;
-            spat::Vec2 LRdistance = {
-                m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
-                m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
             spat::Vec2 centerL = {m_Joint.Face.EyesFront_Open.x + LRdistance.x, m_Joint.Face.EyesFront_Open.y + LRdistance.y};
-            spat::Vec2 centerR = {m_Joint.Face.EyesFront_Open.x - LRdistance.x, m_Joint.Face.EyesFront_Open.y - LRdistance.y};
-            spat::Vec2 posL = {target.x - centerL.x, target.y - centerL.y};
-            spat::Vec2 posR = {target.x - centerR.x, target.y - centerR.y};
+            spat::Vec2 posL = {value.target.x - centerL.x, value.target.y - centerL.y};
             float degreeL = atan2(posL.y, posL.x);
-            float degreeR = atan2(posR.y, posR.x);
             float lengthL = sqrt(posL.x * posL.x + posL.y * posL.y);
-            float lengthR = sqrt(posR.x * posR.x + posR.y * posR.y);
-            float sizeL = ballsize * SIN(atan2(lengthL, distance));
-            float sizeR = ballsize * SIN(atan2(lengthR, distance));
+            float sizeL = ballsize * SIN(atan2(lengthL, value.distance));
 
             //후드 필터
             float degreeLhood =  degreeL - m_Joint.EyesFront_Open.degree;
-            float degreeRhood =  degreeR - m_Joint.EyesFront_Open.degree;
             for(;degreeLhood > PI;)
             {
                 degreeLhood -= PI * 2.0;
@@ -139,14 +142,6 @@ namespace kenny
             for(;degreeLhood < PI * (-1);)
             {
                 degreeLhood += PI * 2.0;
-            }
-            for(;degreeRhood > PI;)
-            {
-                degreeRhood -= PI * 2.0;
-            }
-            for(;degreeRhood < PI * (-1);)
-            {
-                degreeRhood += PI * 2.0;
             }
             if(degreeLhood < 1.8f && degreeLhood > 0.0f)
             {
@@ -157,6 +152,44 @@ namespace kenny
             {
                 float hoodvalbottom = (32.0f / (1.3f * 1.3f)) * degreeLhood * degreeLhood;
                 if(sizeL > 33.0f + hoodvalbottom) sizeL = 33.0f + hoodvalbottom;
+            }
+
+            if(sizeL > 65.0f) sizeL = 65.0f;
+            
+            m_Joint.EyesFront_Open.EyeballLeft.x = sizeL * COS(degreeL);
+            m_Joint.EyesFront_Open.EyeballLeft.y = sizeL * SIN(degreeL);
+
+            m_Joint.EyesFront_Open.EyeballLeft.x += centerL.x;
+            m_Joint.EyesFront_Open.EyeballLeft.y += centerL.y;
+            
+            SetEyeballLeft(m_Joint.EyesFront_Open.EyeballLeft);
+        }
+        else
+        {
+            SetEyeballLeft(m_Joint.EyesFront_Open.EyeballLeft);
+        }
+    }
+
+    void KennyControl::EyeballsControlRight(EyeballData& value, spat::Vec2& LRdistance)
+    {
+        if(value.mode == 1)
+        {
+            const float ballsize = 400.0f;
+            spat::Vec2 centerR = {m_Joint.Face.EyesFront_Open.x - LRdistance.x, m_Joint.Face.EyesFront_Open.y - LRdistance.y};
+            spat::Vec2 posR = {value.target.x - centerR.x, value.target.y - centerR.y};
+            float degreeR = atan2(posR.y, posR.x);
+            float lengthR = sqrt(posR.x * posR.x + posR.y * posR.y);
+            float sizeR = ballsize * SIN(atan2(lengthR, value.distance));
+
+            //후드 필터
+            float degreeRhood =  degreeR - m_Joint.EyesFront_Open.degree;
+            for(;degreeRhood > PI;)
+            {
+                degreeRhood -= PI * 2.0;
+            }
+            for(;degreeRhood < PI * (-1);)
+            {
+                degreeRhood += PI * 2.0;
             }
             float topDegreeR = PI - degreeRhood;
             float bottomDegreeR = PI * (-1) - degreeRhood;
@@ -171,25 +204,18 @@ namespace kenny
                 if(sizeR > 33.0f + hoodvalbottom) sizeR = 33.0f + hoodvalbottom;
             }
 
-            if(sizeL > 65.0f) sizeL = 65.0f;
             if(sizeR > 65.0f) sizeR = 65.0f;
             
-            m_Joint.EyesFront_Open.EyeballLeft.x = sizeL * COS(degreeL);
-            m_Joint.EyesFront_Open.EyeballLeft.y = sizeL * SIN(degreeL);
             m_Joint.EyesFront_Open.EyeballRight.x = sizeR * COS(degreeR);
             m_Joint.EyesFront_Open.EyeballRight.y = sizeR * SIN(degreeR);
 
-            m_Joint.EyesFront_Open.EyeballLeft.x += centerL.x;
-            m_Joint.EyesFront_Open.EyeballLeft.y += centerL.y;
             m_Joint.EyesFront_Open.EyeballRight.x += centerR.x;
             m_Joint.EyesFront_Open.EyeballRight.y += centerR.y;
             
-            SetEyeballLeft(m_Joint.EyesFront_Open.EyeballLeft);
             SetEyeballRight(m_Joint.EyesFront_Open.EyeballRight);
         }
         else
         {
-            SetEyeballLeft(m_Joint.EyesFront_Open.EyeballLeft);
             SetEyeballRight(m_Joint.EyesFront_Open.EyeballRight);
         }
     }

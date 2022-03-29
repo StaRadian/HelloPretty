@@ -39,8 +39,6 @@ namespace box
         float m_KennySize;
 
         kenny::KennyMoveData m_kennyMovedata;
-        
-        int m_val;
     public:
         SandKenny();
         ~SandKenny();

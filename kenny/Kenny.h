@@ -22,7 +22,8 @@ namespace kenny
         void ViewArm(int shape);
         void ViewHand(int shape);
         void ViewEyebrow(bool state);
-        void ViewEye(DirX shape);
+        void ViewEyeL(int shape);
+        void ViewEyeR(int shape);
         int GetColorName(float color);
         void GetKennySize();
     };

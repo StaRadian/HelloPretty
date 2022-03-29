@@ -133,34 +133,37 @@ namespace kenny
         }
     }
 
-    void Kenny::ViewEye(DirX shape)
+    void Kenny::ViewEyeL(int shape)
     {
-        switch (shape.left)
+        switch (shape)
         {
         case 0:
             m_Quard -> RestoreSize(static_cast<int>(Part::EyeCloseLeft));
-            m_CurrentStyle.eye.left = shape.left;
+            m_CurrentStyle.eye.left = shape;
             break;
 
         case 1:
             m_Quard -> DeleteSize(static_cast<int>(Part::EyeCloseLeft));
-            m_CurrentStyle.eye.left = shape.left;
+            m_CurrentStyle.eye.left = shape;
             break;
         
         default:
             break;
         }
+    }
 
-        switch (shape.right)
+    void Kenny::ViewEyeR(int shape)
+    {
+        switch (shape)
         {
         case 0:
             m_Quard -> RestoreSize(static_cast<int>(Part::EyeCloseRight));
-            m_CurrentStyle.eye.right = shape.right;
+            m_CurrentStyle.eye.right = shape;
             break;
 
         case 1:
             m_Quard -> DeleteSize(static_cast<int>(Part::EyeCloseRight));
-            m_CurrentStyle.eye.right = shape.right;
+            m_CurrentStyle.eye.right = shape;
             break;
         
         default:
