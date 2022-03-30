@@ -40,12 +40,58 @@ namespace kenny
         }
     }
 
+    void KennyControl::BadyFrontMain(KennyMoveData& value)
+    {
+        SetBadyFront(m_point, value.degree, static_cast<int>(Part::BadyFront));
+        BadySpineControl(value.PantHeight, value.PantDegree);
+        LeftArmsControl(value.LeftArmAdd, value.NeckRL);
+        RightArmsControl(value.RightArmAdd, value.NeckRL);
+        BadyNeckControl(value.NeckBow, value.NeckRL);
+        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
+
+        spat::Vec2 LRdistance = {
+            m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
+            m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
+        if(m_CurrentStyle.eye.left == 0)
+        {
+            SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
+        }
+        else
+        {
+            EyeballsControlLeft(value.EyesData, LRdistance);
+        }
+        if(m_CurrentStyle.eye.right == 0)
+        {
+            SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
+        }
+        else
+        {
+            EyeballsControlRight(value.EyesData, LRdistance);
+        }
+        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
+        if(m_CurrentStyle.eyebrow == true)
+        {
+            SetEyebrowLeft(m_Joint.Face.EyebrowLeft, m_Joint.Face.degree);
+            SetEyebrowRight(m_Joint.Face.EyebrowRight, m_Joint.Face.degree);
+        }
+    }
+
+    void KennyControl::BadySpineControl(float height, float degree)
+    {
+        degree +=  m_Joint.BadyFront.degree;
+        float sind = SIN(degree);
+        float cosd = COS(degree);
+        m_Joint.BadyFront.PantFront = m_Quard -> Vec2Rotation(m_Joint.BadyFront.PantFront, {0, height}, sind, cosd);
+        SetPantFront(m_Joint.BadyFront.PantFront, degree);
+    }
+
     void KennyControl::PantSpineControl(float height, float degree)
     {
+        degree *= (-1);
         degree +=  m_Joint.PantFront.degree;
         float sind = SIN(degree);
         float cosd = COS(degree);
-        m_Joint.PantFront.BadyFront = m_Quard -> Vec2Rotation(m_Joint.PantFront.BadyFront, {0, height}, sind, cosd);
+        m_Joint.PantFront.BadyFront = m_Quard -> Vec2Rotation(m_Joint.PantFront.BadyFront, {0, height * (-1)}, sind, cosd);
         SetBadyFront(m_Joint.PantFront.BadyFront, degree, static_cast<int>(Part::PantFront));
     }
 

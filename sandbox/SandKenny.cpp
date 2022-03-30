@@ -69,6 +69,7 @@ namespace box
                 0
             }
         };
+        m_drawpoint = 0;
 
         GetDelta();
     }
@@ -83,7 +84,20 @@ namespace box
             m_kennyMovedata.EyesData.target.x = (float)cursor_x / m_KennySize;
             m_kennyMovedata.EyesData.target.y = (float)(m_WinSize.height - cursor_y) / m_KennySize;
         }
-        m_Kenny -> PantFrontMain(m_kennyMovedata);
+
+        switch (m_drawpoint)
+        {
+        case 0:
+            m_Kenny -> PantFrontMain(m_kennyMovedata);
+            break;
+
+        case 1:
+            m_Kenny -> BadyFrontMain(m_kennyMovedata);
+            break;
+        
+        default:
+            break;
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         m_MVP = glm::ortho(0.0f, (float)m_WinSize.width, 0.0f, (float)m_WinSize.height, -1.0f, 1.0f)
@@ -125,6 +139,7 @@ namespace box
         ImGui::SliderFloat("PantDegree", &m_kennyMovedata.PantDegree, PI / 20.0f * (-1), PI / 20.0f);
         ImGui::SliderFloat("LeftArmAdd", &m_kennyMovedata.LeftArmAdd, -1.5f, 1.4f);
         ImGui::SliderFloat("RightArmAdd", &m_kennyMovedata.RightArmAdd, -1.4f, 1.5f);
+        ImGui::SliderInt("DrawPoint", &m_drawpoint, 0, 1);
         ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_kennyMovedata.degree, m_mouse_click, m_state);
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
@@ -231,41 +246,3 @@ namespace box
         }
     }
 }
-
-
-#if 0
-{
-    double x,y;
-    float pixel[4];
-
-    int state = glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_LEFT);
-    if(state == 1)
-    {
-        int val;
-        glfwGetCursorPos(m_Window, &x, &y);
-        glReadPixels(x, m_WinSize.height - y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
-        val = m_Kenny -> GetColorName(pixel[0]);
-        if(val != -1)
-        {
-            if(state_buff == 0)
-            {
-                x_pos = x;
-                y_pos = y;
-                b = 1;
-                LOG(val);
-            }
-        }
-        else if(state_buff == 0)
-        {
-            b = 0;
-        }
-        if(b != 0)
-        {
-            x_p +=  x - x_pos;
-            y_p +=  y - y_pos; 
-        }
-    }
-    glfwSetWindowPos(GetWindow(), x_p, y_p);
-    state_buff = state;
-}
-#endif

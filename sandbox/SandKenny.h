@@ -37,6 +37,7 @@ namespace box
         int m_mouse_click;
         int m_state;
         float m_KennySize;
+        int m_drawpoint;
 
         kenny::KennyMoveData m_kennyMovedata;
     public:

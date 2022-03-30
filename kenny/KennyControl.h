@@ -29,11 +29,14 @@ namespace kenny
     class KennyControl : public KennyJoint
     {
     private:
+        void BadySpineControl(float height, float degree);
         void PantSpineControl(float height, float degree);
         void BadyNeckControl(float& bow_angle, float& RL_angle);
         void FaceNeckControl(float& bow_angle, float& RL_angle);
         inline void LeftArmsControl(float& leftArmAdd, float& NeckRL);
         inline void RightArmsControl(float& rightArmAdd, float& NeckRL);
+        void EyeballsControlLeft(EyeballData& value, spat::Vec2& LRdistance);
+        void EyeballsControlRight(EyeballData& value, spat::Vec2& LRdistance);
     public:
         spat::Vec2 m_point;
         KennyControl(spat::TexQuard2D* quard) 
@@ -42,7 +45,11 @@ namespace kenny
 
         }
         void PantFrontMain(KennyMoveData& value);
-        void EyeballsControlLeft(EyeballData& value, spat::Vec2& LRdistance);
-        void EyeballsControlRight(EyeballData& value, spat::Vec2& LRdistance);
+        void BadyFrontMain(KennyMoveData& value);
+        void FaceMain(KennyMoveData& value);
+        void LeftArmMain(KennyMoveData& value);
+        void RightArmMain(KennyMoveData& value);
+        void LeftHandMain(KennyMoveData& value);
+        void RightHandMain(KennyMoveData& value);
     };
 }
