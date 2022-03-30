@@ -94,6 +94,10 @@ namespace box
         case 1:
             m_Kenny -> BadyFrontMain(m_kennyMovedata);
             break;
+
+        case 2:
+            m_Kenny -> FaceMain(m_kennyMovedata);
+            break;
         
         default:
             break;
@@ -139,7 +143,7 @@ namespace box
         ImGui::SliderFloat("PantDegree", &m_kennyMovedata.PantDegree, PI / 20.0f * (-1), PI / 20.0f);
         ImGui::SliderFloat("LeftArmAdd", &m_kennyMovedata.LeftArmAdd, -1.5f, 1.4f);
         ImGui::SliderFloat("RightArmAdd", &m_kennyMovedata.RightArmAdd, -1.4f, 1.5f);
-        ImGui::SliderInt("DrawPoint", &m_drawpoint, 0, 1);
+        ImGui::SliderInt("DrawPoint", &m_drawpoint, 0, 2);
         ImGui::Text("x: %.1f, y: %.1f, degree: %.2f, click: %d, state: %d", cursor_x, cursor_y, m_kennyMovedata.degree, m_mouse_click, m_state);
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
