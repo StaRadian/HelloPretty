@@ -114,146 +114,18 @@ namespace kenny
 
     void KennyControl::LeftArmMain(KennyMoveData& value)
     {
-        SetFace(m_point, value.degree);
-        FaceNeckControl(value.NeckBow, value.NeckRL);
-        BadySpineControl(value.PantHeight, value.PantDegree); 
-        LeftArmsControl(value.LeftArmAdd, value.NeckRL);
-        RightArmsControl(value.RightArmAdd, value.NeckRL);
-        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
-
-        spat::Vec2 LRdistance = {
-            m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
-            m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
-        if(m_CurrentStyle.eye.left == 0)
-        {
-            SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
-        }
-        else
-        {
-            EyeballsControlLeft(value.EyesData, LRdistance);
-        }
-        if(m_CurrentStyle.eye.right == 0)
-        {
-            SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
-        }
-        else
-        {
-            EyeballsControlRight(value.EyesData, LRdistance);
-        }
-        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
-        if(m_CurrentStyle.eyebrow == true)
-        {
-            SetEyebrowLeft(m_Joint.Face.EyebrowLeft, m_Joint.Face.degree);
-            SetEyebrowRight(m_Joint.Face.EyebrowRight, m_Joint.Face.degree);
-        }
     }
 
     void KennyControl::RightArmMain(KennyMoveData& value)
     {
-        SetFace(m_point, value.degree);
-        FaceNeckControl(value.NeckBow, value.NeckRL);
-        BadySpineControl(value.PantHeight, value.PantDegree); 
-        LeftArmsControl(value.LeftArmAdd, value.NeckRL);
-        RightArmsControl(value.RightArmAdd, value.NeckRL);
-        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
-
-        spat::Vec2 LRdistance = {
-            m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
-            m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
-        if(m_CurrentStyle.eye.left == 0)
-        {
-            SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
-        }
-        else
-        {
-            EyeballsControlLeft(value.EyesData, LRdistance);
-        }
-        if(m_CurrentStyle.eye.right == 0)
-        {
-            SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
-        }
-        else
-        {
-            EyeballsControlRight(value.EyesData, LRdistance);
-        }
-        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
-        if(m_CurrentStyle.eyebrow == true)
-        {
-            SetEyebrowLeft(m_Joint.Face.EyebrowLeft, m_Joint.Face.degree);
-            SetEyebrowRight(m_Joint.Face.EyebrowRight, m_Joint.Face.degree);
-        }
     }
 
     void KennyControl::LeftHandMain(KennyMoveData& value)
     {
-        SetFace(m_point, value.degree);
-        FaceNeckControl(value.NeckBow, value.NeckRL);
-        BadySpineControl(value.PantHeight, value.PantDegree); 
-        LeftArmsControl(value.LeftArmAdd, value.NeckRL);
-        RightArmsControl(value.RightArmAdd, value.NeckRL);
-        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
-
-        spat::Vec2 LRdistance = {
-            m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
-            m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
-        if(m_CurrentStyle.eye.left == 0)
-        {
-            SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
-        }
-        else
-        {
-            EyeballsControlLeft(value.EyesData, LRdistance);
-        }
-        if(m_CurrentStyle.eye.right == 0)
-        {
-            SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
-        }
-        else
-        {
-            EyeballsControlRight(value.EyesData, LRdistance);
-        }
-        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
-        if(m_CurrentStyle.eyebrow == true)
-        {
-            SetEyebrowLeft(m_Joint.Face.EyebrowLeft, m_Joint.Face.degree);
-            SetEyebrowRight(m_Joint.Face.EyebrowRight, m_Joint.Face.degree);
-        }
     }
 
     void KennyControl::RightHandMain(KennyMoveData& value)
     {
-        SetFace(m_point, value.degree);
-        FaceNeckControl(value.NeckBow, value.NeckRL);
-        BadySpineControl(value.PantHeight, value.PantDegree); 
-        LeftArmsControl(value.LeftArmAdd, value.NeckRL);
-        RightArmsControl(value.RightArmAdd, value.NeckRL);
-        SetEyesFront_Open(m_Joint.Face.EyesFront_Open, m_Joint.Face.degree);
-
-        spat::Vec2 LRdistance = {
-            m_Joint.EyesFront_Open.EyeballLeft.x - m_Joint.EyesFront_Open.EyeballRight.x,
-            m_Joint.EyesFront_Open.EyeballLeft.y - m_Joint.EyesFront_Open.EyeballRight.y};
-        if(m_CurrentStyle.eye.left == 0)
-        {
-            SetEyeCloseLeft(m_Joint.Face.EyeCloseLeft, m_Joint.Face.degree);
-        }
-        else
-        {
-            EyeballsControlLeft(value.EyesData, LRdistance);
-        }
-        if(m_CurrentStyle.eye.right == 0)
-        {
-            SetEyeCloseRight(m_Joint.Face.EyeCloseRight, m_Joint.Face.degree);
-        }
-        else
-        {
-            EyeballsControlRight(value.EyesData, LRdistance);
-        }
-        SetHatFront(m_Joint.Face.HatFront, m_Joint.Face.degree);
-        if(m_CurrentStyle.eyebrow == true)
-        {
-            SetEyebrowLeft(m_Joint.Face.EyebrowLeft, m_Joint.Face.degree);
-            SetEyebrowRight(m_Joint.Face.EyebrowRight, m_Joint.Face.degree);
-        }
     }
 
     void KennyControl::BadySpineControl(float height, float degree)
