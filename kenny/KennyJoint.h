@@ -5,12 +5,14 @@ namespace kenny
 {
     struct PantFrontJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 BadyFront;
 
         float degree;
     };
     struct BadyFrontJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 PantFront;
         spat::Vec2 ArmLeft_Open;       
         spat::Vec2 ArmRight_Open;      
@@ -24,6 +26,7 @@ namespace kenny
     };
     struct ArmLeft_OpenJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 BadyFront;
         spat::Vec2 HandLeft_Paper; 
         spat::Vec2 HandLeft_Rock;
@@ -32,6 +35,7 @@ namespace kenny
     };
     struct ArmRight_OpenJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 BadyFront;    
         spat::Vec2 HandRight_Paper;
         spat::Vec2 HandRight_Rock;
@@ -40,6 +44,7 @@ namespace kenny
     };
     struct ArmLeft_BendJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 BadyFront;    
         spat::Vec2 HandLeft_Paper;
         spat::Vec2 HandLeft_Rock;
@@ -48,6 +53,7 @@ namespace kenny
     };
     struct ArmRight_BendJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 BadyFront;    
         spat::Vec2 HandRight_Paper;
         spat::Vec2 HandRight_Rock;
@@ -56,6 +62,7 @@ namespace kenny
     };
     struct ArmFrontLeft_BasicJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 BadyFront;    
         spat::Vec2 HandLeft_Paper;
         spat::Vec2 HandLeft_Rock;
@@ -64,6 +71,7 @@ namespace kenny
     };
     struct ArmFrontRight_BasicJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 BadyFront;    
         spat::Vec2 HandRight_Paper;
         spat::Vec2 HandRight_Rock;
@@ -72,6 +80,7 @@ namespace kenny
     };
     struct FaceJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 BadyFront;    
         spat::Vec2 EyesFront_Open;
         spat::Vec2 EyeCloseLeft;
@@ -84,6 +93,7 @@ namespace kenny
     };
     struct EyesFront_OpenJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 Face;
         spat::Vec2 EyeballLeft;
         spat::Vec2 EyeballRight;
@@ -112,6 +122,7 @@ namespace kenny
     };
     struct HandLeft_PaperJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 ArmLeft_Open;    
         spat::Vec2 ArmLeft_Bend;
         spat::Vec2 ArmFrontLeft_Basic;
@@ -120,6 +131,7 @@ namespace kenny
     };
     struct HandRight_PaperJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 ArmRight_Open;    
         spat::Vec2 ArmRight_Bend;
         spat::Vec2 ArmFrontRight_Basic;
@@ -128,6 +140,7 @@ namespace kenny
     };
     struct HandLeft_RockJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 ArmLeft_Open;    
         spat::Vec2 ArmLeft_Bend;
         spat::Vec2 ArmFrontLeft_Basic;
@@ -136,6 +149,7 @@ namespace kenny
     };
     struct HandRight_RockJoint
     {
+        spat::Vec2 Point;
         spat::Vec2 ArmRight_Open;    
         spat::Vec2 ArmRight_Bend;
         spat::Vec2 ArmFrontRight_Basic;

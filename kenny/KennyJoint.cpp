@@ -10,6 +10,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.PantFront.Point.x = point.x;
+        m_Joint.PantFront.Point.y = point.y;
         spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_PantFrontjoint[0].x * (-1), m_PantFrontjoint[0].y * (-1)}, sind, cosd);
         m_Quard -> SetPosXY(static_cast<int>(Part::PantFront), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::PantFront), degree, sind, cosd);
@@ -32,6 +34,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.BadyFront.Point.x = point.x;
+        m_Joint.BadyFront.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -85,6 +89,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.ArmLeft_Open.Point.x = point.x;
+        m_Joint.ArmLeft_Open.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -119,6 +125,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.ArmRight_Open.Point.x = point.x;
+        m_Joint.ArmRight_Open.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -153,6 +161,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.ArmLeft_Bend.Point.x = point.x;
+        m_Joint.ArmLeft_Bend.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -187,6 +197,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.ArmRight_Bend.Point.x = point.x;
+        m_Joint.ArmRight_Bend.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -221,6 +233,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.ArmFrontLeft_Basic.Point.x = point.x;
+        m_Joint.ArmFrontLeft_Basic.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -255,6 +269,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.ArmFrontRight_Basic.Point.x = point.x;
+        m_Joint.ArmFrontRight_Basic.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -293,6 +309,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.Face.Point.x = point.x;
+        m_Joint.Face.Point.y = point.y;
         spat::Vec2 pos = m_Quard -> Vec2Rotation(point, {m_Facejoint[0].x * (-1), m_Facejoint[0].y * (-1)}, sind, cosd);
         m_Quard -> SetPosXY(static_cast<int>(Part::Face), pos.x, pos.y);
         m_Quard -> SetDegree(static_cast<int>(Part::Face), degree, sind, cosd);
@@ -376,6 +394,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.HandLeft_Paper.Point.x = point.x;
+        m_Joint.HandLeft_Paper.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -410,6 +430,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.HandRight_Paper.Point.x = point.x;
+        m_Joint.HandRight_Paper.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -444,6 +466,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.HandLeft_Rock.Point.x = point.x;
+        m_Joint.HandLeft_Rock.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
@@ -478,6 +502,8 @@ namespace kenny
     {
         double sind = SIN(degree);
         double cosd = COS(degree);
+        m_Joint.HandRight_Rock.Point.x = point.x;
+        m_Joint.HandRight_Rock.Point.y = point.y;
         spat::Vec2 pos;
         switch (rx)
         {
